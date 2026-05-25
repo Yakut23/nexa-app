@@ -24,5 +24,4 @@ Kutoa jukwaa rahisi na la kuaminika kwa traders na watumiaji wanaotaka kuanza sa
 ---
 
 👨‍💻 Developer: Yakut Kassim Haruna  
-🌍 Website: [nexatrade.co.tz](https://nexatrade.co.tz)  
-📧 Email: support@nexatrade.co.tz
+📧 Email: yakutikassim@gmail.com 
