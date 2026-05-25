@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NexaTrade">
+<meta name="theme-color" content="#00e5a0">
+<meta name="description" content="Trading psychology and risk management app for serious traders">
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="manifest.json">
+
+<!-- Apple touch icons (inline SVG fallback) -->
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%230a0a0f'/><text y='130' x='20' font-size='120'>📈</text></svg>">
+
+<title>NexaTrade — Trading Psychology & Risk</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+/* ======================================
+   TOKENS & RESET
+====================================== */
+:root {
+  --ink:       #0a0a0f;
+  --surface:   #111118;
+  --card:      #16161f;
+  --card2:     #1c1c28;
+  --border:    rgba(255,255,255,0.07);
+  --muted:     rgba(255,255,255,0.38);
+  --text:      #f0f0f5;
+  --green:     #00e5a0;
+  --red:       #ff4060;
+  --gold:      #f5c542;
+  --blue:      #4d9fff;
+  --purple:    #9b6dff;
+  --font-head: 'Syne', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-body: 'DM Sans', sans-serif;
+  --nav-h:     64px;
+  --safe-top:  env(safe-area-inset-top, 0px);
+  --safe-bot:  env(safe-area-inset-bottom, 0px);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { height: 100%; }
+body {
+  font-family: var(--font-body);
+  background: var(--ink);
+  color: var(--text);
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ======================================
+   SPLASH SCREEN
+====================================== */
+#splash {
+  position: fixed; inset: 0;
+  background: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+#splash.hide { opacity: 0; transform: scale(1.05); pointer-events: none; }
+
+.splash-logo {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: splashBounce 1s ease both;
+}
+@keyframes splashBounce {
+  0% { transform: scale(0.5); opacity: 0; }
+  70% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.splash-brand {
+  font-family: var(--font-head);
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, var(--green), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+.splash-tag {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: 8px;
+  animation: fadeUp 0.6s 0.5s ease both;
+}
+.splash-bar {
+  width: 140px;
+  height: 3px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  margin-top: 40px;
+  overflow: hidden;
+  animation: fadeUp 0.4s 0.6s ease both;
+}
+.splash-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green), var(--blue));
+  border-radius: 2px;
+  animation: loadBar 1.8s 0.6s ease forwards;
+  width: 0%;
+}
+@keyframes loadBar { to { width: 100%; } }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ======================================
+   INSTALL BANNER
+====================================== */
+#install-banner {
+  position: fixed;
+  bottom: calc(var(--nav-h) + var(--safe-bot) + 12px);
+  left: 12px; right: 12px;
+  background: var(--card2);
+  border: 1px solid rgba(0,229,160,0.3);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: none;
+  align-items: center;
+  gap: 12px;
+  z-index: 800;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  animation: slideUp 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+#install-banner.show { display: flex; }
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+.install-icon { font-size: 2rem; flex-shrink: 0; }
+.install-text { flex: 1; }
+.install-text strong { font-size: 0.9rem; font-family: var(--font-head); font-weight: 700; }
+.install-text small { display: block; font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+.install-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.btn-install {
+  background: var(--green);
+  color: var(--ink);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-family: var(--font-head);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-dismiss {
+  background: rgba(255,255,255,0.08);
+  color: var(--muted);
+  border: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+/* ======================================
+   OFFLINE BANNER
+====================================== */
+#offline-banner {
+  background: var(--red);
+  color: #fff;
+  text-align: center;
+  padding: 8px;
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  display: none;
+  flex-shrink: 0;
+}
+#offline-banner.show { display: block; }
+
+/* ======================================
+   TOPBAR
+====================================== */
+#topbar {
+  height: calc(var(--nav-h) + var(--safe-top));
+  padding-top: var(--safe-top);
+  background: rgba(10,10,15,0.9);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+  padding-right: 16px;
+  gap: 12px;
+  flex-shrink: 0;
+  z-index: 500;
+}
+.brand {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: -0.5px;
+  flex: 1;
+  background: linear-gradient(90deg, var(--green), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.live-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  color: var(--green);
+  background: rgba(0,229,160,0.1);
+  border: 1px solid rgba(0,229,160,0.25);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+.live-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(1.5); }
+}
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 10px;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-btn:active { background: rgba(255,255,255,0.1); }
+
+/* ======================================
+   CONTENT AREA
+====================================== */
+#content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  padding-bottom: calc(var(--nav-h) + var(--safe-bot) + 16px);
+}
+#content::-webkit-scrollbar { display: none; }
+
+/* ======================================
+   BOTTOM NAV
+====================================== */
+#bottom-nav {
+  height: calc(var(--nav-h) + var(--safe-bot));
+  padding-bottom: var(--safe-bot);
+  background: rgba(10,10,15,0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  z-index: 500;
+}
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--muted);
+  padding: 8px 0;
+  transition: color 0.2s;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-item.active { color: var(--green); }
+.nav-item .nav-icon { font-size: 1.3rem; line-height: 1; }
+.nav-item .nav-label { font-size: 0.6rem; font-family: var(--font-mono); letter-spacing: 0.3px; }
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 25%; right: 25%;
+  height: 2px;
+  background: var(--green);
+  border-radius: 0 0 2px 2px;
+}
+
+/* ======================================
+   PAGES
+====================================== */
+.page {
+  display: none;
+  padding: 16px;
+  animation: pgIn 0.3s ease both;
+}
+.page.active { display: block; }
+@keyframes pgIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ======================================
+   TYPOGRAPHY HELPERS
+====================================== */
+.pg-title {
+  font-family: var(--font-head);
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+.pg-sub {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+/* ======================================
+   CARDS
+====================================== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+}
+.card + .card { margin-top: 12px; }
+
+.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.row-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 12px; }
+
+.kpi-label {
+  font-size: 0.68rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 6px;
+}
+.kpi-value {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.kpi-delta { font-size: 0.75rem; margin-top: 5px; }
+.pos { color: var(--green); }
+.neg { color: var(--red); }
+.neu { color: var(--muted); }
+
+.chart-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.chart-title { font-family: var(--font-head); font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; }
+.chart-sub { font-size: 0.72rem; color: var(--muted); margin-bottom: 14px; }
+
+/* ======================================
+   HOME / HERO
+====================================== */
+.hero-wrap {
+  padding: 24px 0 8px;
+  text-align: center;
+}
+.hero-emoji { font-size: 3rem; margin-bottom: 12px; display: block; }
+.hero-wrap h1 {
+  font-family: var(--font-head);
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.hero-wrap h1 span {
+  background: linear-gradient(135deg, var(--green), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-wrap p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; margin-bottom: 20px; }
+
+.hero-btns { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+.btn-primary {
+  background: var(--green);
+  color: var(--ink);
+  border: none;
+  padding: 11px 22px;
+  border-radius: 10px;
+  font-family: var(--font-head);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.15s;
+  letter-spacing: 0.3px;
+}
+.btn-primary:active { transform: scale(0.97); }
+.btn-outline {
+  background: none;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 11px 22px;
+  border-radius: 10px;
+  font-family: var(--font-head);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.15s;
+}
+.btn-outline:active { background: rgba(255,255,255,0.05); }
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.hero-stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  text-align: center;
+}
+.hero-stat .val {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--green);
+}
+.hero-stat .lbl { font-size: 0.7rem; color: var(--muted); margin-top: 4px; }
+
+/* ======================================
+   RISK BARS
+====================================== */
+.risk-row { margin-bottom: 14px; }
+.risk-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.risk-name { font-size: 0.82rem; font-weight: 500; }
+.risk-pct { font-family: var(--font-mono); font-size: 0.78rem; }
+.risk-track { height: 6px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; }
+.risk-fill { height: 100%; border-radius: 3px; transition: width 0.7s cubic-bezier(0.4,0,0.2,1); }
+
+.risk-calc {
+  background: rgba(0,229,160,0.07);
+  border: 1px solid rgba(0,229,160,0.18);
+  border-radius: 14px;
+  padding: 16px;
+  margin-top: 12px;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-group label { font-size: 0.68rem; color: var(--muted); font-family: var(--font-mono); text-transform: uppercase; }
+.form-group input, .form-group select {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+.form-group input:focus { border-color: var(--green); }
+.calc-result {
+  text-align: center;
+  margin-top: 10px;
+}
+.calc-result .result-lbl { font-size: 0.7rem; color: var(--muted); font-family: var(--font-mono); margin-bottom: 4px; }
+.calc-result .result-val { font-family: var(--font-mono); font-size: 2rem; font-weight: 700; color: var(--green); }
+
+/* ======================================
+   COACH / CHAT
+====================================== */
+.chat-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 58vh;
+  margin-bottom: 12px;
+}
+.chat-header-bar {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ai-avatar {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.chat-meta .chat-name { font-weight: 600; font-size: 0.85rem; }
+.chat-meta .chat-status { font-size: 0.68rem; color: var(--green); }
+.chat-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  -webkit-overflow-scrolling: touch;
+}
+.chat-body::-webkit-scrollbar { display: none; }
+.msg {
+  max-width: 88%;
+  padding: 10px 13px;
+  border-radius: 14px;
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+.msg.ai {
+  background: rgba(77,159,255,0.1);
+  border: 1px solid rgba(77,159,255,0.2);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.msg.user {
+  background: rgba(0,229,160,0.1);
+  border: 1px solid rgba(0,229,160,0.2);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+.msg.typing { color: var(--muted); font-style: italic; font-size: 0.8rem; }
+.chat-input-bar {
+  padding: 10px 12px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+}
+.chat-input-bar input {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  outline: none;
+}
+.chat-input-bar input:focus { border-color: var(--blue); }
+.chat-input-bar input::placeholder { color: var(--muted); }
+.send-btn {
+  background: var(--blue);
+  border: none;
+  color: #fff;
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ======================================
+   DISCIPLINE RING
+====================================== */
+.disc-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.disc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.disc-title { font-family: var(--font-head); font-weight: 700; font-size: 1rem; }
+.ring-wrap { position: relative; display: inline-flex; align-items: center; justify-content: center; }
+.ring-wrap svg { transform: rotate(-90deg); }
+.ring-num {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--green);
+}
+.disc-input-row { display: flex; gap: 8px; margin-top: 14px; }
+.disc-input-row input {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  text-align: center;
+  outline: none;
+}
+.disc-input-row input:focus { border-color: var(--green); }
+.disc-input-row button {
+  background: var(--green);
+  color: var(--ink);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+/* ======================================
+   CHECKLIST
+====================================== */
+.checklist { list-style: none; }
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.84rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.2s;
+}
+.check-item:last-child { border-bottom: none; }
+.check-box {
+  width: 20px; height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  transition: 0.2s;
+}
+.check-item.done .check-box { background: var(--green); border-color: var(--green); color: var(--ink); }
+.check-item.done { color: var(--muted); text-decoration: line-through; }
+
+/* ======================================
+   GOALS
+====================================== */
+.goal-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+.goal-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.goal-name { font-size: 0.88rem; font-weight: 600; }
+.goal-badge {
+  font-size: 0.65rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+.b-green { background: rgba(0,229,160,0.14); color: var(--green); }
+.b-gold  { background: rgba(245,197,66,0.14); color: var(--gold); }
+.b-red   { background: rgba(255,64,96,0.14);  color: var(--red); }
+.goal-bar { height: 5px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; margin-bottom: 6px; }
+.goal-bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s cubic-bezier(0.4,0,0.2,1); }
+.goal-foot { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--muted); font-family: var(--font-mono); }
+
+.add-goal {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  margin-top: 4px;
+}
+.add-goal .form-row { margin-bottom: 10px; }
+
+/* ======================================
+   PROP CARDS
+====================================== */
+.prop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.prop-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.prop-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.prop-card.g::before { background: var(--green); }
+.prop-card.b::before { background: var(--blue); }
+.prop-card.o::before { background: var(--gold); }
+.prop-card.p::before { background: var(--purple); }
+.prop-firm { font-size: 0.66rem; color: var(--muted); font-family: var(--font-mono); text-transform: uppercase; margin-bottom: 4px; }
+.prop-name { font-family: var(--font-head); font-weight: 700; font-size: 0.9rem; margin-bottom: 12px; }
+.prop-row { display: flex; justify-content: space-between; margin-bottom: 4px; }
+.prop-key { font-size: 0.68rem; color: var(--muted); }
+.prop-val { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; }
+
+/* ======================================
+   TRADE LOG
+====================================== */
+.trade-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.trade-badge {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.t-buy  { background: rgba(0,229,160,0.14); color: var(--green); }
+.t-sell { background: rgba(255,64,96,0.14);  color: var(--red); }
+.trade-info { flex: 1; min-width: 0; }
+.trade-pair { font-weight: 700; font-size: 0.9rem; }
+.trade-meta { font-size: 0.72rem; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.trade-pnl { font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; text-align: right; flex-shrink: 0; }
+
+.add-btn {
+  width: 100%;
+  background: rgba(0,229,160,0.07);
+  border: 1px dashed rgba(0,229,160,0.28);
+  color: var(--green);
+  padding: 12px;
+  border-radius: 12px;
+  font-family: var(--font-head);
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+/* ======================================
+   MODAL
+====================================== */
+.modal-bg {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 2000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.modal-bg.open { opacity: 1; pointer-events: all; }
+.modal-sheet {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 24px 24px 0 0;
+  padding: 20px 16px calc(20px + var(--safe-bot));
+  width: 100%;
+  max-width: 600px;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.modal-bg.open .modal-sheet { transform: translateY(0); }
+.modal-handle {
+  width: 36px; height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: 0 auto 16px;
+}
+.modal-title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+}
+.setting-row:last-of-type { border-bottom: none; }
+.setting-name { font-size: 0.88rem; font-weight: 500; }
+.setting-desc { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+.toggle {
+  width: 44px; height: 24px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  border: none;
+  transition: background 0.3s;
+  flex-shrink: 0;
+}
+.toggle.on { background: var(--green); }
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 18px; height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+.toggle.on::after { transform: translateX(20px); }
+.modal-close-btn {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 12px;
+  border-radius: 12px;
+  font-family: var(--font-head);
+  font-size: 0.88rem;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+/* ======================================
+   TOAST
+====================================== */
+#toast {
+  position: fixed;
+  top: calc(var(--nav-h) + var(--safe-top) + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-80px);
+  background: var(--card2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  z-index: 9000;
+  white-space: nowrap;
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+#toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-logo">📈</div>
+  <div class="splash-brand">NexaTrade</div>
+  <div class="splash-tag">Trading Psychology & Risk</div>
+  <div class="splash-bar"><div class="splash-bar-fill"></div></div>
+</div>
+
+<!-- OFFLINE BANNER -->
+<div id="offline-banner">⚡ Huna mtandao — Unatumia hifadhi ya offline</div>
+
+<!-- TOPBAR -->
+<div id="topbar">
+  <div class="brand">NexaTrade</div>
+  <div class="live-pill"><span class="live-dot"></span>LIVE</div>
+  <button class="icon-btn" onclick="openSettings()" title="Settings">⚙️</button>
+</div>
+
+<!-- CONTENT -->
+<div id="content">
+
+  <!-- PAGE: HOME -->
+  <div class="page active" id="pg-home">
+    <div class="hero-wrap">
+      <span class="hero-emoji">📈</span>
+      <h1>Trade na <span>Discipline.</span><br>Shinda na <span>Consistency.</span></h1>
+      <p>Platform yako kamili ya psychology na risk management. Track. Jifunza. Kukua.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="goPage('dashboard',2)">Fungua Dashboard →</button>
+        <button class="btn-outline" onclick="goPage('coach',4)">Zungumza na Coach</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="val" id="h-winrate">68%</div><div class="lbl">Win Rate</div></div>
+      <div class="hero-stat"><div class="val" id="h-pnl">+$4,450</div><div class="lbl">Monthly P&L</div></div>
+      <div class="hero-stat"><div class="val" id="h-rr">2.3:1</div><div class="lbl">Risk/Reward</div></div>
+      <div class="hero-stat"><div class="val" id="h-disc">--</div><div class="lbl">Discipline</div></div>
+    </div>
+
+    <!-- mini chart -->
+    <div class="chart-card">
+      <div class="chart-title">Muhtasari wa Wiki</div>
+      <div class="chart-sub">Balance trend — siku 5 za mwisho</div>
+      <canvas id="miniChart" height="140"></canvas>
+    </div>
+
+    <!-- notifications opt-in -->
+    <div class="card" id="notif-card" style="display:none;margin-top:12px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:1.5rem;">🔔</span>
+        <div style="flex:1;">
+          <div style="font-weight:600;font-size:0.88rem;">Wezesha Arifa</div>
+          <div style="font-size:0.75rem;color:var(--muted);margin-top:2px;">Pokea onyo la risk na habari za soko</div>
+        </div>
+        <button class="btn-primary" style="font-size:0.75rem;padding:8px 12px;" onclick="requestNotifications()">Wezesha</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE: DASHBOARD -->
+  <div class="page" id="pg-dashboard">
+    <div class="pg-title">Dashboard</div>
+    <div class="pg-sub">Muhtasari wa akaunti yako</div>
+
+    <div class="row-2">
+      <div class="card">
+        <div class="kpi-label">Balance</div>
+        <div class="kpi-value">$10,450</div>
+        <div class="kpi-delta pos">▲ +$450 wiki hii</div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">Equity</div>
+        <div class="kpi-value">$10,320</div>
+        <div class="kpi-delta neg">▼ −$130 floating</div>
+      </div>
+    </div>
+    <div class="row-3" style="margin-bottom:14px;">
+      <div class="card" style="text-align:center;">
+        <div class="kpi-label" style="font-size:0.6rem;">Trades</div>
+        <div class="kpi-value" style="font-size:1.2rem;">3</div>
+        <div class="kpi-delta neu" style="font-size:0.68rem;">Open</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div class="kpi-label" style="font-size:0.6rem;">P&L Leo</div>
+        <div class="kpi-value pos" style="font-size:1.2rem;">+$185</div>
+        <div class="kpi-delta pos" style="font-size:0.68rem;">+1.8%</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div class="kpi-label" style="font-size:0.6rem;">Win Rate</div>
+        <div class="kpi-value" style="font-size:1.2rem;">68%</div>
+        <div class="kpi-delta pos" style="font-size:0.68rem;">▲ +2%</div>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">Balance & Equity</div>
+      <div class="chart-sub">Siku 10 zilizopita</div>
+      <canvas id="balChart" height="180"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">P&L ya Kila Siku</div>
+      <div class="chart-sub">Siku 15 zilizopita</div>
+      <canvas id="pnlChart" height="150"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">Win / Loss</div>
+      <div class="chart-sub">Mwezi huu</div>
+      <canvas id="wlChart" height="180"></canvas>
+    </div>
+  </div>
+
+  <!-- PAGE: RISK -->
+  <div class="page" id="pg-risk">
+    <div class="pg-title">Risk Manager</div>
+    <div class="pg-sub">Angalia exposure yako · Linda mtaji wako</div>
+
+    <div class="row-2">
+      <div class="card">
+        <div class="kpi-label">Max Daily Loss</div>
+        <div class="kpi-value neg">$500</div>
+        <div class="kpi-delta">Tumika: <span class="neg">36%</span></div>
+        <div class="risk-track" style="margin-top:10px;">
+          <div class="risk-fill" style="width:36%;background:var(--red);"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">Risk/Trade</div>
+        <div class="kpi-value">1.5%</div>
+        <div class="kpi-delta neu">$156 at risk</div>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">Portfolio Exposure</div>
+      <div class="chart-sub">Mgawanyo wa sasa</div>
+      <canvas id="expChart" height="200"></canvas>
+    </div>
+
+    <div class="card" style="margin-bottom:12px;">
+      <div style="font-family:var(--font-head);font-weight:700;font-size:0.95rem;margin-bottom:14px;">Mgawanyo kwa Asset</div>
+      <div class="risk-row">
+        <div class="risk-header"><span class="risk-name">Forex</span><span class="risk-pct" style="color:var(--blue);">40%</span></div>
+        <div class="risk-track"><div class="risk-fill" style="width:40%;background:var(--blue);"></div></div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-header"><span class="risk-name">Crypto</span><span class="risk-pct" style="color:var(--purple);">25%</span></div>
+        <div class="risk-track"><div class="risk-fill" style="width:25%;background:var(--purple);"></div></div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-header"><span class="risk-name">Indices</span><span class="risk-pct pos">20%</span></div>
+        <div class="risk-track"><div class="risk-fill" style="width:20%;background:var(--green);"></div></div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-header"><span class="risk-name">Commodities</span><span class="risk-pct" style="color:var(--gold);">15%</span></div>
+        <div class="risk-track"><div class="risk-fill" style="width:15%;background:var(--gold);"></div></div>
+      </div>
+    </div>
+
+    <div class="risk-calc">
+      <div style="font-family:var(--font-head);font-weight:700;font-size:0.95rem;margin-bottom:12px;">🧮 Risk Calculator</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Akaunti ($)</label>
+          <input type="number" id="rc-acc" value="10000" inputmode="numeric" oninput="calcRisk()">
+        </div>
+        <div class="form-group">
+          <label>Risk %</label>
+          <input type="number" id="rc-pct" value="1" step="0.1" inputmode="decimal" oninput="calcRisk()">
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:12px;">
+        <label>Stop Loss (Pips)</label>
+        <input type="number" id="rc-sl" value="20" inputmode="numeric" oninput="calcRisk()">
+      </div>
+      <div class="calc-result">
+        <div class="result-lbl">KIASI CHA RISK</div>
+        <div class="result-val" id="rc-out">$100.00</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE: COACH -->
+  <div class="page" id="pg-coach">
+    <div class="pg-title">AI Coach</div>
+    <div class="pg-sub">Msaidizi wako wa biashara · Powered by AI</div>
+
+    <div class="chat-wrap">
+      <div class="chat-header-bar">
+        <div class="ai-avatar">🤖</div>
+        <div class="chat-meta">
+          <div class="chat-name">NexaCoach AI</div>
+          <div class="chat-status">● Mtandaoni</div>
+        </div>
+      </div>
+      <div class="chat-body" id="chat-body">
+        <div class="msg ai">Habari! Mimi ni NexaCoach. Niambie hali yako ya biashara leo — umefanya trades ngapi na unajisikiaje? 🎯</div>
+      </div>
+      <div class="chat-input-bar">
+        <input type="text" id="chat-in" placeholder="Andika ujumbe..." onkeydown="if(event.key==='Enter')sendMsg()">
+        <button class="send-btn" onclick="sendMsg()">➤</button>
+      </div>
+    </div>
+
+    <!-- Quick prompts -->
+    <div style="margin-bottom:14px;">
+      <div style="font-size:0.72rem;color:var(--muted);font-family:var(--font-mono);margin-bottom:8px;">MASWALI YA HARAKA</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn-outline" style="padding:7px 12px;font-size:0.75rem;" onclick="quickMsg('Ninaogopa kufungua trade leo')">😟 Ninaogopa</button>
+        <button class="btn-outline" style="padding:7px 12px;font-size:0.75rem;" onclick="quickMsg('Nimepoteza pesa nyingi, nifanye nini?')">💸 Loss kubwa</button>
+        <button class="btn-outline" style="padding:7px 12px;font-size:0.75rem;" onclick="quickMsg('Nipe ushauri wa risk management')">⚠️ Risk tips</button>
+        <button class="btn-outline" style="padding:7px 12px;font-size:0.75rem;" onclick="quickMsg('Niambie jinsi ya kudhibiti emotions zangu')">🧠 Emotions</button>
+      </div>
+    </div>
+
+    <div class="disc-card">
+      <div class="disc-top">
+        <div>
+          <div class="disc-title">Discipline Score</div>
+          <div style="font-size:0.72rem;color:var(--muted);margin-top:2px;">Rekodi ya utaratibu wako</div>
+        </div>
+        <div class="ring-wrap">
+          <svg width="80" height="80" viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="8"/>
+            <circle cx="40" cy="40" r="32" fill="none" stroke="var(--green)" stroke-width="8"
+              stroke-dasharray="201.1" id="disc-ring" stroke-dashoffset="201.1" stroke-linecap="round"/>
+          </svg>
+          <div class="ring-num" id="disc-num">0</div>
+        </div>
+      </div>
+      <div class="disc-input-row">
+        <input type="number" id="disc-in" placeholder="0–100" min="0" max="100" inputmode="numeric">
+        <button onclick="setDisc()">SET</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="font-size:0.72rem;color:var(--muted);font-family:var(--font-mono);margin-bottom:10px;">CHECKLIST YA LEO</div>
+      <ul class="checklist" id="checklist">
+        <li class="check-item" onclick="chk(this)"><span class="check-box">✓</span>Nimefuata plan ya biashara</li>
+        <li class="check-item" onclick="chk(this)"><span class="check-box">✓</span>Nimeangalia risk kabla ya kuingia</li>
+        <li class="check-item" onclick="chk(this)"><span class="check-box">✓</span>Hakuna revenge trading</li>
+        <li class="check-item" onclick="chk(this)"><span class="check-box">✓</span>Nimeandika journal ya trades</li>
+        <li class="check-item" onclick="chk(this)"><span class="check-box">✓</span>Nimefuata SL na TP zilizopangwa</li>
+        <li class="check-item" onclick="chk(this)"><span class="check-box">✓</span>Nimepumzika kati ya trades</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PAGE: GOALS -->
+  <div class="page" id="pg-goals">
+    <div class="pg-title">Malengo</div>
+    <div class="pg-sub">Weka targets · Fuatilia maendeleo</div>
+
+    <div id="goals-list"></div>
+
+    <div class="add-goal">
+      <div style="font-family:var(--font-head);font-weight:700;font-size:0.9rem;margin-bottom:12px;">+ Ongeza Lengo Jipya</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Jina la Lengo</label>
+          <input type="text" id="g-name" placeholder="e.g. Faida ya mwezi">
+        </div>
+        <div class="form-group">
+          <label>Maendeleo (%)</label>
+          <input type="number" id="g-pct" placeholder="0–100" inputmode="numeric">
+        </div>
+      </div>
+      <button class="btn-primary" style="width:100%;" onclick="addGoal()">Ongeza Lengo</button>
+    </div>
+  </div>
+
+  <!-- PAGE: PROP / MORE -->
+  <div class="page" id="pg-more">
+    <div class="pg-title">Zaidi</div>
+    <div class="pg-sub">Prop firm accounts · Trade log</div>
+
+    <div style="font-family:var(--font-head);font-weight:700;font-size:0.95rem;margin-bottom:10px;">🏆 Prop Firm Accounts</div>
+    <div class="prop-grid" id="prop-grid"></div>
+
+    <div class="chart-card" style="margin-bottom:16px;">
+      <div class="chart-title">Profit % Comparison</div>
+      <div class="chart-sub">Accounts zote za funded</div>
+      <canvas id="propChart" height="180"></canvas>
+    </div>
+
+    <div style="font-family:var(--font-head);font-weight:700;font-size:0.95rem;margin-bottom:10px;">📋 Trade Log</div>
+    <div id="trade-list"></div>
+    <button class="add-btn" onclick="addTrade()">+ Ongeza Trade</button>
+  </div>
+
+</div><!-- /content -->
+
+<!-- BOTTOM NAV -->
+<nav id="bottom-nav">
+  <button class="nav-item active" onclick="goPage('home',1)">
+    <span class="nav-icon">🏠</span>
+    <span class="nav-label">Nyumbani</span>
+  </button>
+  <button class="nav-item" onclick="goPage('dashboard',2)">
+    <span class="nav-icon">📊</span>
+    <span class="nav-label">Dashboard</span>
+  </button>
+  <button class="nav-item" onclick="goPage('risk',3)">
+    <span class="nav-icon">⚠️</span>
+    <span class="nav-label">Risk</span>
+  </button>
+  <button class="nav-item" onclick="goPage('coach',4)">
+    <span class="nav-icon">🤖</span>
+    <span class="nav-label">Coach</span>
+  </button>
+  <button class="nav-item" onclick="goPage('goals',5)">
+    <span class="nav-icon">🎯</span>
+    <span class="nav-label">Malengo</span>
+  </button>
+  <button class="nav-item" onclick="goPage('more',6)">
+    <span class="nav-icon">⋯</span>
+    <span class="nav-label">Zaidi</span>
+  </button>
+</nav>
+
+<!-- INSTALL BANNER -->
+<div id="install-banner">
+  <span class="install-icon">📲</span>
+  <div class="install-text">
+    <strong>Sakinisha NexaTrade</strong>
+    <small>Tumia kama app ya kweli kwenye simu yako</small>
+  </div>
+  <div class="install-actions">
+    <button class="btn-install" id="install-btn">Sakinisha</button>
+    <button class="btn-dismiss" onclick="dismissInstall()">✕</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"><span id="t-icon"></span><span id="t-msg"></span></div>
+
+<!-- SETTINGS SHEET -->
+<div class="modal-bg" id="settings-bg" onclick="settingsOutside(event)">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">⚙️ Mipangilio</div>
+    <div class="setting-row">
+      <div><div class="setting-name">Arifa za Soko</div><div class="setting-desc">Pokea orodho za haraka</div></div>
+      <button class="toggle" id="t-notif" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="setting-row">
+      <div><div class="setting-name">Auto Risk Calc</div><div class="setting-desc">Hesabu risk moja kwa moja</div></div>
+      <button class="toggle on" id="t-risk" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="setting-row">
+      <div><div class="setting-name">Sauti za Arifa</div><div class="setting-desc">Piga sauti kwenye arifa</div></div>
+      <button class="toggle" id="t-sound" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="setting-row">
+      <div><div class="setting-name">Lugha ya Coach</div><div class="setting-desc">Kiswahili ✓</div></div>
+      <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="setting-row">
+      <div><div class="setting-name">Hifadhi ya Offline</div><div class="setting-desc">Tumia app bila mtandao</div></div>
+      <button class="toggle on" disabled></button>
+    </div>
+    <button class="modal-close-btn" onclick="closeSettings()">Hifadhi & Funga</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// NAVIGATION
+// ============================================================
+const pages = ['home','dashboard','risk','coach','goals','more'];
+function goPage(name, idx) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('pg-' + name).classList.add('active');
+  document.querySelectorAll('.nav-item')[idx - 1]?.classList.add('active');
+  document.getElementById('content').scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+let tTimer;
+function toast(msg, icon = '✅') {
+  clearTimeout(tTimer);
+  document.getElementById('t-msg').textContent = msg;
+  document.getElementById('t-icon').textContent = icon;
+  const el = document.getElementById('toast');
+  el.classList.add('show');
+  tTimer = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// ============================================================
+// SETTINGS
+// ============================================================
+function openSettings() { document.getElementById('settings-bg').classList.add('open'); }
+function closeSettings() { document.getElementById('settings-bg').classList.remove('open'); }
+function settingsOutside(e) { if (e.target === document.getElementById('settings-bg')) closeSettings(); }
+
+// ============================================================
+// INSTALL PWA
+// ============================================================
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const banner = document.getElementById('install-banner');
+  banner.classList.add('show');
+  document.getElementById('install-btn').onclick = async () => {
+    banner.classList.remove('show');
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') toast('NexaTrade imesanikishwa! 🎉', '📲');
+    deferredPrompt = null;
+  };
+});
+window.addEventListener('appinstalled', () => {
+  document.getElementById('install-banner').classList.remove('show');
+  toast('Karibu kwenye NexaTrade App!', '🏆');
+});
+function dismissInstall() {
+  document.getElementById('install-banner').classList.remove('show');
+  localStorage.setItem('install-dismissed', '1');
+}
+
+// ============================================================
+// SERVICE WORKER
+// ============================================================
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('[SW] Registered:', reg.scope))
+      .catch(err => console.warn('[SW] Failed:', err));
+  });
+}
+
+// ============================================================
+// OFFLINE DETECTION
+// ============================================================
+function updateOnline() {
+  document.getElementById('offline-banner').classList.toggle('show', !navigator.onLine);
+  if (navigator.onLine) toast('Mtandao umepatikana', '✅');
+}
+window.addEventListener('online',  updateOnline);
+window.addEventListener('offline', () => {
+  document.getElementById('offline-banner').classList.add('show');
+  toast('Huna mtandao — offline mode', '⚡');
+});
+
+// ============================================================
+// NOTIFICATIONS
+// ============================================================
+function requestNotifications() {
+  if (!('Notification' in window)) return toast('Browser haisaidii arifa', '❌');
+  Notification.requestPermission().then(p => {
+    if (p === 'granted') {
+      toast('Arifa zimewezeshwa!', '🔔');
+      document.getElementById('notif-card').style.display = 'none';
+      new Notification('NexaTrade', { body: 'Umefanikiwa kuwasha arifa! 🎯' });
+    } else {
+      toast('Ruhusa ilikataliwa', '❌');
+    }
+  });
+}
+function checkNotifCard() {
+  if (Notification.permission !== 'granted' && Notification.permission !== 'denied') {
+    document.getElementById('notif-card').style.display = 'block';
+  }
+}
+
+// ============================================================
+// DISCIPLINE
+// ============================================================
+function setDisc(val) {
+  if (val === undefined) {
+    val = parseFloat(document.getElementById('disc-in').value);
+    if (isNaN(val) || val < 0 || val > 100) return toast('Ingiza nambari kati ya 0–100', '⚠️');
+  }
+  val = Math.round(val);
+  localStorage.setItem('discipline', val);
+  document.getElementById('disc-num').textContent = val;
+  document.getElementById('h-disc').textContent = val + '%';
+  const c = 2 * Math.PI * 32;
+  document.getElementById('disc-ring').style.strokeDashoffset = c - (val / 100) * c;
+  if (val >= 90) toast('🏆 Discipline bora kabisa!', '🏆');
+  else if (val >= 70) toast('👍 Discipline nzuri!', '👍');
+  else toast('⚠️ Boresha discipline yako', '⚠️');
+}
+
+function chk(el) {
+  el.classList.toggle('done');
+  const done = document.querySelectorAll('#checklist .check-item.done').length;
+  const total = document.querySelectorAll('#checklist .check-item').length;
+  setDisc(Math.round((done / total) * 100));
+}
+
+// ============================================================
+// RISK CALCULATOR
+// ============================================================
+function calcRisk() {
+  const acc = parseFloat(document.getElementById('rc-acc').value) || 0;
+  const pct = parseFloat(document.getElementById('rc-pct').value) || 0;
+  const res = (acc * pct / 100).toFixed(2);
+  document.getElementById('rc-out').textContent = '$' + parseFloat(res).toLocaleString('en', { minimumFractionDigits: 2 });
+}
+
+// ============================================================
+// CHAT
+// ============================================================
+const replies = [
+  "Nzuri! Kumbuka daima kufuata plan yako — discipline ndiyo silaha yako kuu. 💪",
+  "Je, umefuata stop loss yako leo? Kujilinda kutoka hasara kubwa ni muhimu kuliko faida. 🛡️",
+  "Endelea na mkakati huo! Risk management ndiyo msingi wa trader mzuri wa muda mrefu.",
+  "Usifanye revenge trading kamwe! Pumzika, pumua, kisha rudi na akili safi. 🧘",
+  "Win rate si kila kitu — angalia risk/reward ratio yako! Trade moja nzuri > trades 5 mbaya.",
+  "Siku mbaya katika soko ni kawaida. Traders wakubwa wote wamepita hali hiyo. Endelea! 🌟",
+  "Subiri setup kamilifu — patience ni faida katika biashara. Usikimbilie.",
+  "Journal yako ya biashara ni dhahabu — andika kila trade na sababu yake. 📓",
+  "Angalia emotions zako: FOMO, greed, na fear ni maadui wakubwa wa trader. Udhibiti hisia = utajiri.",
+  "Fanya analysis kabla ya kufungua soko — preparation inaweza kubadilisha matokeo yako kabisa! 📊"
+];
+let rIdx = 0;
+function sendMsg() {
+  const inp = document.getElementById('chat-in');
+  const val = inp.value.trim();
+  if (!val) return;
+  addMsg(val, 'user');
+  inp.value = '';
+  const t = addMsg('NexaCoach anaandika...', 'ai typing');
+  setTimeout(() => {
+    t.remove();
+    addMsg(replies[rIdx++ % replies.length], 'ai');
+  }, 1100);
+}
+function quickMsg(msg) {
+  document.getElementById('chat-in').value = msg;
+  sendMsg();
+  goPage('coach', 4);
+}
+function addMsg(text, cls) {
+  const body = document.getElementById('chat-body');
+  const el = document.createElement('div');
+  el.className = 'msg ' + cls;
+  el.textContent = text;
+  body.appendChild(el);
+  body.scrollTop = body.scrollHeight;
+  return el;
+}
+
+// ============================================================
+// GOALS
+// ============================================================
+let goals = JSON.parse(localStorage.getItem('goals') || 'null') || [
+  { name: 'Faida ya Mwezi ($1,000)', pct: 72, col: 'green' },
+  { name: 'Win Rate 70%+', pct: 68, col: 'gold' },
+  { name: 'Max 10 Trades/Wiki', pct: 90, col: 'green' },
+  { name: 'Pita FTMO Challenge', pct: 45, col: 'gold' },
+];
+function renderGoals() {
+  document.getElementById('goals-list').innerHTML = goals.map((g, i) => `
+    <div class="goal-item">
+      <div class="goal-top">
+        <div class="goal-name">${g.name}</div>
+        <div class="goal-badge b-${g.pct>=80?'green':g.pct>=50?'gold':'red'}">${g.pct>=80?'Vizuri':g.pct>=50?'Inaendelea':'Nyuma'}</div>
+      </div>
+      <div class="goal-bar">
+        <div class="goal-bar-fill" style="width:${g.pct}%;background:${g.col==='green'?'var(--green)':g.col==='gold'?'var(--gold)':'var(--red)'}"></div>
+      </div>
+      <div class="goal-foot"><span>${g.pct}% imekamilika</span><span>${100-g.pct}% imebaki</span></div>
+    </div>
+  `).join('');
+}
+function addGoal() {
+  const name = document.getElementById('g-name').value.trim();
+  const pct = parseInt(document.getElementById('g-pct').value);
+  if (!name) return toast('Andika jina la lengo', '⚠️');
+  if (isNaN(pct)||pct<0||pct>100) return toast('Ingiza asilimia sahihi', '⚠️');
+  goals.push({ name, pct, col: pct >= 70 ? 'green' : 'gold' });
+  localStorage.setItem('goals', JSON.stringify(goals));
+  renderGoals();
+  document.getElementById('g-name').value = '';
+  document.getElementById('g-pct').value = '';
+  toast('Lengo limeongezwa!', '🎯');
+}
+
+// ============================================================
+// PROP
+// ============================================================
+const props = [
+  { firm:'FTMO',            name:'Account A', profit:12, bal:'$102,400', dd:'3.2%', cls:'g' },
+  { firm:'MyForexFunds',    name:'Account B', profit:18, bal:'$50,900',  dd:'1.8%', cls:'b' },
+  { firm:'The5ers',         name:'Account C', profit:9,  bal:'$25,225',  dd:'4.1%', cls:'o' },
+  { firm:'TrueForexFunds',  name:'Account D', profit:25, bal:'$200,500', dd:'2.6%', cls:'g' },
+];
+function renderProp() {
+  document.getElementById('prop-grid').innerHTML = props.map(p => `
+    <div class="prop-card ${p.cls}">
+      <div class="prop-firm">${p.firm}</div>
+      <div class="prop-name">${p.name}</div>
+      <div class="prop-row"><span class="prop-key">Balance</span><span class="prop-val">${p.bal}</span></div>
+      <div class="prop-row"><span class="prop-key">Profit</span><span class="prop-val pos">+${p.profit}%</span></div>
+      <div class="prop-row"><span class="prop-key">Drawdown</span><span class="prop-val neg">${p.dd}</span></div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// TRADES
+// ============================================================
+let trades = JSON.parse(localStorage.getItem('trades') || 'null') || [
+  { pair:'EUR/USD', type:'BUY',  pnl:'+$320', date:'2026-05-20', note:'Breakout' },
+  { pair:'GBP/JPY', type:'SELL', pnl:'+$180', date:'2026-05-21', note:'Resistance rej.' },
+  { pair:'GOLD',    type:'BUY',  pnl:'-$225', date:'2026-05-22', note:'False break' },
+  { pair:'BTC/USD', type:'BUY',  pnl:'+$420', date:'2026-05-23', note:'Trend cont.' },
+  { pair:'NAS100',  type:'SELL', pnl:'+$150', date:'2026-05-24', note:'Pre-market' },
+];
+function renderTrades() {
+  document.getElementById('trade-list').innerHTML = trades.map(t => `
+    <div class="trade-item">
+      <div class="trade-badge ${t.type==='BUY'?'t-buy':'t-sell'}">${t.type}</div>
+      <div class="trade-info">
+        <div class="trade-pair">${t.pair}</div>
+        <div class="trade-meta">${t.date} · ${t.note}</div>
+      </div>
+      <div class="trade-pnl ${t.pnl.startsWith('+')?'pos':'neg'}">${t.pnl}</div>
+    </div>
+  `).join('');
+}
+function addTrade() {
+  const pair = prompt('Jozi (e.g. EUR/USD):');
+  if (!pair) return;
+  const type = (prompt('Aina (BUY/SELL):') || 'BUY').toUpperCase();
+  const pnl = prompt('P&L (e.g. +$200 au -$100):') || '+$0';
+  const note = prompt('Maelezo:') || '';
+  trades.unshift({ pair, type, pnl, note, date: new Date().toISOString().split('T')[0] });
+  localStorage.setItem('trades', JSON.stringify(trades));
+  renderTrades();
+  toast('Trade imerekodiwa!', '📋');
+}
+
+// ============================================================
+// CHARTS
+// ============================================================
+const co = { // chart options base
+  responsive: true,
+  plugins: { legend: { labels: { color:'rgba(255,255,255,0.5)', font:{ family:'Space Mono', size:10 } } } },
+  scales: {
+    x: { ticks:{ color:'rgba(255,255,255,0.35)', font:{ family:'Space Mono', size:9 } }, grid:{ color:'rgba(255,255,255,0.04)' } },
+    y: { ticks:{ color:'rgba(255,255,255,0.35)', font:{ family:'Space Mono', size:9 } }, grid:{ color:'rgba(255,255,255,0.06)' } }
+  }
+};
+
+function initCharts() {
+  // Mini
+  new Chart(document.getElementById('miniChart'), {
+    type:'line',
+    data:{
+      labels:['Juma','Jua','Jum','Alh','Ij'],
+      datasets:[{
+        data:[10000,10250,10180,10380,10450],
+        borderColor:'var(--green)',
+        backgroundColor:'rgba(0,229,160,0.07)',
+        fill:true, tension:0.4, borderWidth:2, pointRadius:3,
+        pointBackgroundColor:'var(--green)'
+      }]
+    },
+    options:{ ...co, plugins:{ legend:{display:false} } }
+  });
+
+  // Balance
+  new Chart(document.getElementById('balChart'), {
+    type:'line',
+    data:{
+      labels:['M14','M15','M16','M19','M20','M21','M22','M23','M24','M26'],
+      datasets:[
+        { label:'Balance', data:[10000,10180,10090,10320,10150,10450,10380,10510,10420,10450],
+          borderColor:'var(--green)', backgroundColor:'rgba(0,229,160,0.06)', fill:true, tension:0.4, borderWidth:2, pointRadius:2 },
+        { label:'Equity', data:[9950,10140,10060,10280,10100,10390,10330,10470,10360,10320],
+          borderColor:'var(--blue)', backgroundColor:'rgba(77,159,255,0.04)', fill:true, tension:0.4, borderWidth:2, pointRadius:2 }
+      ]
+    },
+    options: co
+  });
+
+  // P&L
+  const pd = [120,-80,200,150,-40,310,95,-120,180,220,-60,140,280,90,-30];
+  new Chart(document.getElementById('pnlChart'), {
+    type:'bar',
+    data:{
+      labels: pd.map((_,i)=>`D${i+1}`),
+      datasets:[{ data:pd, backgroundColor:pd.map(v=>v>=0?'rgba(0,229,160,0.7)':'rgba(255,64,96,0.7)'), borderRadius:3 }]
+    },
+    options:{ ...co, plugins:{legend:{display:false}} }
+  });
+
+  // Win/Loss
+  new Chart(document.getElementById('wlChart'), {
+    type:'doughnut',
+    data:{
+      labels:['Wins','Losses','Break Even'],
+      datasets:[{ data:[34,12,5], backgroundColor:['var(--green)','var(--red)','var(--blue)'],
+        borderColor:'var(--card)', borderWidth:3 }]
+    },
+    options:{ responsive:true, plugins:{ legend:{ position:'bottom',
+      labels:{ color:'rgba(255,255,255,0.5)', font:{family:'Space Mono',size:10}, padding:14 } } } }
+  });
+
+  // Exposure
+  new Chart(document.getElementById('expChart'), {
+    type:'doughnut',
+    data:{
+      labels:['Forex','Crypto','Indices','Commodities'],
+      datasets:[{ data:[40,25,20,15], backgroundColor:['var(--blue)','var(--purple)','var(--green)','var(--gold)'],
+        borderColor:'var(--card)', borderWidth:3 }]
+    },
+    options:{ responsive:true, plugins:{ legend:{ position:'bottom',
+      labels:{ color:'rgba(255,255,255,0.5)', font:{family:'Space Mono',size:10}, padding:12 } } } }
+  });
+
+  // Prop
+  new Chart(document.getElementById('propChart'), {
+    type:'bar',
+    data:{
+      labels: props.map(p=>p.firm),
+      datasets:[{ label:'Profit %', data:props.map(p=>p.profit),
+        backgroundColor:['rgba(0,229,160,0.7)','rgba(77,159,255,0.7)','rgba(245,197,66,0.7)','rgba(0,229,160,0.7)'],
+        borderRadius:8 }]
+    },
+    options:{ ...co, plugins:{legend:{display:false}},
+      scales:{ ...co.scales, y:{...co.scales.y, ticks:{...co.scales.y.ticks, callback:v=>v+'%'}} } }
+  });
+}
+
+// ============================================================
+// INIT
+// ============================================================
+window.addEventListener('load', () => {
+  // Hide splash
+  setTimeout(() => document.getElementById('splash').classList.add('hide'), 2200);
+
+  // Restore discipline
+  const d = localStorage.getItem('discipline');
+  if (d) {
+    const v = parseFloat(d);
+    document.getElementById('disc-num').textContent = v;
+    document.getElementById('h-disc').textContent = v + '%';
+    const c = 2 * Math.PI * 32;
+    document.getElementById('disc-ring').style.strokeDashoffset = c - (v / 100) * c;
+  }
+
+  calcRisk();
+  renderGoals();
+  renderProp();
+  renderTrades();
+  initCharts();
+  checkNotifCard();
+
+  // Welcome toast after splash
+  setTimeout(() => toast('Karibu NexaTrade! 🚀', '📈'), 2500);
+
+  // Check if already installed
+  if (window.matchMedia('(display-mode: standalone)').matches ||
+      window.navigator.standalone === true) {
+    document.getElementById('install-banner').classList.remove('show');
+    toast('Unatumia NexaTrade App!', '📱');
+  }
+
+  // Check dismissed
+  if (localStorage.getItem('install-dismissed')) {
+    document.getElementById('install-banner').classList.remove('show');
+  }
+});
+</script>
+</body>
+</html>
