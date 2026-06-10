@@ -8,9 +8,11 @@
   "background_color": "#0a0a0f",
   "theme_color": "#00e5a0",
   "lang": "sw",
-  "categories": ["finance", "productivity"],
+  "categories": [
+    "finance",
+    "productivity"
+  ],
   "icons": [
-      "icons": [
     {
       "src": "icons/icon-192.png",
       "sizes": "192x192",
@@ -30,35 +32,5 @@
       "purpose": "maskable"
     }
   ],
-  ],
-  "shortcuts": [
-    {
-      "name": "Dashboard",
-      "short_name": "Dashboard",
-      "description": "Fungua Dashboard",
-      "url": "./index.html#dashboard",
-      "icons": [
-        { 
-          "src": "icons/dash-96.png", 
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
-    },
-    {
-      "name": "AI Coach",
-      "short_name": "Coach",
-      "description": "Zungumza na AI Coach",
-      "url": "./index.html#coach",
-      "icons": [
-        { 
-          "src": "icons/coach-96.png", 
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
-    }
-  ],
-  "screenshots": [],
   "prefer_related_applications": false
 }
