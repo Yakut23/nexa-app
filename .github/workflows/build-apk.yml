@@ -1,1 +1,112 @@
+name: Build NexaTrade APK
 
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Install Bubblewrap
+        run: npm install -g @bubblewrap/cli
+
+      - name: Create twa-manifest.json
+        run: |
+          cat > twa-manifest.json << 'EOF'
+          {
+            "packageId": "io.github.yakut23.nexatrade",
+            "host": "yakut23.github.io",
+            "name": "NexaTrade Pro",
+            "launcherName": "NexaTrade",
+            "display": "standalone",
+            "orientation": "portrait",
+            "themeColor": "#06060d",
+            "themeColorDark": "#06060d",
+            "backgroundColor": "#06060d",
+            "startUrl": "/nexa-app/",
+            "iconUrl": "https://yakut23.github.io/nexa-app/icons/icon-512.png",
+            "maskableIconUrl": "https://yakut23.github.io/nexa-app/icons/icon-512-maskable.png",
+            "appVersion": "1.0.0",
+            "appVersionCode": 1,
+            "signingKey": {
+              "path": "android.keystore",
+              "alias": "nexatrade"
+            },
+            "splashScreenFadeOutDuration": 300,
+            "enableNotifications": true,
+            "shortcuts": [],
+            "generatorApp": "bubblewrap-cli",
+            "webManifestUrl": "https://yakut23.github.io/nexa-app/manifest.json",
+            "fallbackType": "webview",
+            "features": {},
+            "alphaDependencies": {
+              "enabled": false
+            },
+            "enableSiteSettingsShortcut": false,
+            "isChromeOSOnly": false,
+            "isMetaQuest": false,
+            "metaQuestRequiresImmersiveMode": false,
+            "minSdkVersion": 21,
+            "locationDelegation": {
+              "enabled": false
+            },
+            "playBilling": {
+              "enabled": false
+            }
+          }
+          EOF
+
+      - name: Generate Keystore
+        run: |
+          keytool -genkey -v \
+            -keystore android.keystore \
+            -alias nexatrade \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass nexatrade123 \
+            -keypass nexatrade123 \
+            -dname "CN=NexaTrade, OU=Engineering, O=NexaTrade Pro, L=Dar es Salaam, ST=Tanzania, C=TZ"
+
+      - name: Initialize Bubblewrap project
+        run: |
+          bubblewrap init --manifest=https://yakut23.github.io/nexa-app/manifest.json \
+            --directory=./twa-app || true
+
+      - name: Build APK
+        run: |
+          cd twa-app
+          bubblewrap build --skipPwaValidation || true
+
+      - name: Find and Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: NexaTrade-APK
+          path: |
+            twa-app/app/build/outputs/apk/**/*.apk
+            twa-app/*.apk
+            **/*.apk
+          if-no-files-found: warn
+
+      - name: Upload Keystore (backup)
+        uses: actions/upload-artifact@v3
+        with:
+          name: android-keystore
+          path: android.keystore
