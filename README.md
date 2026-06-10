@@ -1,27 +1,57 @@
-# Nexa App (PWA)
+NexaTrade Pro ni programu ya kisasa ya biashara (PWA) inayowasaidia wafanyabiashara wa Forex, Crypto, Hisa, na Synthetic Indices kusimamia shughuli zao za trading kwa urahisi.
 
-Nexa App ni **Progressive Web App (PWA)** inayolenga kusaidia watumiaji kufuatilia na kuboresha uzoefu wao wa trading psychology na performance. Imejengwa kwa teknolojia rahisi ya **HTML + JavaScript** na inafanya kazi hata bila mtandao kupitia **Service Worker**.
+Sifa Kuu
 
-## Vipengele
-- 📱 Inaweza kusanikishwa kama app kwenye simu au desktop
-- 🌐 Inafanya kazi offline kupitia cache
-- ⚡ Rahisi kutumia na kuendesha kwenye browser yoyote ya kisasa
-- 🎨 Ina manifest.json kwa icons na theme color
+📊 Trading Journal – Kuhifadhi na kuchambua miamala ya Live na Demo.
 
-## Jinsi ya Kutumia
-1. Fungua link ya app: `https://yakut23.github.io/nexa-app`
-2. Bonyeza “Add to Home Screen” kwenye browser yako (Chrome/Edge).
-3. App itaonekana kwenye simu yako kama programu kamili.
+📝 Trading Plans – Kuandaa mipango ya biashara kwa aina mbalimbali za masoko.
 
-## Faili Muhimu
-- `index.html` → ukurasa mkuu wa app
-- `manifest.json` → metadata ya PWA (jina, icons, theme)
-- `sw.js` → service worker kwa offline support
+📈 Risk/Reward Charts – Kuonyesha uwiano wa hatari na faida kabla ya kuingia sokoni.
 
-## Maono
-Kutoa jukwaa rahisi na la kuaminika kwa traders na watumiaji wanaotaka kuanza safari ya trading kwa nidhamu na teknolojia ya kisasa.
+🤖 AI Coach – Ushauri wa nidhamu, saikolojia ya trading, na usimamizi wa hatari.
 
----
+🌐 Lugha Mbili – Kiswahili na Kiingereza.
 
-👨‍💻 Developer: Yakut Kassim Haruna  
-📧 Email: yakutikassim@gmail.com 
+📱 PWA & Offline Mode – Inafanya kazi hata bila intaneti.
+
+🔒 Usalama – Ulinzi wa data kupitia PIN.
+
+💾 Data Management – Export na Import ya taarifa za mtumiaji.
+
+
+Muundo wa Faili
+
+index.html – Mfumo mkuu wa app.
+
+image_0.png – Ikoni ya programu.
+
+manifest.json – Taarifa za usakinishaji wa PWA.
+
+sw.js – Mfumo wa offline na caching.
+
+
+Kubadilisha kuwa APK
+
+1. Weka faili zote kwenye folda moja.
+
+
+2. Pakia mtandaoni kupitia GitHub Pages, Netlify au Vercel.
+
+
+3. Tumia [PWABuilder](https://www.pwabuilder.com?utm_source=chatgpt.com) kuweka URL ya app.
+
+
+4. Pakua APK iliyotengenezwa kwa Android.
+
+
+
+Teknolojia Zilizotumika
+
+HTML5 & CSS3
+
+Vanilla JavaScript
+
+Chart.js
+
+
+Imeandaliwa na: Germ Tech.
