@@ -1,1 +1,70 @@
+name: Build NexaTrade APK
 
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Node 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Bubblewrap
+        run: npm install -g @bubblewrap/cli@latest
+
+      - name: Init TWA project
+        run: |
+          mkdir twa && cd twa
+          bubblewrap init \
+            --manifest="https://yakut23.github.io/nexa-app/manifest.json" \
+            --directory=. \
+            --skipPwaValidation \
+            --packageId="io.github.yakut23.nexatrade" \
+            --name="NexaTrade Pro" \
+            --launcherName="NexaTrade" \
+            --themeColor="#06060d" \
+            --backgroundColor="#06060d" \
+            --startUrl="/nexa-app/" \
+            --iconUrl="https://yakut23.github.io/nexa-app/icons/icon-512.png" \
+            --maskableIconUrl="https://yakut23.github.io/nexa-app/icons/icon-512-maskable.png"
+
+      - name: Generate signing key
+        run: |
+          keytool -genkey -v \
+            -keystore twa/android.keystore \
+            -alias nexatrade \
+            -keyalg RSA -keysize 2048 -validity 10000 \
+            -storepass nexatrade123 \
+            -keypass nexatrade123 \
+            -dname "CN=NexaTrade,O=GermTech,C=TZ"
+
+      - name: Build APK
+        working-directory: twa
+        run: bubblewrap build --skipPwaValidation
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: NexaTrade-APK
+          path: |
+            twa/app-release-signed.apk
+            twa/**/*.apk
+          if-no-files-found: warn
