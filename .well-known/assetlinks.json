@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "io.github.yakut23.nexatrade",
+    "sha256_cert_fingerprints": [
+      "E4:80:61:34:30:4E:BC:FE:DB:7B:41:AD:45:B1:32:AC:18:E5:5E:AA:01:AD:D0:84:48:28:F5:77:82:C8:C1:89"
+    ]
+  }
+}]
