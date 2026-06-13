@@ -1,23 +1,9 @@
 <!DOCTYPE html>
 <html lang="sw">
-<head><script>
-  (function() {
-    var scale = 1 / (window.devicePixelRatio || 1);
-    var meta = document.querySelector('meta[name="viewport"]');
-    if (!meta) {
-      meta = document.createElement('meta');
-      meta.name = 'viewport';
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute('content', 
-      'width=device-width, initial-scale=' + scale + 
-      ', maximum-scale=' + scale + 
-      ', minimum-scale=' + scale + 
-      ', user-scalable=no, viewport-fit=cover'
-    );
-  })();
-</script>
-</script>
+<head><head>
+<style>
+  html { zoom: 0.7; }
+</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="mobile-web-app-capable" content="yes">
