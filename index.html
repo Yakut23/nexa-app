@@ -34,7 +34,7 @@
 body.light { --bg: #f2f2f7; --surface: #fff; --card: #fff; --card2: #f5f5fa; --border: rgba(0,0,0,0.08); --border2: rgba(0,0,0,0.12); --muted: rgba(0,0,0,0.45); --muted2: rgba(0,0,0,0.3); --text: #1a1a2e; --text2: #3a3a4e; --chart-text: rgba(0,0,0,0.4); --chart-grid: rgba(0,0,0,0.06); }
 body.midnight { --bg: #0a0e27; --surface: #101636; --card: #151a3a; --card2: #1a1f45; --accent: #448aff; --accent2: #2962ff; }
 body.forest { --bg: #0a1a0a; --surface: #0f200f; --card: #142214; --card2: #1a2a1a; }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*,::before,::after{box-sizing:border-box;margin:0;padding:0}
 html{height:100%;scroll-behavior:smooth;font-size:14px}
 body{font-family:var(--font-body);background:var(--bg);color:var(--text);height:100%;overflow:hidden;display:flex;flex-direction:column;-webkit-tap-highlight-color:transparent;transition:background 0.3s,color 0.3s}
 
@@ -81,7 +81,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
 @keyframes navGlow{from{opacity:0;transform:translate(-50%,-50%) scale(0.6)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 .nav-ripple{position:absolute;border-radius:50%;background:color-mix(in srgb,var(--accent) 45%,transparent);transform:translate(-50%,-50%) scale(0);pointer-events:none;animation:navRipple 0.45s cubic-bezier(0.22,0.61,0.36,1) forwards;will-change:transform,opacity}
 @keyframes navRipple{0%{transform:translate(-50%,-50%) scale(0);opacity:0.85}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
-@media (prefers-reduced-motion: reduce){.nav-item,.nav-item *{transition:none!important;animation:none!important}}
+@media (prefers-reduced-motion: reduce){.nav-item,.nav-item {transition:none!important;animation:none!important}}
 .page{display:none;padding:14px;animation:pgIn 0.3s ease both}
 .page.active{display:block}
 @keyframes pgIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -206,7 +206,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
 .screenshot-gallery{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .screenshot-gallery img{width:80px;height:80px;object-fit:cover;border-radius:8px;cursor:pointer}
 
-/* === Polish enhancements === */
+/ === Polish enhancements === /
 #topbar{box-shadow:0 4px 20px rgba(0,0,0,0.25)}
 .brand{letter-spacing:-0.5px;text-shadow:0 0 24px color-mix(in srgb,var(--accent) 25%,transparent)}
 .card{box-shadow:0 2px 8px rgba(0,0,0,0.15);transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s}
@@ -276,13 +276,13 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  </div>
  <div style="text-align:center;margin-bottom:10px;" id="streak-display"></div>
  
- <div class="card" style="margin-bottom:10px;"><div style="font-weight:700;margin-bottom:6px;" data-i18n="card-div-cal">Dividend Calendar</div><div id="dividend-calendar" style="font-size:0.7rem;color:var(--muted);">No upcoming dividends</div></div>
- <div class="card" style="margin-bottom:10px;"><div style="font-weight:700;margin-bottom:6px;" data-i18n="card-econ-cal">Economic Calendar</div><div id="econ-calendar" style="font-size:0.7rem;color:var(--muted);">Loading...</div></div>
+ <div class="card" style="margin-bottom:10px;"><div style="font-weight:700;margin-bottom:6px;" data-i18n="card-div-cal">Dividend Calendar</div><div id="dividend-calendar" style="font-size:0.7rem;color:var(--muted);" data-i18n="div-no-upcoming">Hakuna gawio linalokuja</div></div>
+ <div class="card" style="margin-bottom:10px;"><div style="font-weight:700;margin-bottom:6px;" data-i18n="card-econ-cal">Economic Calendar</div><div id="econ-calendar" style="font-size:0.7rem;color:var(--muted);" data-i18n="econ-loading">Inapakia...</div></div>
  
  <!-- ALERTS SHORTCUT -->
  <div class="card" style="margin-bottom:10px;border-left:3px solid var(--gold);">
  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
- <div style="font-weight:700;" data-i18n="card-alerts"> Alerts za Bei</div>
+ <div style="font-weight:700;" data-i18n="card-alerts">Arifa za Bei</div>
  <button class="btn btn-outline btn-sm" onclick="goPage('tools',4);setTimeout(function(){switchToolsTab('alerts',null)},50)" data-i18n="btn-manage">Simamia</button>
  </div>
  <div id="home-alerts-summary" style="font-size:0.7rem;color:var(--muted);">Hakuna alerts zilizowekwa</div>
@@ -291,7 +291,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div class="chart-container"><div style="font-weight:700;font-size:0.82rem;margin-bottom:8px;" data-i18n="card-equity">Equity Curve</div><canvas id="equityChart" height="160"></canvas></div>
  <div class="chart-container"><div style="font-weight:700;font-size:0.82rem;margin-bottom:8px;" data-i18n="card-monthly">Monthly P&L</div><canvas id="monthlyChart" height="160"></canvas></div>
  <div class="chart-container"><div style="font-weight:700;font-size:0.82rem;margin-bottom:8px;" data-i18n="card-session">Session Performance</div><canvas id="sessionChart" height="160"></canvas></div>
- <div class="card" style="text-align:center;"><div style="font-weight:700;margin-bottom:6px;" data-i18n="card-report">Monthly Report</div><div id="monthly-report" style="font-size:0.72rem;color:var(--muted);">Record trades to see your report</div></div>
+ <div class="card" style="text-align:center;"><div style="font-weight:700;margin-bottom:6px;" data-i18n="card-report">Monthly Report</div><div id="monthly-report" style="font-size:0.72rem;color:var(--muted);" data-i18n="report-empty">Rekodi trades kuona ripoti yako</div></div>
  </div>
 
  <!-- ACADEMY -->
@@ -330,12 +330,12 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  </div>
 
  <div class="asset-content" id="acad-journal">
- <div class="btn-row" style="margin-bottom:14px;"><button class="btn btn-primary btn-sm" id="mode-live-btn" onclick="setJournalMode('live')" style="flex:1;">Live Trading</button><button class="btn btn-outline btn-sm" id="mode-demo-btn" onclick="setJournalMode('demo')" style="flex:1;">Paper Trading (Demo)</button></div>
+ <div class="btn-row" style="margin-bottom:14px;"><button class="btn btn-primary btn-sm" id="mode-live-btn" onclick="setJournalMode('live')" style="flex:1;" data-i18n="btn-live">Biashara Halisi</button><button class="btn btn-outline btn-sm" id="mode-demo-btn" onclick="setJournalMode('demo')" style="flex:1;" data-i18n="btn-demo">Biashara ya Mazoezi</button></div>
  <button class="btn btn-outline" style="width:100%;margin-bottom:14px;" onclick="showJournalForm()">+ Record Trade</button>
  <div id="pre-trade-checklist" class="card form-hidden" style="margin-bottom:10px;"><div style="font-weight:700;margin-bottom:8px;">Pre-Trade Checklist</div><div class="checklist-item"><input type="checkbox" id="chk-plan"> Nimefuata mpango wangu</div><div class="checklist-item"><input type="checkbox" id="chk-rsi"> RSI / Indicators ziko sawa</div><div class="checklist-item"><input type="checkbox" id="chk-news"> Hakuna habari kubwa za uchumi</div><div class="checklist-item"><input type="checkbox" id="chk-sl"> Nimeweka Stop Loss</div><div class="checklist-item"><input type="checkbox" id="chk-tp"> Nimeweka Take Profit</div><div style="font-size:0.65rem;color:var(--muted);margin-top:4px;" id="checklist-score">Score: 0/5</div></div>
  <div id="journal-form" class="card form-hidden">
- <div class="row-2"><div class="form-group"><label>Market</label><select id="j-market"><option>Forex</option><option>Synthetic</option><option>Crypto</option><option>Stocks</option></select></div><div class="form-group"><label>Pair</label><input type="text" id="j-pair" placeholder="EUR/USD"></div></div>
- <div class="row-2"><div class="form-group"><label>Type</label><select id="j-type"><option>BUY</option><option>SELL</option></select></div><div class="form-group"><label>Result ($)</label><input type="text" id="j-pnl" placeholder="+50" oninput="syncStatusFromPnl()"></div></div>
+ <div class="row-2"><div class="form-group"><label data-i18n="j-market-label">Soko</label><select id="j-market"><option>Forex</option><option>Synthetic</option><option>Crypto</option><option>Stocks</option></select></div><div class="form-group"><label data-i18n="j-pair-label">Jozi</label><input type="text" id="j-pair" placeholder="EUR/USD"></div></div>
+ <div class="row-2"><div class="form-group"><label data-i18n="j-type-label">Aina</label><select id="j-type"><option>BUY</option><option>SELL</option></select></div><div class="form-group"><label data-i18n="j-pnl-label">Matokeo ($)</label><input type="text" id="j-pnl" placeholder="+50" oninput="syncStatusFromPnl()"></div></div>
  <div class="form-group"><label>Hali ya Trade / Trade Status</label>
  <div class="btn-row" id="j-status-row" style="gap:6px;">
  <button type="button" class="btn btn-outline btn-sm" data-status="WIN" onclick="setTradeStatus('WIN')" style="flex:1;">WIN</button>
@@ -357,7 +357,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <option value="other">Nyingine</option>
  </select>
  </div>
- <div class="row-2"><div class="form-group"><label>Stop Loss</label><input type="text" id="j-sl" placeholder="1.0800"></div><div class="form-group"><label>Take Profit</label><input type="text" id="j-tp" placeholder="1.0900"></div></div>
+ <div class="row-2"><div class="form-group"><label data-i18n="j-sl-label">Kizuizi cha Hasara</label><input type="text" id="j-sl" placeholder="1.0800"></div><div class="form-group"><label data-i18n="j-tp-label">Lengo la Faida</label><input type="text" id="j-tp" placeholder="1.0900"></div></div>
  <div class="row-2"><div class="form-group"><label>Session</label><select id="j-session"><option>London</option><option>New York</option><option>Asian</option><option>Other</option></select></div><div class="form-group"><label>Time</label><input type="time" id="j-time" value="10:00"></div></div>
  <div class="row-2"><div class="form-group"><label>Mood</label><select id="j-mood"><option value="neutral">Neutral</option><option value="confident">Confident</option><option value="fomo">FOMO</option><option value="fear">Fear</option><option value="greed">Greed</option><option value="revenge">Revenge Trading</option></select></div><div class="form-group"><label>Strategy</label><select id="j-strategy"><option value="">Chagua...</option><option value="scalping">Scalping</option><option value="day-trading">Day Trading</option><option value="swing">Swing Trading</option><option value="breakout">Breakout</option><option value="reversal">Reversal</option><option value="news">News Trading</option></select></div></div>
  <div class="form-group"><label>Tags (chagua zaidi ya moja)</label><div id="j-tags" style="display:flex;flex-wrap:wrap;gap:6px;"></div></div>
@@ -368,7 +368,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  </div>
  <input type="file" id="j-screenshot-input" accept="image/*" multiple style="display:none;" onchange="handleScreenshotUpload(event)">
  </div>
- <div class="form-group"><label>Notes</label><textarea id="j-notes" rows="2" placeholder="Sababu ya kuingia..."></textarea></div>
+ <div class="form-group"><label data-i18n="j-notes-label">Maelezo</label><textarea id="j-notes" rows="2" placeholder="Sababu ya kuingia..."></textarea></div>
  <div class="btn-row"><button class="btn btn-primary" onclick="saveJournalEntry()">Save</button><button class="btn btn-outline btn-sm" onclick="cancelJournalForm()">Cancel</button></div>
  </div>
  <div id="journal-stats" class="row-3" style="margin-top:12px;"></div>
@@ -394,9 +394,9 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
 
  <div class="asset-content" id="acad-tools">
  <div class="tool-card"><div style="font-weight:700;margin-bottom:8px;">Position Size Calculator</div><div class="form-group"><label>Balance ($)</label><input type="number" id="pos-balance" value="1000" oninput="calcPosition()"></div><div class="form-group"><label>Risk %</label><input type="number" id="pos-risk" value="1" step="0.1" oninput="calcPosition()"></div><div class="form-group"><label>SL (Pips)</label><input type="number" id="pos-sl" value="20" oninput="calcPosition()"></div><div class="tool-result" id="pos-result">$0.50 per pip</div></div>
- <div class="tool-card"><div style="font-weight:700;margin-bottom:8px;">Kelly Criterion</div><div class="row-2"><div class="form-group"><label>Win Rate (%)</label><input type="number" id="kelly-wr" value="55" oninput="calcKelly()"></div><div class="form-group"><label>Reward:Risk</label><input type="number" id="kelly-rr" value="2" step="0.1" oninput="calcKelly()"></div></div><div class="tool-result" id="kelly-result">--%</div><div style="font-size:0.6rem;color:var(--muted);margin-top:4px;">Optimal position size %</div></div>
- <div class="tool-card"><div style="font-weight:700;margin-bottom:8px;">Drawdown Simulator</div><div class="form-group"><label>Balance ($)</label><input type="number" id="dd-balance" value="1000" oninput="calcDrawdown()"></div><div class="form-group"><label>Risk/Trade (%)</label><input type="number" id="dd-risk" value="2" step="0.5" oninput="calcDrawdown()"></div><div class="form-group"><label>Consecutive Losses</label><input type="number" id="dd-losses" value="5" oninput="calcDrawdown()"></div><div class="tool-result" id="dd-result">$903.92</div></div>
- <div class="tool-card"><div style="font-weight:700;margin-bottom:8px;">Compound Calculator</div><div class="form-group"><label>Capital ($)</label><input type="number" id="comp-start" value="100" oninput="calcCompound()"></div><div class="form-group"><label>Return %</label><input type="number" id="comp-return" value="10" oninput="calcCompound()"></div><div class="form-group"><label>Months</label><input type="number" id="comp-months" value="12" oninput="calcCompound()"></div><div class="tool-result" id="comp-result">$313.84</div></div>
+ <div class="tool-card"><div style="font-weight:700;margin-bottom:8px;" data-i18n="kelly-title">Kelly Criterion</div><div class="row-2"><div class="form-group"><label>Win Rate (%)</label><input type="number" id="kelly-wr" value="55" oninput="calcKelly()"></div><div class="form-group"><label>Reward:Risk</label><input type="number" id="kelly-rr" value="2" step="0.1" oninput="calcKelly()"></div></div><div class="tool-result" id="kelly-result">--%</div><div style="font-size:0.6rem;color:var(--muted);margin-top:4px;">Optimal position size %</div></div>
+ <div class="tool-card"><div style="font-weight:700;margin-bottom:8px;" data-i18n="dd-sim-title">Mfano wa Kupungua</div><div class="form-group"><label>Balance ($)</label><input type="number" id="dd-balance" value="1000" oninput="calcDrawdown()"></div><div class="form-group"><label>Risk/Trade (%)</label><input type="number" id="dd-risk" value="2" step="0.5" oninput="calcDrawdown()"></div><div class="form-group"><label>Consecutive Losses</label><input type="number" id="dd-losses" value="5" oninput="calcDrawdown()"></div><div class="tool-result" id="dd-result">$903.92</div></div>
+ <div class="tool-card"><div style="font-weight:700;margin-bottom:8px;" data-i18n="compound-title">Kikokotoo cha Ukuaji</div><div class="form-group"><label>Capital ($)</label><input type="number" id="comp-start" value="100" oninput="calcCompound()"></div><div class="form-group"><label>Return %</label><input type="number" id="comp-return" value="10" oninput="calcCompound()"></div><div class="form-group"><label>Months</label><input type="number" id="comp-months" value="12" oninput="calcCompound()"></div><div class="tool-result" id="comp-result">$313.84</div></div>
  </div>
 
  <!-- PSYCHOLOGY -->
@@ -463,8 +463,8 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div style="font-weight:700;margin-bottom:8px;" data-i18n="new-fx">Mpango Mpya wa Forex</div>
  <input type="hidden" id="fx-id">
  <div class="row-2">
- <div class="form-group"><label>Pair</label><input type="text" id="fx-pair" placeholder="EUR/USD"></div>
- <div class="form-group"><label>Mkakati</label><input type="text" id="fx-strategy" placeholder="Mf. Breakout"></div>
+ <div class="form-group"><label data-i18n="j-pair-label">Jozi</label><input type="text" id="fx-pair" placeholder="EUR/USD"></div>
+ <div class="form-group"><label>Mkakati</label><input type="text" id="fx-strategy" placeholder="k.m. Breakout"></div>
  </div>
  <div class="row-2">
  <div class="form-group"><label>Entry Price</label><input type="number" id="fx-entry" placeholder="1.08500" step="0.00001"></div>
@@ -490,12 +490,12 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div style="font-weight:700;margin-bottom:8px;" data-i18n="new-syn">Mpango Mpya wa Synthetic</div>
  <input type="hidden" id="syn-id">
  <div class="row-2">
- <div class="form-group"><label>Index</label><input type="text" id="syn-index" placeholder="Mf. Volatility 75"></div>
+ <div class="form-group"><label>Index</label><input type="text" id="syn-index" placeholder="k.m. Volatility 75"></div>
  <div class="form-group"><label>Lot Size</label><input type="number" id="syn-lot" placeholder="0.001" step="0.001"></div>
  </div>
  <div class="row-2">
- <div class="form-group"><label>Stop Loss</label><input type="number" id="syn-sl" placeholder="0" step="0.01"></div>
- <div class="form-group"><label>Take Profit</label><input type="number" id="syn-tp" placeholder="0" step="0.01"></div>
+ <div class="form-group"><label data-i18n="j-sl-label">Kizuizi cha Hasara</label><input type="number" id="syn-sl" placeholder="0" step="0.01"></div>
+ <div class="form-group"><label data-i18n="j-tp-label">Lengo la Faida</label><input type="number" id="syn-tp" placeholder="0" step="0.01"></div>
  </div>
  <div class="btn-row">
  <button class="btn btn-primary" onclick="saveSyntheticPlan()">Save</button>
@@ -513,7 +513,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div style="font-weight:700;margin-bottom:8px;" data-i18n="new-stocks">Mpango Mpya wa Hisa</div>
  <input type="hidden" id="stock-id">
  <div class="row-2">
- <div class="form-group"><label>Ticker</label><input type="text" id="stock-ticker" placeholder="Mf. AAPL"></div>
+ <div class="form-group"><label>Ticker</label><input type="text" id="stock-ticker" placeholder="k.m. AAPL"></div>
  <div class="form-group"><label>Shares</label><input type="number" id="stock-shares" placeholder="10"></div>
  </div>
  <div class="row-2">
@@ -536,7 +536,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div style="font-weight:700;margin-bottom:8px;" data-i18n="new-crypto">Mpango Mpya wa Crypto</div>
  <input type="hidden" id="crypto-id">
  <div class="row-2">
- <div class="form-group"><label>Coin</label><input type="text" id="crypto-coin" placeholder="Mf. BTC/USDT"></div>
+ <div class="form-group"><label>Coin</label><input type="text" id="crypto-coin" placeholder="k.m. BTC/USDT"></div>
  <div class="form-group"><label>Amount / Mtaji</label><input type="number" id="crypto-amount" placeholder="100"></div>
  </div>
  <div class="row-2">
@@ -565,7 +565,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <button class="asset-tab" onclick="switchCoachTab('share',this)">Share</button>
  </div>
  <div class="asset-content active" id="coach-chat">
- <div class="chat-wrap"><div class="chat-header-bar"><div class="ai-avatar">*</div><div><div style="font-weight:600;">NexaCoach AI</div><div style="font-size:0.62rem;color:var(--green);">Online</div></div></div><div class="chat-body" id="chat-body"><div class="msg ai">Habari! Andika 'Chambua' nichambue trades zako, au uliza chochote!</div></div><div class="chat-input-bar"><input type="text" id="chat-in" placeholder="Uliza au andika 'Chambua'..." onkeydown="if(event.key==='Enter')sendMsg()"><button class="send-btn" onclick="sendMsg()">&gt;</button></div></div>
+ <div class="chat-wrap"><div class="chat-header-bar"><div class="ai-avatar">🤖</div><div><div style="font-weight:600;">NexaCoach AI</div><div style="font-size:0.62rem;color:var(--green);">Online</div></div></div><div class="chat-body" id="chat-body"><div class="msg ai">Habari! Andika 'Chambua' nichambue trades zako, au uliza chochote!</div></div><div class="chat-input-bar"><input type="text" id="chat-in" placeholder="Uliza au andika 'Chambua'..." onkeydown="if(event.key==='Enter')sendMsg()"><button class="send-btn" onclick="sendMsg()">&gt;</button></div></div>
  <div class="topic-chips"><span class="topic-chip" onclick="quickMsg('Chambua')">Chambua</span><span class="topic-chip" onclick="quickMsg('Forex')">Forex</span><span class="topic-chip" onclick="quickMsg('Crypto')">Crypto</span><span class="topic-chip" onclick="quickMsg('Synthetic')">Synthetic</span><span class="topic-chip" onclick="quickMsg('Risk')">Risk</span><span class="topic-chip" onclick="quickMsg('Psychology')">Psychology</span></div>
  <div class="card"><div style="font-weight:700;font-size:0.9rem;margin-bottom:12px;" data-i18n="card-goals">Malengo Yangu</div><div id="goals-tracker-list"></div><button class="btn btn-outline btn-sm" style="width:100%;margin-top:8px;" data-i18n="btn-add-goal" onclick="showGoalForm()">+ Ongeza Lengo</button></div>
  </div>
@@ -625,7 +625,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <button class="settings-tab" onclick="switchSettingsTab('about',this)" data-i18n="tab-about">Kuhusu</button>
  </div>
  
- <div class="settings-content active" id="settings-profile"><div class="card" style="text-align:center;margin-bottom:12px;"><div id="profile-avatar-container" style="width:70px;height:70px;border-radius:50%;background:var(--card2);margin:0 auto 8px;overflow:hidden;cursor:pointer;border:2px solid var(--border);" onclick="document.getElementById('profile-pic-input').click()"><img id="profile-pic-preview" src=""><span id="profile-pic-placeholder" style="font-size:1.8rem;line-height:70px;">O</span></div><input type="file" id="profile-pic-input" accept="image/*" style="display:none;" onchange="handleProfilePic(event)"><div class="badge-row" id="settings-badges-display"></div></div><div id="profile-view" class="card"><div style="font-weight:600;" id="profile-view-name">Jina halijawekwa</div><div class="btn-row"><button class="btn btn-primary btn-sm" onclick="editProfile()">Edit</button></div></div><div id="profile-form" class="card form-hidden"><div class="form-group"><label>Name</label><input type="text" id="profile-fullname"></div><div class="form-group"><label>Nickname</label><input type="text" id="profile-nickname"></div><div class="btn-row"><button class="btn btn-primary" onclick="saveProfile()">Save</button><button class="btn btn-outline btn-sm" onclick="cancelProfileEdit()">Cancel</button></div></div></div>
+ <div class="settings-content active" id="settings-profile"><div class="card" style="text-align:center;margin-bottom:12px;"><div id="profile-avatar-container" style="width:70px;height:70px;border-radius:50%;background:var(--card2);margin:0 auto 8px;overflow:hidden;cursor:pointer;border:2px solid var(--border);" onclick="document.getElementById('profile-pic-input').click()"><img id="profile-pic-preview" src=""><span id="profile-pic-placeholder" style="font-size:1.8rem;line-height:70px;">N</span></div><input type="file" id="profile-pic-input" accept="image/*" style="display:none;" onchange="handleProfilePic(event)"><div class="badge-row" id="settings-badges-display"></div></div><div id="profile-view" class="card"><div style="font-weight:600;" id="profile-view-name">Jina halijawekwa</div><div class="btn-row"><button class="btn btn-primary btn-sm" onclick="editProfile()">Edit</button></div></div><div id="profile-form" class="card form-hidden"><div class="form-group"><label>Name</label><input type="text" id="profile-fullname"></div><div class="form-group"><label>Nickname</label><input type="text" id="profile-nickname"></div><div class="btn-row"><button class="btn btn-primary" onclick="saveProfile()">Save</button><button class="btn btn-outline btn-sm" onclick="cancelProfileEdit()">Cancel</button></div></div></div>
  
  <div class="settings-content" id="settings-security"><div class="card"><div style="font-weight:700;margin-bottom:12px;" data-i18n="card-pin">PIN Security</div><button class="btn btn-primary" style="width:100%;margin-bottom:8px;" data-i18n="btn-set-pin" onclick="setPin()">Set PIN</button><button class="btn btn-danger btn-sm" style="width:100%;" data-i18n="btn-remove-pin" onclick="removePin()">Remove PIN</button></div></div>
  
@@ -663,11 +663,11 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <input type="file" id="csv-statement-input" accept=".csv,text/csv" style="display:none;" onchange="importBrokerCSV(event)">
  </div>
  <div class="card" style="border-left:3px solid var(--blue);">
- <div style="font-weight:700;margin-bottom:8px;" data-i18n="card-stealth"> Stealth Mode</div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="card-stealth">Hali ya Siri</div>
  <div style="font-size:0.7rem;color:var(--muted);margin-bottom:8px;" data-i18n="stealth-desc">App ionekane kama calculator. PIN yako ya siri inaifungua kurudi NexaTrade.</div>
  <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
  <input type="checkbox" id="stealth-toggle" onchange="toggleStealthMode()" style="width:18px;height:18px;accent-color:var(--accent);">
- <span data-i18n="stealth-enable">Wezesha Stealth Mode</span>
+ <span data-i18n="stealth-enable">WezeshaHali ya Siri</span>
  </label>
  </div>
  </div>
@@ -717,7 +717,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
 
  <!-- TOOLS -->
  <div class="page" id="pg-tools">
- <div class="pg-title" data-i18n="pg-tools"> Vifaa vya Biashara</div>
+ <div class="pg-title" data-i18n="pg-tools">Vifaa vya Biashara</div>
  <div class="asset-tabs">
  <button class="asset-tab active" onclick="switchToolsTab('calc',this)" data-i18n="tt-calc">Calculators</button>
  <button class="asset-tab" onclick="switchToolsTab('alerts',this)" data-i18n="tt-alerts">Alerts</button>
@@ -727,14 +727,16 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <button class="asset-tab" onclick="switchToolsTab('chartai',this)" data-i18n="tt-chartai">Chart AI</button>
  <button class="asset-tab" onclick="switchToolsTab('replay',this)" data-i18n="tt-replay">Replay</button>
  <button class="asset-tab" onclick="switchToolsTab('dna',this)" data-i18n="tt-dna">DNA</button>
+    <button class="asset-tab" onclick="switchToolsTab('sweet',this)" data-i18n="tt-sweet">Sweet-Spot</button>
+    <button class="asset-tab" onclick="switchToolsTab('monte',this)" data-i18n="tt-monte">Monte Carlo</button>
  </div>
 
  <!-- CALCULATORS -->
  <div class="asset-content active" id="tools-calc">
  <div class="tool-card">
- <div style="font-weight:700;margin-bottom:8px;">💱 Pip Calculator</div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="pip-calc-title">Pip Calculator</div>
  <div class="row-2">
- <div class="form-group"><label>Pair</label><select id="pip-pair" onchange="calcPip()"><option value="0.0001|100000">EUR/USD</option><option value="0.0001|100000">GBP/USD</option><option value="0.01|100000">USD/JPY</option><option value="0.0001|100000">AUD/USD</option><option value="0.0001|100000">USD/CAD</option><option value="0.01|100000">EUR/JPY</option></select></div>
+ <div class="form-group"><label data-i18n="j-pair-label">Jozi</label><select id="pip-pair" onchange="calcPip()"><option value="0.0001|100000">EUR/USD</option><option value="0.0001|100000">GBP/USD</option><option value="0.01|100000">USD/JPY</option><option value="0.0001|100000">AUD/USD</option><option value="0.0001|100000">USD/CAD</option><option value="0.01|100000">EUR/JPY</option></select></div>
  <div class="form-group"><label>Lot Size</label><input type="number" id="pip-lot" value="1" step="0.01" oninput="calcPip()"></div>
  </div>
  <div class="form-group"><label>Quote → USD rate</label><input type="number" id="pip-rate" value="1" step="0.001" oninput="calcPip()"></div>
@@ -742,7 +744,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  </div>
 
  <div class="tool-card">
- <div style="font-weight:700;margin-bottom:8px;"> Margin Calculator</div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="margin-calc-title">Kikokotoo cha Amana</div>
  <div class="row-2">
  <div class="form-group"><label>Lot Size</label><input type="number" id="mar-lot" value="1" step="0.01" oninput="calcMargin()"></div>
  <div class="form-group"><label>Leverage (1:X)</label><input type="number" id="mar-lev" value="500" oninput="calcMargin()"></div>
@@ -752,7 +754,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  </div>
 
  <div class="tool-card">
- <div style="font-weight:700;margin-bottom:8px;"> Swap / Rollover</div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="swap-calc-title">Kikokotoo cha Swap</div>
  <div class="row-2">
  <div class="form-group"><label>Lot Size</label><input type="number" id="sw-lot" value="1" step="0.01" oninput="calcSwap()"></div>
  <div class="form-group"><label>Swap rate/lot/usiku ($)</label><input type="number" id="sw-rate" value="-7.5" step="0.1" oninput="calcSwap()"></div>
@@ -763,7 +765,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
 
  <!-- Existing calculators duplicated for quick access -->
  <div class="tool-card">
- <div style="font-weight:700;margin-bottom:8px;"> Position Size</div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="pos-size-title">Kikokotoo cha Ukubwa wa Nafasi</div>
  <div class="row-2">
  <div class="form-group"><label>Balance ($)</label><input type="number" id="pos2-balance" value="1000" oninput="calcPosition2()"></div>
  <div class="form-group"><label>Risk %</label><input type="number" id="pos2-risk" value="1" step="0.1" oninput="calcPosition2()"></div>
@@ -776,13 +778,13 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <!-- ALERTS -->
  <div class="asset-content" id="tools-alerts">
  <div class="card">
- <div style="font-weight:700;margin-bottom:10px;" data-i18n="al-price-title"> Price Alerts</div>
+ <div style="font-weight:700;margin-bottom:10px;" data-i18n="al-price-title">Arifa za Bei</div>
  <div class="row-2">
  <div class="form-group"><label>Asset</label><input type="text" id="al-asset" placeholder="EUR/USD au BTC"></div>
  <div class="form-group"><label>Bei</label><input type="number" id="al-price" placeholder="1.0850" step="0.00001"></div>
  </div>
  <div class="row-2">
- <div class="form-group"><label>Sharti</label><select id="al-cond"><option value="above">Ikifika ↑ juu ya</option><option value="below">Ikishuka ↓ chini ya</option></select></div>
+ <div class="form-group"><label>Sharti</label><select id="al-cond"><option value="above" data-i18n-opt="al-above">Ikifika juu ya</option><option value="below" data-i18n-opt="al-below">Ikishuka chini ya</option></select></div>
  <div class="form-group"><label>Bei ya sasa</label><input type="number" id="al-current" placeholder="(hiari)" step="0.00001"></div>
  </div>
  <button class="btn btn-primary" style="width:100%;" onclick="addPriceAlert()" data-i18n="al-add">+ Ongeza Alert</button>
@@ -790,19 +792,19 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  </div>
 
  <div class="card">
- <div style="font-weight:700;margin-bottom:8px;" data-i18n="al-session-title"> Session Reminders</div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="al-session-title">Vikumbusho vya Kikao</div>
  <div style="font-size:0.7rem;color:var(--muted);margin-bottom:8px;" data-i18n="al-session-desc">Pata kengele dakika 30 kabla ya London (10:00 EAT) na New York (15:00 EAT).</div>
- <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" id="al-session-toggle" onchange="toggleSessionReminder()" style="width:18px;height:18px;accent-color:var(--accent);"><span data-i18n="al-session-enable">Wezesha Session Reminders</span></label>
+ <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" id="al-session-toggle" onchange="toggleSessionReminder()" style="width:18px;height:18px;accent-color:var(--accent);"><span data-i18n="al-session-enable">WezeshaVikumbusho vya Kikao</span></label>
  </div>
 
  <div class="card">
- <div style="font-weight:700;margin-bottom:8px;" data-i18n="al-div-title"> Dividend Alerts</div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="al-div-title">Arifa za Gawio</div>
  <div style="font-size:0.7rem;color:var(--muted);margin-bottom:8px;" data-i18n="al-div-desc">Kikumbusho siku 3 kabla ya ex-dividend date kwa stocks zako.</div>
- <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" id="al-div-toggle" onchange="toggleDivAlerts()" style="width:18px;height:18px;accent-color:var(--accent);"><span data-i18n="al-div-enable">Wezesha Dividend Alerts</span></label>
+ <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" id="al-div-toggle" onchange="toggleDivAlerts()" style="width:18px;height:18px;accent-color:var(--accent);"><span data-i18n="al-div-enable">WezeshaArifa za Gawio</span></label>
  </div>
 
  <div class="card">
- <div style="font-weight:700;margin-bottom:8px;" data-i18n="al-health-title"> Health Break Alerts</div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="al-health-title">Arifa za Kupumzika</div>
  <div style="font-size:0.7rem;color:var(--muted);margin-bottom:8px;" data-i18n="al-health-desc">"Pumzika macho dakika 5" kila baada ya dakika 45.</div>
  <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" id="al-health-toggle" onchange="toggleHealthAlerts()" style="width:18px;height:18px;accent-color:var(--accent);"><span data-i18n="al-health-enable">Wezesha Health Break</span></label>
  </div>
@@ -811,7 +813,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <!-- BROKERS -->
  <div class="asset-content" id="tools-brokers">
  <div class="card">
- <div style="font-weight:700;margin-bottom:10px;" data-i18n="br-accounts"> Multi-Account</div>
+ <div style="font-weight:700;margin-bottom:10px;" data-i18n="br-accounts">Akaunti Nyingi</div>
  <div class="row-2">
  <div class="form-group"><label>Broker</label><select id="br-name"><option>Exness</option><option>Deriv</option><option>XM</option><option>FBS</option><option>IC Markets</option><option>OctaFX</option><option>Other</option></select></div>
  <div class="form-group"><label>Account #</label><input type="text" id="br-account" placeholder="12345678"></div>
@@ -825,10 +827,10 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  </div>
 
  <div class="card">
- <div style="font-weight:700;margin-bottom:10px;" data-i18n="br-fees"> Broker Fee Tracker</div>
+ <div style="font-weight:700;margin-bottom:10px;" data-i18n="br-fees">Kifuatilio cha Gharama za Broker</div>
  <div class="row-2">
  <div class="form-group"><label>Broker</label><input type="text" id="bf-broker" placeholder="Exness"></div>
- <div class="form-group"><label>Pair</label><input type="text" id="bf-pair" placeholder="EUR/USD"></div>
+ <div class="form-group"><label data-i18n="j-pair-label">Jozi</label><input type="text" id="bf-pair" placeholder="EUR/USD"></div>
  </div>
  <div class="row-2">
  <div class="form-group"><label>Spread (pips)</label><input type="number" id="bf-spread" step="0.1" placeholder="1.2"></div>
@@ -839,7 +841,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  </div>
 
  <div class="card">
- <div style="font-weight:700;margin-bottom:8px;" data-i18n="br-import"> Import MT4/MT5 CSV</div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="br-import">Leta Data MT4/MT5 CSV</div>
  <div style="font-size:0.68rem;color:var(--muted);margin-bottom:8px;" data-i18n="br-import-desc">Paste statement CSV kutoka MetaTrader (headers: Date,Pair,Type,Lots,Profit).</div>
  <textarea id="br-import-text" rows="4" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px;color:var(--text);font-family:var(--font-mono);font-size:0.7rem;" placeholder="2024-01-15,EUR/USD,BUY,0.1,25.50"></textarea>
  <button class="btn btn-outline" style="width:100%;margin-top:8px;" onclick="importBrokerCSV()" data-i18n="br-do-import">Import kwenye Journal</button>
@@ -849,7 +851,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <!-- CURRENCY CONVERTER -->
  <div class="asset-content" id="tools-convert">
  <div class="tool-card">
- <div style="font-weight:700;margin-bottom:10px;">💱 Currency Converter</div>
+ <div style="font-weight:700;margin-bottom:10px;" data-i18n="cv-title">Kubadilisha Sarafu</div>
  <div class="form-group"><label>Kiasi</label><input type="number" id="cv-amount" value="100" oninput="doConvert()"></div>
  <div class="row-2">
  <div class="form-group"><label>Kutoka</label><select id="cv-from" onchange="doConvert()"><option value="USD">USD</option><option value="TZS">TZS</option><option value="KES">KES</option><option value="UGX">UGX</option><option value="RWF">RWF</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></div>
@@ -863,7 +865,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <!-- CORRELATION -->
  <div class="asset-content" id="tools-corr">
  <div class="card">
- <div style="font-weight:700;margin-bottom:8px;"> Currency Correlation Matrix</div>
+ <div style="font-weight:700;margin-bottom:8px;">Matrix ya Uhusiano wa Sarafu</div>
  <div style="font-size:0.65rem;color:var(--muted);margin-bottom:10px;">Pairs zinazoenda pamoja (+) au kinyume (−). Epuka double-risk.</div>
  <div id="corr-matrix" style="overflow-x:auto;"></div>
  </div>
@@ -887,7 +889,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div class="card">
  <div style="font-weight:700;margin-bottom:8px;" data-i18n="rp-title">Market Replay Simulator</div>
  <div class="row-2">
- <div class="form-group"><label>Pair</label><select id="rp-pair" onchange="initReplay()"><option value="EURUSD">EUR/USD</option><option value="GBPUSD">GBP/USD</option><option value="BTCUSD">BTC/USD</option></select></div>
+ <div class="form-group"><label data-i18n="j-pair-label">Jozi</label><select id="rp-pair" onchange="initReplay()"><option value="EURUSD">EUR/USD</option><option value="GBPUSD">GBP/USD</option><option value="BTCUSD">BTC/USD</option></select></div>
  <div class="form-group"><label>Speed</label><select id="rp-speed"><option value="800">1x</option><option value="400">2x</option><option value="150">5x</option></select></div>
  </div>
  <canvas id="rp-canvas" height="220" style="width:100%;background:var(--surface);border-radius:8px;"></canvas>
@@ -914,6 +916,31 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div id="dna-result" style="margin-top:14px;"></div>
  </div>
  </div>
+
+ <!-- SWEET-SPOT OPTIMIZER -->
+ <div class="asset-content" id="tools-sweet">
+ <div class="card">
+ <div style="font-weight:700;margin-bottom:6px;" data-i18n="sweet-title">Trading Sweet-Spot Optimizer</div>
+ <div style="font-size:0.68rem;color:var(--muted);margin-bottom:10px;" data-i18n="sweet-desc">Chambua saa na siku ambazo unafanya vizuri zaidi.</div>
+ <button class="btn btn-primary" style="width:100%;" onclick="runSweetSpot()" data-i18n="sweet-run">Chambua Wakati Bora</button>
+ <div id="sweet-result" style="margin-top:14px;"></div>
+ </div>
+ </div>
+
+ <!-- MONTE CARLO SIMULATION -->
+ <div class="asset-content" id="tools-monte">
+ <div class="card">
+ <div style="font-weight:700;margin-bottom:6px;" data-i18n="monte-title">Monte Carlo Simulation</div>
+ <div style="font-size:0.68rem;color:var(--muted);margin-bottom:10px;" data-i18n="monte-desc">Pima hatari ya mkakati wako kwa mfano wa kisayansi.</div>
+ <div class="row-2">
+ <div class="form-group"><label data-i18n="monte-sims">Idadi ya Mfano</label><input type="number" id="monte-sims-count" value="1000" step="100"></div>
+ <div class="form-group"><label data-i18n="monte-target">Lengo la Hasara Zaidi (%)</label><input type="number" id="monte-target-val" value="50" step="5"></div>
+ </div>
+ <button class="btn btn-primary" style="width:100%;" onclick="runMonteCarlo()" data-i18n="monte-run">Endesha Mfano</button>
+ <div id="monte-result" style="margin-top:14px;"></div>
+ <canvas id="monte-chart" style="display:none;"></canvas>
+ </div>
+ </div>
  </div>
 
 </div>
@@ -927,7 +954,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <button class="nav-item" onclick="goPage('settings',6)"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.11-1.56 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.56-1.11 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.01A1.7 1.7 0 0 0 10 3.09V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.01A1.7 1.7 0 0 0 20.91 10H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.56 1.03z"/></svg></span><span class="nav-label" data-i18n="nav-settings">Mipangilio</span></button>
 </nav>
 
-<div id="toast"><span id="t-icon">*</span><span id="t-msg"></span></div>
+<div id="toast"><span id="t-icon"></span><span id="t-msg"></span></div>
 
 <script>
 // ==================== GLOBAL STATE ====================
@@ -961,26 +988,26 @@ function getLocale(){ return LOCALE_MAP[currentLang] || 'en-US'; }
 function formatMoney(amount){ var cfg = CURRENCY_CONFIG[currentCurrency] || CURRENCY_CONFIG.USD; var v = parseFloat(amount) * cfg.rate; try { return new Intl.NumberFormat(getLocale(), { style:'currency', currency: cfg.code, maximumFractionDigits: currentCurrency==='USD'?2:0, minimumFractionDigits: currentCurrency==='USD'?2:0 }).format(v); } catch(_){ return cfg.symbol + ' ' + v.toLocaleString(getLocale(), { minimumFractionDigits: currentCurrency==='USD'?2:0 }); } }
 function formatDate(d, opts){ if(!d) return ''; var dt = (d instanceof Date) ? d : new Date(d); if(isNaN(dt)) return String(d); try { return new Intl.DateTimeFormat(getLocale(), opts || { year:'numeric', month:'short', day:'2-digit' }).format(dt); } catch(_){ return dt.toLocaleDateString(); } }
 function refreshLocaleViews(){ try { updateAllCharts(); renderJournal(); renderDividendTracker(); renderDividendCalendar(); } catch(_){} }
-function setCurrency(curr) { if (CURRENCY_CONFIG[curr]) { currentCurrency = curr; localStorage.setItem('preferredCurrency', curr); refreshLocaleViews(); toast((currentLang==='sw'?'Sarafu: ':'Currency: ') + curr, '*'); } }
+function setCurrency(curr) { if (CURRENCY_CONFIG[curr]) { currentCurrency = curr; localStorage.setItem('preferredCurrency', curr); refreshLocaleViews(); toast((currentLang==='sw'?'Sarafu: ':'Currency: ') + curr, ''); } }
 
 // ==================== PIN LOCK ====================
 var pinBuffer = '', MAX_PIN_ATTEMPTS = 5;
 var pinAttempts = parseInt(localStorage.getItem('pinAttempts') || '0');
 var pinLockUntil = parseInt(localStorage.getItem('pinLockUntil') || '0');
 function initPinSystem() { var hasPin = localStorage.getItem('appPin'); var lockScreen = document.getElementById('pin-lock'); if (!hasPin) { lockScreen.classList.add('unlocked'); setTimeout(function() { lockScreen.style.display = 'none'; }, 300); return; } if (Date.now() < pinLockUntil) { var minsLeft = Math.ceil((pinLockUntil - Date.now()) / 60000); document.getElementById('pin-msg').textContent = 'Imefungwa. Jaribu baada ya dk ' + minsLeft; document.getElementById('pin-keypad').style.pointerEvents = 'none'; document.getElementById('pin-keypad').style.opacity = '0.3'; return; } renderKeypad(); }
-function renderKeypad() { var keypad = document.getElementById('pin-keypad'); keypad.innerHTML = ''; [1,2,3,4,5,6,7,8,9].forEach(function(n) { var btn = document.createElement('div'); btn.className = 'pin-key'; btn.textContent = n; btn.onclick = function() { handlePinInput(n); }; keypad.appendChild(btn); }); var empty = document.createElement('div'); var zero = document.createElement('div'); zero.className = 'pin-key'; zero.textContent = '0'; zero.onclick = function() { handlePinInput(0); }; var del = document.createElement('div'); del.className = 'pin-key'; del.textContent = ''; del.onclick = function() { handlePinDelete(); }; keypad.append(empty, zero, del); }
+function renderKeypad() { var keypad = document.getElementById('pin-keypad'); keypad.innerHTML = ''; [1,2,3,4,5,6,7,8,9].forEach(function(n) { var btn = document.createElement('div'); btn.className = 'pin-key'; btn.textContent = n; btn.onclick = function() { handlePinInput(n); }; keypad.appendChild(btn); }); var empty = document.createElement('div'); var zero = document.createElement('div'); zero.className = 'pin-key'; zero.textContent = '0'; zero.onclick = function() { handlePinInput(0); }; var del = document.createElement('div'); del.className = 'pin-key'; del.textContent = '⌫'; del.onclick = function() { handlePinDelete(); }; keypad.append(empty, zero, del); }
 function handlePinInput(num) { if (pinBuffer.length >= 4) return; pinBuffer += num; updatePinDots(); if (pinBuffer.length === 4) verifyPin(); }
 function handlePinDelete() { pinBuffer = pinBuffer.slice(0, -1); updatePinDots(); document.getElementById('pin-msg').textContent = ''; }
 function updatePinDots() { document.querySelectorAll('.pin-dot').forEach(function(d, i) { d.classList.toggle('filled', i < pinBuffer.length); }); }
 function verifyPin() { var stored = localStorage.getItem('appPin'); if (pinBuffer === stored) { pinAttempts = 0; localStorage.setItem('pinAttempts', '0'); document.getElementById('pin-lock').classList.add('unlocked'); setTimeout(function() { document.getElementById('pin-lock').style.display = 'none'; }, 300); } else { pinAttempts++; localStorage.setItem('pinAttempts', pinAttempts.toString()); pinBuffer = ''; updatePinDots(); if (pinAttempts >= MAX_PIN_ATTEMPTS) { pinLockUntil = Date.now() + (5 * 60 * 1000); localStorage.setItem('pinLockUntil', pinLockUntil.toString()); location.reload(); } else { document.getElementById('pin-msg').textContent = 'PIN si sahihi (' + (MAX_PIN_ATTEMPTS - pinAttempts) + ' zilizobaki)'; if (navigator.vibrate) navigator.vibrate(200); } } }
-function setPin() { var pin = prompt('Weka PIN ya tarakimu 4:'); if (pin && /^\d{4}$/.test(pin)) { localStorage.setItem('appPin', pin); toast('PIN imewekwa!', '*'); } else if (pin !== null) toast('PIN lazima iwe tarakimu 4', '*'); }
-function removePin() { if (confirm('Ondoa PIN?')) { localStorage.removeItem('appPin'); toast('PIN imeondolewa', '*'); } }
+function setPin() { var pin = prompt('Weka PIN ya tarakimu 4:'); if (pin && /^\d{4}$/.test(pin)) { localStorage.setItem('appPin', pin); toast('PIN imewekwa!', ''); } else if (pin !== null) toast('PIN lazima iwe tarakimu 4', ''); }
+function removePin() { if (confirm('Ondoa PIN?')) { localStorage.removeItem('appPin'); toast('PIN imeondolewa', ''); } }
 
 // ==================== MIGRATION ====================
 function migrateData() { journalEntries = journalEntries.map(function(e) { return { mood: e.mood || 'neutral', strategy: e.strategy || '', screenshot: Array.isArray(e.screenshot) ? e.screenshot : (e.screenshot ? [e.screenshot] : []), pair: e.pair, type: e.type, pnl: e.pnl, sl: e.sl, tp: e.tp, session: e.session, time: e.time, notes: e.notes, checklist: e.checklist, mode: e.mode, date: e.date, market: e.market, id: e.id }; }); localStorage.setItem('journalEntries', JSON.stringify(journalEntries)); }
 
 // ==================== DATA ARCHIVE ====================
-function archiveOldData() { var threeMonthsAgo = new Date(); threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3); var recent = []; var archived = JSON.parse(localStorage.getItem('archivedTrades') || '[]'); journalEntries.forEach(function(e) { if (new Date(e.date) < threeMonthsAgo && e.type !== 'DIVIDEND') { archived.push(e); } else { recent.push(e); } }); if (archived.length > (JSON.parse(localStorage.getItem('archivedTrades') || '[]')).length) { localStorage.setItem('journalEntries', JSON.stringify(recent)); localStorage.setItem('archivedTrades', JSON.stringify(archived)); journalEntries = recent; updateAllCharts(); renderJournal(); toast(archived.length + ' trades zimehifadhiwa kwenye archive', '*'); } else { toast('Hakuna trades za zamani za kuhifadhi', '*'); } }
+function archiveOldData() { var threeMonthsAgo = new Date(); threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3); var recent = []; var archived = JSON.parse(localStorage.getItem('archivedTrades') || '[]'); journalEntries.forEach(function(e) { if (new Date(e.date) < threeMonthsAgo && e.type !== 'DIVIDEND') { archived.push(e); } else { recent.push(e); } }); if (archived.length > (JSON.parse(localStorage.getItem('archivedTrades') || '[]')).length) { localStorage.setItem('journalEntries', JSON.stringify(recent)); localStorage.setItem('archivedTrades', JSON.stringify(archived)); journalEntries = recent; updateAllCharts(); renderJournal(); toast(archived.length + ' trades zimehifadhiwa kwenye archive', ''); } else { toast('Hakuna trades za zamani za kuhifadhi', ''); } }
 
 // ==================== ADVANCED STATS ====================
 function calculateAdvancedStats() { var trades = journalEntries.filter(function(e) { return e.type !== 'DIVIDEND'; }); if (trades.length === 0) return null; var wins = trades.filter(function(t) { return parseFloat(t.pnl) > 0; }); var losses = trades.filter(function(t) { return parseFloat(t.pnl) < 0; }); var grossProfit = wins.reduce(function(s, t) { return s + parseFloat(t.pnl); }, 0); var grossLoss = Math.abs(losses.reduce(function(s, t) { return s + parseFloat(t.pnl); }, 0)); var avgWin = wins.length ? grossProfit / wins.length : 0; var avgLoss = losses.length ? grossLoss / losses.length : 0; var profitFactor = grossLoss > 0 ? (grossProfit / grossLoss).toFixed(2) : grossProfit > 0 ? '∞' : '0'; var winRate = wins.length / trades.length; var expectancy = ((winRate * avgWin) - ((1 - winRate) * avgLoss)).toFixed(2); var peak = 0, maxDD = 0, cumPnL = 0; trades.forEach(function(t) { cumPnL += parseFloat(t.pnl) || 0; if (cumPnL > peak) peak = cumPnL; var dd = peak - cumPnL; if (dd > maxDD) maxDD = dd; }); return { profitFactor: profitFactor, expectancy: expectancy, maxDD: maxDD.toFixed(2), avgWin: avgWin.toFixed(2), avgLoss: avgLoss.toFixed(2), totalTrades: trades.length }; }
@@ -1002,7 +1029,7 @@ setInterval(updateSessionClock, 60000);
 function calcKelly() { var wr = parseFloat(document.getElementById('kelly-wr').value) / 100 || 0; var rr = parseFloat(document.getElementById('kelly-rr').value) || 0; var kelly = (wr - ((1 - wr) / rr)) * 100; var el = document.getElementById('kelly-result'); el.textContent = (kelly > 0 ? kelly.toFixed(1) : '0') + '%'; el.style.color = kelly > 0 ? 'var(--green)' : 'var(--red)'; }
 
 // ==================== SCREENSHOTS ====================
-function handleScreenshotUpload(event) { var files = Array.from(event.target.files); if (pendingScreenshots.length + files.length > 3) { toast('Max picha 3 tu!', '*'); return; } files.forEach(function(file) { if (file.size > 3 * 1024 * 1024) { toast('Picha kubwa sana! Max 3MB', '*'); return; } var reader = new FileReader(); reader.onload = function(e) { var img = new Image(); img.onload = function() { var canvas = document.createElement('canvas'); var maxW = 400, maxH = 300; var ratio = Math.min(maxW / img.width, maxH / img.height, 1); canvas.width = img.width * ratio; canvas.height = img.height * ratio; var ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, canvas.width, canvas.height); pendingScreenshots.push(canvas.toDataURL('image/jpeg', 0.5)); renderScreenshotPreviews(); }; img.src = e.target.result; }; reader.readAsDataURL(file); }); event.target.value = ''; }
+function handleScreenshotUpload(event) { var files = Array.from(event.target.files); if (pendingScreenshots.length + files.length > 3) { toast('Max picha 3 tu!', ''); return; } files.forEach(function(file) { if (file.size > 3 * 1024 * 1024) { toast('Picha kubwa sana! Max 3MB', ''); return; } var reader = new FileReader(); reader.onload = function(e) { var img = new Image(); img.onload = function() { var canvas = document.createElement('canvas'); var maxW = 400, maxH = 300; var ratio = Math.min(maxW / img.width, maxH / img.height, 1); canvas.width = img.width * ratio; canvas.height = img.height * ratio; var ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, canvas.width, canvas.height); pendingScreenshots.push(canvas.toDataURL('image/jpeg', 0.5)); renderScreenshotPreviews(); }; img.src = e.target.result; }; reader.readAsDataURL(file); }); event.target.value = ''; }
 function renderScreenshotPreviews() { var container = document.getElementById('screenshot-preview-container'); container.innerHTML = pendingScreenshots.map(function(src, idx) { return '<div style="position:relative;display:inline-block;margin:4px;"><img src="' + src + '" style="width:80px;height:80px;object-fit:cover;border-radius:8px;"><button onclick="removeScreenshot(' + idx + ')" class="screenshot-remove">X</button></div>'; }).join(''); container.style.display = pendingScreenshots.length ? 'flex' : 'none'; if (pendingScreenshots.length === 0) document.getElementById('screenshot-placeholder').style.display = 'block'; else document.getElementById('screenshot-placeholder').style.display = 'none'; }
 function removeScreenshot(idx) { pendingScreenshots.splice(idx, 1); renderScreenshotPreviews(); }
 
@@ -1014,7 +1041,7 @@ const appTranslations = {
  "tab-profile":"Wasifu","tab-security":"Usalama","tab-theme":"Mandhari","tab-currency":"Sarafu","tab-lang":"Lugha","tab-data":"Data","tab-about":"Kuhusu",
  "tab-fx":"Forex","tab-syn":"Synthetic","tab-stocks":"Hisa","tab-crypto":"Crypto",
  "tab-courses":"Masomo","tab-quiz":"Jaribio","tab-journal":"Jarida","tab-dividends":"Gawio","tab-tools":"Vifaa","tab-psych":"Saikolojia","tab-chal":"Changamoto",
- "tt-chartai":"Chart AI","tt-replay":"Replay","tt-dna":"DNA",
+ "tt-chartai":"Chart AI","tt-replay":"Replay","tt-dna":"DNA","tt-sweet":"Sweet-Spot","tt-monte":"Monte Carlo",
  "ai-title":"Chart AI Analyzer","ai-desc":"Pakia screenshot ya chart. Mfumo unachambua wenyewe (rangi, mwelekeo wa candles) bila kutuma intaneti.","ai-upload":"Pakia Picha ya Chart","ai-save":"Hifadhi kama Trade Idea",
  "rp-title":"Market Replay Simulator","rp-close":"Funga","rp-next":"Inayofuata","rp-auto":"Auto","rp-reset":"Anza Upya",
  "dna-title":"Trading DNA","dna-desc":"Uchambuzi wa tabia yako kutoka journal yako.","dna-run":"Chambua DNA Yangu",
@@ -1028,18 +1055,38 @@ const appTranslations = {
  "syn-deriv":"Synthetic Indices (Deriv)",
  "btn-set-pin":"Weka PIN","btn-remove-pin":"Ondoa PIN","btn-save-theme":"Hifadhi Mandhari",
  "btn-export":"Hamisha Data Yote (JSON)","btn-import":"Leta Data","btn-archive":"Hifadhi Trades za Zamani (3+ miezi)","btn-delete-all":"Futa Data Yote",
- "nav-tools":"Vifaa","pg-tools":" Vifaa vya Biashara",
+ "nav-tools":"Vifaa","pg-tools":"Vifaa vya Biashara",
  "tt-calc":"Calculators","tt-alerts":"Alerts","tt-brokers":"Brokers","tt-convert":"Convert","tt-corr":"Correlation",
- "card-alerts":" Alerts za Bei","btn-manage":"Simamia",
- "al-price-title":" Price Alerts","al-add":"+ Ongeza Alert",
- "al-session-title":" Session Reminders","al-session-desc":"Pata kengele dakika 30 kabla ya London (10:00 EAT) na New York (15:00 EAT).","al-session-enable":"Wezesha Session Reminders",
- "al-div-title":" Dividend Alerts","al-div-desc":"Kikumbusho siku 3 kabla ya ex-dividend date kwa stocks zako.","al-div-enable":"Wezesha Dividend Alerts",
- "al-health-title":" Health Break Alerts","al-health-desc":"\"Pumzika macho dakika 5\" kila baada ya dakika 45.","al-health-enable":"Wezesha Health Break",
- "br-accounts":" Multi-Account","br-add":"+ Ongeza Account","br-fees":" Broker Fee Tracker","br-add-fee":"+ Rekodi Gharama",
- "br-import":" Import MT4/MT5 CSV","br-import-desc":"Paste statement CSV kutoka MetaTrader (headers: Date,Pair,Type,Lots,Profit).","br-do-import":"Import kwenye Journal",
+ "card-alerts":"Arifa za Bei","btn-manage":"Simamia",
+ "al-price-title":"Arifa za Bei","al-add":"+ Ongeza Alert",
+ "al-session-title":"Vikumbusho vya Kikao","al-session-desc":"Pata kengele dakika 30 kabla ya London (10:00 EAT) na New York (15:00 EAT).","al-session-enable":"WezeshaVikumbusho vya Kikao",
+ "al-div-title":"Arifa za Gawio","al-div-desc":"Kikumbusho siku 3 kabla ya ex-dividend date kwa stocks zako.","al-div-enable":"WezeshaArifa za Gawio",
+ "al-health-title":"Arifa za Kupumzika","al-health-desc":"\"Pumzika macho dakika 5\" kila baada ya dakika 45.","al-health-enable":"Wezesha Health Break",
+ "br-accounts":"Akaunti Nyingi","br-add":"+ Ongeza Account","br-fees":"Kifuatilio cha Gharama za Broker","br-add-fee":"+ Rekodi Gharama",
+ "br-import":"Leta Data MT4/MT5 CSV","br-import-desc":"Paste statement CSV kutoka MetaTrader (headers: Date,Pair,Type,Lots,Profit).","br-do-import":"Import kwenye Journal",
  "btn-export-csv":" Export Trades (CSV/Excel)",
- "card-stealth":" Stealth Mode","stealth-desc":"App ionekane kama calculator. PIN yako ya siri inaifungua kurudi NexaTrade.","stealth-enable":"Wezesha Stealth Mode",
- "tg-msg":"Lugha imebadilishwa!"
+ "card-stealth":"Hali ya Siri","stealth-desc":"App ionekane kama calculator. PIN yako ya siri inaifungua kurudi NexaTrade.","stealth-enable":"WezeshaHali ya Siri",
+ "tg-msg":"Lugha imebadilishwa!",
+ "pip-calc-title":"Kikokotoo cha Pip","margin-calc-title":"Kikokotoo cha Amana","swap-calc-title":"Kikokotoo cha Swap",
+ "pos-size-title":"Kikokotoo cha Ukubwa wa Nafasi","kelly-title":"Kigezo cha Kelly","dd-sim-title":"Mfano wa Kupungua",
+ "compound-title":"Kikokotoo cha Ukuaji","cv-title":"Kubadilisha Sarafu","corr-title":"Matrix ya Uhusiano",
+ "sweet-title":"Optimizer ya Wakati Bora","monte-title":"Mfano wa Monte Carlo",
+ "sweet-desc":"Chambua saa na siku ambazo unafanya vizuri zaidi.","monte-desc":"Pima hatari ya mkakati wako kwa mfano wa kisayansi.",
+ "sweet-run":"Chambua Wakati Bora","monte-run":"Endesha Mfano",
+ "monte-sims":"Idadi ya Mfano","monte-target":"Lengo la Hasara Zaidi (%)",
+ "profile-no-name":"Jina halijawekwa","btn-live":"Biashara Halisi","btn-demo":"Biashara ya Mazoezi",
+ "fx-form-title":"Mpango Mpya wa Forex","fx-pair-label":"Jozi","fx-strat-label":"Mkakati",
+ "fx-tf-label":"Muda","fx-bias-label":"Mwelekeo","fx-entry-label":"Bei ya Kuingia",
+ "fx-risk-label":"Hatari (%)","fx-sl-label":"Kizuizi cha Hasara","fx-tp-label":"Lengo la Faida",
+ "fx-note-label":"Maelezo","fx-save":"Hifadhi Mpango",
+ "al-asset-label":"Mali","al-price-label":"Bei","al-cond-label":"Sharti",
+ "al-current-label":"Bei ya Sasa","al-above":"Ikifika juu ya","al-below":"Ikishuka chini ya",
+ "br-broker-label":"Broker","br-account-label":"Namba ya Akaunti","br-balance-label":"Salio ($)",
+ "br-type-label":"Aina","chart-line":"Mstari","chart-bar":"Mhimili","report-empty":"Rekodi trades kuona ripoti yako",
+ "div-no-upcoming":"Hakuna gawio linalokuja","econ-loading":"Inapakia...",
+ "j-market-label":"Soko","j-pair-label":"Jozi","j-type-label":"Aina","j-pnl-label":"Matokeo ($)",
+ "j-sl-label":"Kizuizi cha Hasara","j-tp-label":"Lengo la Faida","j-notes-label":"Maelezo",
+ "delete-confirm":"Futa?","export-success":"Data imehamishwa!","import-success":"Data imeingizwa!"
  },
  en: {
  "nav-home":"Home","nav-academy":"Academy","nav-assets":"Assets","nav-coach":"Coach","nav-settings":"Settings",
@@ -1047,7 +1094,7 @@ const appTranslations = {
  "tab-profile":"Profile","tab-security":"Security","tab-theme":"Theme","tab-currency":"Currency","tab-lang":"Language","tab-data":"Data","tab-about":"About",
  "tab-fx":"Forex","tab-syn":"Synthetic","tab-stocks":"Stocks","tab-crypto":"Crypto",
  "tab-courses":"Courses","tab-quiz":"Quiz","tab-journal":"Journal","tab-dividends":"Dividends","tab-tools":"Tools","tab-psych":"Psychology","tab-chal":"Challenges",
- "tt-chartai":"Chart AI","tt-replay":"Replay","tt-dna":"DNA",
+ "tt-chartai":"Chart AI","tt-replay":"Replay","tt-dna":"DNA","tt-sweet":"Sweet-Spot","tt-monte":"Monte Carlo",
  "ai-title":"Chart AI Analyzer","ai-desc":"Upload a chart screenshot. The system analyses it locally (colors, candle direction) without sending anything online.","ai-upload":"Upload Chart Image","ai-save":"Save as Trade Idea",
  "rp-title":"Market Replay Simulator","rp-close":"Close","rp-next":"Next","rp-auto":"Auto","rp-reset":"Restart",
  "dna-title":"Trading DNA","dna-desc":"Analysis of your behavior from your journal.","dna-run":"Analyze My DNA",
@@ -1061,18 +1108,38 @@ const appTranslations = {
  "syn-deriv":"Synthetic Indices (Deriv)",
  "btn-set-pin":"Set PIN","btn-remove-pin":"Remove PIN","btn-save-theme":"Save Theme",
  "btn-export":"Export All Data (JSON)","btn-import":"Import Data","btn-archive":"Archive Old Trades (3+ months)","btn-delete-all":"Delete All Data",
- "nav-tools":"Tools","pg-tools":" Trading Tools",
+ "nav-tools":"Tools","pg-tools":"Trading Tools",
  "tt-calc":"Calculators","tt-alerts":"Alerts","tt-brokers":"Brokers","tt-convert":"Convert","tt-corr":"Correlation",
- "card-alerts":" Price Alerts","btn-manage":"Manage",
- "al-price-title":" Price Alerts","al-add":"+ Add Alert",
- "al-session-title":" Session Reminders","al-session-desc":"Get an alert 30 min before London (10:00 EAT) and New York (15:00 EAT) open.","al-session-enable":"Enable Session Reminders",
- "al-div-title":" Dividend Alerts","al-div-desc":"Reminder 3 days before ex-dividend dates for your stocks.","al-div-enable":"Enable Dividend Alerts",
- "al-health-title":" Health Break Alerts","al-health-desc":"\"Rest your eyes 5 min\" every 45 minutes.","al-health-enable":"Enable Health Break",
- "br-accounts":" Multi-Account","br-add":"+ Add Account","br-fees":" Broker Fee Tracker","br-add-fee":"+ Record Fee",
- "br-import":" Import MT4/MT5 CSV","br-import-desc":"Paste MetaTrader statement CSV (headers: Date,Pair,Type,Lots,Profit).","br-do-import":"Import to Journal",
+ "card-alerts":"Price Alerts","btn-manage":"Manage",
+ "al-price-title":"Price Alerts","al-add":"+ Add Alert",
+ "al-session-title":"Session Reminders","al-session-desc":"Get an alert 30 min before London (10:00 EAT) and New York (15:00 EAT) open.","al-session-enable":"Enable Session Reminders",
+ "al-div-title":"Dividend Alerts","al-div-desc":"Reminder 3 days before ex-dividend dates for your stocks.","al-div-enable":"Enable Dividend Alerts",
+ "al-health-title":"Break Reminders","al-health-desc":"\"Rest your eyes 5 min\" every 45 minutes.","al-health-enable":"Enable Health Break",
+ "br-accounts":"Multi Accounts","br-add":"+ Add Account","br-fees":"Broker Fee Tracker","br-add-fee":"+ Record Fee",
+ "br-import":"Import MT4/MT5 CSV","br-import-desc":"Paste MetaTrader statement CSV (headers: Date,Pair,Type,Lots,Profit).","br-do-import":"Import to Journal",
  "btn-export-csv":" Export Trades (CSV/Excel)",
- "card-stealth":" Stealth Mode","stealth-desc":"App appears as a calculator. Your secret PIN unlocks back to NexaTrade.","stealth-enable":"Enable Stealth Mode",
- "tg-msg":"Language changed!"
+ "card-stealth":"Stealth Mode","stealth-desc":"App appears as a calculator. Your secret PIN unlocks back to NexaTrade.","stealth-enable":"Enable Stealth Mode",
+ "tg-msg":"Language changed!",
+ "pip-calc-title":"Pip Calculator","margin-calc-title":"Margin Calculator","swap-calc-title":"Swap / Rollover Calculator",
+ "pos-size-title":"Position Size Calculator","kelly-title":"Kelly Criterion","dd-sim-title":"Drawdown Simulator",
+ "compound-title":"Compound Calculator","cv-title":"Currency Converter","corr-title":"Correlation Matrix",
+ "sweet-title":"Trading Sweet-Spot Optimizer","monte-title":"Monte Carlo Simulation",
+ "sweet-desc":"Analyze which hours and days you perform best.","monte-desc":"Test your strategy risk with a scientific simulation.",
+ "sweet-run":"Analyze Best Time","monte-run":"Run Simulation",
+ "monte-sims":"Number of Simulations","monte-target":"Max Loss Target (%)",
+ "profile-no-name":"Name not set","btn-live":"Live Trading","btn-demo":"Paper Trading",
+ "fx-form-title":"New Forex Plan","fx-pair-label":"Pair","fx-strat-label":"Strategy",
+ "fx-tf-label":"Timeframe","fx-bias-label":"Bias","fx-entry-label":"Entry Price",
+ "fx-risk-label":"Risk (%)","fx-sl-label":"Stop Loss","fx-tp-label":"Take Profit",
+ "fx-note-label":"Notes","fx-save":"Save Plan",
+ "al-asset-label":"Asset","al-price-label":"Price","al-cond-label":"Condition",
+ "al-current-label":"Current Price","al-above":"When price rises above","al-below":"When price drops below",
+ "br-broker-label":"Broker","br-account-label":"Account Number","br-balance-label":"Balance ($)",
+ "br-type-label":"Type","chart-line":"Line","chart-bar":"Bar","report-empty":"Record trades to see your report",
+ "div-no-upcoming":"No upcoming dividends","econ-loading":"Loading...",
+ "j-market-label":"Market","j-pair-label":"Pair","j-type-label":"Type","j-pnl-label":"Result ($)",
+ "j-sl-label":"Stop Loss","j-tp-label":"Take Profit","j-notes-label":"Notes",
+ "delete-confirm":"Delete?","export-success":"Data exported!","import-success":"Data imported!"
  }
 };
 
@@ -1098,7 +1165,7 @@ function changeAppLanguage(lang) {
  try { renderCoursesList(); } catch(_){}
  try { if(document.getElementById('acad-quiz') && document.getElementById('acad-quiz').classList.contains('active')) restartQuiz(); else { quizPool=[]; quizIdx=0; quizScore=0; } } catch(_){}
  try { if(document.getElementById('lesson-modal') && document.getElementById('lesson-modal').style.display !== 'none') renderLessonStep(); } catch(_){}
- toast(t["tg-msg"] || 'OK', '*');
+ toast(t["tg-msg"] || 'OK', '');
 }
 
 // ==================== CHART FUNCTIONS ====================
@@ -1111,7 +1178,7 @@ function renderRiskRewardChart(canvasId, chartInstance, entry, sl, tp, assetName
  if (chartInstance) chartInstance.destroy();
 
  return new Chart(ctx, {
- type: 'bar',
+ type: 'line',
  data: {
  labels: ['Risk (Hasara)', 'Reward (Faida)'],
  datasets: [{
@@ -1148,7 +1215,7 @@ function saveFXPlan() {
  let tp = parseFloat(document.getElementById('fx-tp').value);
  let risk = parseFloat(document.getElementById('fx-risk').value) || 1;
 
- if(!entry || !sl || !tp) return toast('Jaza Entry, SL na TP!', '*');
+ if(!entry || !sl || !tp) return toast('Jaza Entry, SL na TP!', '');
 
  let plan = { id, pair, strategy, entry, sl, tp, risk };
  fxPlans = fxPlans.filter(p => p.id !== id);
@@ -1158,7 +1225,7 @@ function saveFXPlan() {
  currentFxChart = renderRiskRewardChart('fxChart', currentFxChart, entry, sl, tp, pair);
  renderFXPlansList();
  cancelFXForm();
- toast('Mpango umehifadhiwa!', '*');
+ toast('Mpango umehifadhiwa!', '');
 }
 function renderFXPlansList() {
  const list = document.getElementById('fx-plan-list');
@@ -1224,14 +1291,14 @@ function saveSyntheticPlan() {
  let lot = parseFloat(document.getElementById('syn-lot').value) || 0.001;
  let sl = parseFloat(document.getElementById('syn-sl').value) || 0;
  let tp = parseFloat(document.getElementById('syn-tp').value) || 0;
- if(!index) return toast('Ingiza Index!', '*');
+ if(!index) return toast('Ingiza Index!', '');
  let plan = { id, index, lot, sl, tp };
  synPlans = synPlans.filter(p => p.id !== id);
  synPlans.unshift(plan);
  localStorage.setItem('synPlans', JSON.stringify(synPlans));
  renderSyntheticPlansList();
  cancelSyntheticForm();
- toast('Mpango wa Synthetic umehifadhiwa!', '*');
+ toast('Mpango wa Synthetic umehifadhiwa!', '');
 }
 function renderSyntheticPlansList() {
  const list = document.getElementById('synthetic-plan-list');
@@ -1287,14 +1354,14 @@ function saveStocksPlan() {
  let shares = parseInt(document.getElementById('stock-shares').value) || 0;
  let entry = parseFloat(document.getElementById('stock-entry').value) || 0;
  let target = parseFloat(document.getElementById('stock-target').value) || 0;
- if(!ticker || shares <= 0) return toast('Jaza Ticker na Shares!', '*');
+ if(!ticker || shares <= 0) return toast('Jaza Ticker na Shares!', '');
  let plan = { id, ticker, shares, entry, target };
  stocksPlans = stocksPlans.filter(p => p.id !== id);
  stocksPlans.unshift(plan);
  localStorage.setItem('stocksPlans', JSON.stringify(stocksPlans));
  renderStocksPlansList();
  cancelStocksForm();
- toast('Mpango wa Hisa umehifadhiwa!', '*');
+ toast('Mpango wa Hisa umehifadhiwa!', '');
 }
 function renderStocksPlansList() {
  const list = document.getElementById('stocks-plan-list');
@@ -1353,14 +1420,14 @@ function saveCryptoPlan() {
  let leverage = parseFloat(document.getElementById('crypto-leverage').value) || 1;
  let sl = parseFloat(document.getElementById('crypto-sl').value) || 0;
  let tp = parseFloat(document.getElementById('crypto-tp').value) || 0;
- if(!coin || amount <= 0) return toast('Jaza Coin na Amount!', '*');
+ if(!coin || amount <= 0) return toast('Jaza Coin na Amount!', '');
  let plan = { id, coin, amount, entry, leverage, sl, tp };
  cryptoPlans = cryptoPlans.filter(p => p.id !== id);
  cryptoPlans.unshift(plan);
  localStorage.setItem('cryptoPlans', JSON.stringify(cryptoPlans));
  renderCryptoPlansList();
  cancelCryptoForm();
- toast('Mpango wa Crypto umehifadhiwa!', '*');
+ toast('Mpango wa Crypto umehifadhiwa!', '');
 }
 function renderCryptoPlansList() {
  const list = document.getElementById('crypto-plan-list');
@@ -1447,12 +1514,26 @@ function switchSettingsTab(tab, el) {
  document.getElementById('settings-' + tab).classList.add('active'); 
 }
 var tTimer; 
-function toast(msg, icon) { clearTimeout(tTimer); document.getElementById('t-msg').textContent = msg; document.getElementById('t-icon').textContent = icon || '*'; document.getElementById('toast').classList.add('show'); tTimer = setTimeout(function() { document.getElementById('toast').classList.remove('show'); }, 2800); }
+function toast(msg, icon) { clearTimeout(tTimer); document.getElementById('t-msg').textContent = msg; document.getElementById('t-icon').textContent = icon || ''; document.getElementById('toast').classList.add('show'); tTimer = setTimeout(function() { document.getElementById('toast').classList.remove('show'); }, 2800); }
 function getActiveEntries() { return journalMode === 'demo' ? demoEntries : journalEntries; }
 function getActiveStorageKey() { return journalMode === 'demo' ? 'demoEntries' : 'journalEntries'; }
 function setJournalMode(mode) { journalMode = mode; document.getElementById('mode-live-btn').className = mode === 'live' ? 'btn btn-primary btn-sm' : 'btn btn-outline btn-sm'; document.getElementById('mode-demo-btn').className = mode === 'demo' ? 'btn btn-primary btn-sm' : 'btn btn-outline btn-sm'; renderJournal(); updateAllCharts(); }
 function setTradeStatus(s){ document.getElementById('j-status').value = s; document.querySelectorAll('#j-status-row button').forEach(function(b){ var on = b.getAttribute('data-status')===s; b.classList.toggle('btn-primary', on); b.classList.toggle('btn-outline', !on); }); var pnlEl = document.getElementById('j-pnl'); var v = parseFloat((pnlEl.value||'').replace(/[^0-9.\-]/g,''))||0; var abs = Math.abs(v); if(s==='WIN'){ pnlEl.value = abs>0?('+'+abs):''; pnlEl.placeholder = 'Kiasi cha faida (+)'; } else if(s==='LOSS'){ pnlEl.value = abs>0?('-'+abs):''; pnlEl.placeholder = 'Kiasi cha hasara (kitabadilishwa kuwa hasi)'; } else if(s==='BE'){ pnlEl.value = '0'; pnlEl.placeholder = 'Break Even'; } document.getElementById('j-mistake-group').style.display = (s==='LOSS')?'block':'none'; }
 function syncStatusFromPnl(){ var v = parseFloat((document.getElementById('j-pnl').value||'').replace(/[^0-9.\-]/g,'')); if(isNaN(v)) return; var s = v>0?'WIN':(v<0?'LOSS':'BE'); document.getElementById('j-status').value = s; document.querySelectorAll('#j-status-row button').forEach(function(b){ var on=b.getAttribute('data-status')===s; b.classList.toggle('btn-primary',on); b.classList.toggle('btn-outline',!on); }); document.getElementById('j-mistake-group').style.display = (s==='LOSS')?'block':'none'; }
+function isRevengeBlocked() {
+    var until = parseInt(localStorage.getItem('revengeBlockedUntil') || '0');
+    if (Date.now() < until) return true;
+    var today = new Date().toISOString().split('T')[0];
+    var todays = journalEntries.filter(function(e) { 
+        return e.date === today && e.type !== 'DIVIDEND'; 
+    }).slice(0, 3);
+    if (todays.length === 3 && todays.every(function(t) { return parseFloat(t.pnl) < 0; })) {
+        var u = Date.now() + (30 * 60 * 1000);
+        localStorage.setItem('revengeBlockedUntil', u);
+        return true;
+    }
+    return false;
+}
 function saveJournalEntry() { 
  if(isRevengeBlocked()){ toast(currentLang==='sw'?'Umezuiwa! Pumzika kwanza (Revenge Blocker).':'Blocked! Take a break (Revenge Blocker).',''); return; }
  var checklistScore = ['chk-plan','chk-rsi','chk-news','chk-sl','chk-tp'].filter(function(id) { return document.getElementById(id).checked; }).length; 
@@ -1464,7 +1545,7 @@ function saveJournalEntry() {
  pendingScreenshots = []; renderScreenshotPreviews(); 
  document.getElementById('pre-trade-checklist').style.display = 'none'; 
  document.getElementById('journal-form').style.display = 'none'; 
- renderJournal(); updateAllCharts(); markDailyStreak(); checkChallengeProgress(); toast('Trade saved!', '*'); 
+ renderJournal(); updateAllCharts(); markDailyStreak(); checkChallengeProgress(); toast('Trade saved!', ''); 
 }
 function renderJournal() { 
  var container = document.getElementById('journal-entries'), stats = document.getElementById('journal-stats'); 
@@ -1493,15 +1574,15 @@ function updateChecklistScore() { var checked = ['chk-plan','chk-rsi','chk-news'
 document.addEventListener('change', function(e) { if (e.target.id && e.target.id.startsWith('chk-')) updateChecklistScore(); });
 
 // ==================== DIVIDEND SYSTEM ====================
-function addDividendStock() { var ticker = document.getElementById('div-ticker').value.trim().toUpperCase(); var company = document.getElementById('div-company').value.trim(); var shares = parseInt(document.getElementById('div-shares').value) || 0; var amount = parseFloat(document.getElementById('div-amount').value) || 0; if (!ticker || !company || shares <= 0) return toast('Jaza ticker, company, na shares!', '*'); var entry = { id: Date.now(), ticker: ticker, company: company, shares: shares, amountPerShare: amount, country: document.getElementById('div-country').value, taxRate: parseFloat(document.getElementById('div-tax').value) || 0, frequency: document.getElementById('div-frequency').value, nextPayDate: document.getElementById('div-next-date').value || new Date().toISOString().split('T')[0] }; dividendTracker.push(entry); localStorage.setItem('dividendTracker', JSON.stringify(dividendTracker)); ['div-ticker','div-company','div-shares','div-amount'].forEach(function(id) { document.getElementById(id).value = ''; }); document.getElementById('div-tax').value = '15'; renderDividendTracker(); renderDividendCalendar(); initTaxReportYears(); toast('Dividend stock added!', '*'); }
+function addDividendStock() { var ticker = document.getElementById('div-ticker').value.trim().toUpperCase(); var company = document.getElementById('div-company').value.trim(); var shares = parseInt(document.getElementById('div-shares').value) || 0; var amount = parseFloat(document.getElementById('div-amount').value) || 0; if (!ticker || !company || shares <= 0) return toast('Jaza ticker, company, na shares!', ''); var entry = { id: Date.now(), ticker: ticker, company: company, shares: shares, amountPerShare: amount, country: document.getElementById('div-country').value, taxRate: parseFloat(document.getElementById('div-tax').value) || 0, frequency: document.getElementById('div-frequency').value, nextPayDate: document.getElementById('div-next-date').value || new Date().toISOString().split('T')[0] }; dividendTracker.push(entry); localStorage.setItem('dividendTracker', JSON.stringify(dividendTracker)); ['div-ticker','div-company','div-shares','div-amount'].forEach(function(id) { document.getElementById(id).value = ''; }); document.getElementById('div-tax').value = '15'; renderDividendTracker(); renderDividendCalendar(); initTaxReportYears(); toast('Dividend stock added!', ''); }
 function receiveDividend(id) { var stock = dividendTracker.find(function(d) { return d.id === id; }); if (!stock) return; var grossAmount = stock.shares * stock.amountPerShare; var netAmount = grossAmount * (1 - stock.taxRate / 100); recordDividendToJournal(stock.ticker, netAmount, grossAmount, stock.taxRate); }
-function recordDividendToJournal(ticker, netAmount, grossAmount, taxRate) { var today = new Date().toISOString().split('T')[0]; var pairTag = ticker + '-DIV'; var alreadyReceived = journalEntries.some(function(e) { return e.pair === pairTag && e.date === today; }); if (alreadyReceived) { toast('Dividend ya ' + ticker + ' tayari imepokelewa leo!', '*'); return; } var entry = { id: Date.now(), market: 'Stocks', pair: pairTag, type: 'DIVIDEND', sl: '', tp: '', pnl: netAmount.toFixed(2), session: '', time: '', mood: 'neutral', strategy: '', screenshot: '[]', notes: 'Dividend ya ' + ticker + '. Gross: $' + grossAmount.toFixed(2) + ' | Kodi (' + taxRate + '%): -$' + (grossAmount - netAmount).toFixed(2) + ' | Net: $' + netAmount.toFixed(2), checklist: 5, mode: 'live', date: today }; journalEntries.unshift(entry); localStorage.setItem('journalEntries', JSON.stringify(journalEntries)); renderJournal(); updateAllCharts(); renderDividendCalendar(); initTaxReportYears(); toast('Dividend ya ' + ticker + ' imepokelewa!', '*'); }
+function recordDividendToJournal(ticker, netAmount, grossAmount, taxRate) { var today = new Date().toISOString().split('T')[0]; var pairTag = ticker + '-DIV'; var alreadyReceived = journalEntries.some(function(e) { return e.pair === pairTag && e.date === today; }); if (alreadyReceived) { toast('Dividend ya ' + ticker + ' tayari imepokelewa leo!', ''); return; } var entry = { id: Date.now(), market: 'Stocks', pair: pairTag, type: 'DIVIDEND', sl: '', tp: '', pnl: netAmount.toFixed(2), session: '', time: '', mood: 'neutral', strategy: '', screenshot: '[]', notes: 'Dividend ya ' + ticker + '. Gross: $' + grossAmount.toFixed(2) + ' | Kodi (' + taxRate + '%): -$' + (grossAmount - netAmount).toFixed(2) + ' | Net: $' + netAmount.toFixed(2), checklist: 5, mode: 'live', date: today }; journalEntries.unshift(entry); localStorage.setItem('journalEntries', JSON.stringify(journalEntries)); renderJournal(); updateAllCharts(); renderDividendCalendar(); initTaxReportYears(); toast('Dividend ya ' + ticker + ' imepokelewa!', ''); }
 function deleteDividendStock(id) { if (confirm('Futa stock hii?')) { dividendTracker = dividendTracker.filter(function(d) { return d.id !== id; }); localStorage.setItem('dividendTracker', JSON.stringify(dividendTracker)); renderDividendTracker(); renderDividendCalendar(); initTaxReportYears(); } }
 function renderDividendTracker() { var c = document.getElementById('dividend-tracker-list'); if (dividendTracker.length === 0) { c.innerHTML = '<div style="text-align:center;padding:16px;color:var(--muted);">Bado huna dividend stocks</div>'; return; } c.innerHTML = dividendTracker.map(function(d) { var gross = (d.shares * d.amountPerShare).toFixed(2); var net = (gross * (1 - d.taxRate / 100)).toFixed(2); return '<div class="div-tracker-item"><div class="plan-list-info"><div class="plan-list-title">' + d.ticker + ' - ' + d.company + '</div><div class="plan-list-sub">Net: ' + formatMoney(net) + ' | Tax: ' + d.taxRate + '% | ' + d.frequency + '</div></div><div class="plan-list-actions"><button class="btn btn-gold btn-sm" onclick="receiveDividend(' + d.id + ')">Receive</button><button class="btn btn-danger btn-sm" onclick="deleteDividendStock(' + d.id + ')">X</button></div></div>'; }).join(''); }
 function renderDividendCalendar() { var el = document.getElementById('dividend-calendar'); if (!el) return; if (dividendTracker.length === 0) { el.innerHTML = (currentLang==='sw'?'Hakuna gawio linalokuja':'No upcoming dividends'); return; } var html = ''; dividendTracker.sort(function(a, b) { return new Date(a.nextPayDate) - new Date(b.nextPayDate); }).forEach(function(d) { var daysUntil = Math.ceil((new Date(d.nextPayDate) - new Date()) / (1000 * 60 * 60 * 24)); var net = (d.shares * d.amountPerShare * (1 - d.taxRate / 100)).toFixed(2); var dayLabel = daysUntil > 0 ? (daysUntil + (currentLang==='sw'?' siku':'d')) : (currentLang==='sw'?'Leo':'Today'); html += '<div class="div-calendar-item"><span>' + d.ticker + '</span><span style="color:var(--green);">' + formatMoney(net) + ' | ' + formatDate(d.nextPayDate) + ' (' + dayLabel + ')</span></div>'; }); el.innerHTML = html; }
 function initTaxReportYears() { var sel = document.getElementById('tax-report-year'); if (!sel) return; var cy = new Date().getFullYear(); var html = ''; for (var y = cy; y >= cy - 5; y--) { html += '<option value="' + y + '">' + y + '</option>'; } sel.innerHTML = html; generateTaxReport(); }
-function generateTaxReport() { var year = parseInt(document.getElementById('tax-report-year')?.value || new Date().getFullYear()); var countryFilter = document.getElementById('tax-report-country')?.value || 'ALL'; var content = document.getElementById('tax-report-content'), empty = document.getElementById('tax-report-empty'); var divEntries = journalEntries.filter(function(e) { if (e.type !== 'DIVIDEND' && !(e.pair && e.pair.includes('-DIV'))) return false; var ey = new Date(e.date).getFullYear(); if (ey !== year) return false; if (countryFilter !== 'ALL') { var ticker = e.pair.replace('-DIV', ''); var trackerEntry = dividendTracker.find(function(d) { return d.ticker === ticker; }); if (!trackerEntry || trackerEntry.country !== countryFilter) return false; } return true; }); if (divEntries.length === 0) { if (content) content.style.display = 'none'; if (empty) empty.style.display = 'block'; return; } var totalGross = 0, totalTax = 0, totalNet = 0; divEntries.forEach(function(e) { var net = parseFloat(e.pnl) || 0; var grossMatch = e.notes.match(/Gross:\s*\$?([\d.]+)/), taxMatch = e.notes.match(/Kodi.*?:\s*-\$?([\d.]+)/); var gross = grossMatch ? parseFloat(grossMatch[1]) : net, tax = taxMatch ? parseFloat(taxMatch[1]) : 0; totalGross += gross; totalTax += tax; totalNet += net; }); document.getElementById('tr-gross').textContent = formatMoney(totalGross); document.getElementById('tr-tax').textContent = '-' + formatMoney(totalTax); document.getElementById('tr-net').textContent = formatMoney(totalNet); if (content) content.style.display = 'block'; if (empty) empty.style.display = 'none'; }
-function exportTaxReport() { var year = document.getElementById('tax-report-year').value; var report = '=== NEXATRADE TAX REPORT ' + year + ' ===\nGross: ' + document.getElementById('tr-gross').textContent + '\nTax: ' + document.getElementById('tr-tax').textContent + '\nNet: ' + document.getElementById('tr-net').textContent + '\nGenerated by Germ Tech'; var blob = new Blob([report], { type: 'text/plain' }); var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'NexaTrade_Tax_Report_' + year + '.txt'; a.click(); toast('Tax report exported!', '*'); }
+function generateTaxReport() { var year = parseInt(document.getElementById('tax-report-year')?.value || new Date().getFullYear()); var countryFilter = document.getElementById('tax-report-country')?.value || 'ALL'; var content = document.getElementById('tax-report-content'), empty = document.getElementById('tax-report-empty'); var divEntries = journalEntries.filter(function(e) { if (e.type !== 'DIVIDEND' && !(e.pair && e.pair.includes('-DIV'))) return false; var ey = new Date(e.date).getFullYear(); if (ey !== year) return false; if (countryFilter !== 'ALL') { var ticker = e.pair.replace('-DIV', ''); var trackerEntry = dividendTracker.find(function(d) { return d.ticker === ticker; }); if (!trackerEntry || trackerEntry.country !== countryFilter) return false; } return true; }); if (divEntries.length === 0) { if (content) content.style.display = 'none'; if (empty) empty.style.display = 'block'; return; } var totalGross = 0, totalTax = 0, totalNet = 0; divEntries.forEach(function(e) { var net = parseFloat(e.pnl) || 0; var grossMatch = e.notes.match(/Gross:\s\$?([\d.]+)/), taxMatch = e.notes.match(/Kodi.?:\s-\$?([\d.]+)/); var gross = grossMatch ? parseFloat(grossMatch[1]) : net, tax = taxMatch ? parseFloat(taxMatch[1]) : 0; totalGross += gross; totalTax += tax; totalNet += net; }); document.getElementById('tr-gross').textContent = formatMoney(totalGross); document.getElementById('tr-tax').textContent = '-' + formatMoney(totalTax); document.getElementById('tr-net').textContent = formatMoney(totalNet); if (content) content.style.display = 'block'; if (empty) empty.style.display = 'none'; }
+function exportTaxReport() { var year = document.getElementById('tax-report-year').value; var report = '=== NEXATRADE TAX REPORT ' + year + ' ===\nGross: ' + document.getElementById('tr-gross').textContent + '\nTax: ' + document.getElementById('tr-tax').textContent + '\nNet: ' + document.getElementById('tr-net').textContent + '\nGenerated by Germ Tech'; var blob = new Blob([report], { type: 'text/plain' }); var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'NexaTrade_Tax_Report_' + year + '.txt'; a.click(); toast('Tax report exported!', ''); }
 
 // ==================== PROFILE ====================
 function handleProfilePic(event) { var f = event.target.files[0]; if (!f) return; var r = new FileReader(); r.onload = function(e) { userProfile.pic = e.target.result; localStorage.setItem('userProfile', JSON.stringify(userProfile)); updateProfilePicDisplay(); }; r.readAsDataURL(f); }
@@ -1509,12 +1590,12 @@ function updateProfilePicDisplay() { var p = document.getElementById('profile-pi
 function renderProfileView() { document.getElementById('profile-view-name').textContent = userProfile.fullname || 'Jina halijawekwa'; updateProfilePicDisplay(); document.getElementById('profile-view').style.display = 'block'; document.getElementById('profile-form').style.display = 'none'; }
 function editProfile() { document.getElementById('profile-fullname').value = userProfile.fullname || ''; document.getElementById('profile-nickname').value = userProfile.nickname || ''; document.getElementById('profile-view').style.display = 'none'; document.getElementById('profile-form').style.display = 'block'; }
 function cancelProfileEdit() { renderProfileView(); }
-function saveProfile() { userProfile.fullname = document.getElementById('profile-fullname').value; userProfile.nickname = document.getElementById('profile-nickname').value; localStorage.setItem('userProfile', JSON.stringify(userProfile)); renderProfileView(); toast('Profile saved!', '*'); }
+function saveProfile() { userProfile.fullname = document.getElementById('profile-fullname').value; userProfile.nickname = document.getElementById('profile-nickname').value; localStorage.setItem('userProfile', JSON.stringify(userProfile)); renderProfileView(); toast('Profile saved!', ''); }
 
 // ==================== THEME ====================
 function selectTheme(theme, el) { document.querySelectorAll('#settings-theme .theme-option').forEach(function(o) { o.classList.remove('selected'); }); el.classList.add('selected'); applyTheme(theme); }
 function applyTheme(theme) { document.body.classList.remove('light', 'midnight', 'forest'); if (theme === 'light') document.body.classList.add('light'); if (theme === 'midnight') document.body.classList.add('midnight'); if (theme === 'forest') document.body.classList.add('forest'); currentTheme = theme; updateAllCharts(); }
-function saveTheme() { localStorage.setItem('theme', currentTheme); toast('Theme saved!', '*'); }
+function saveTheme() { localStorage.setItem('theme', currentTheme); toast('Theme saved!', ''); }
 
 // ==================== ECONOMIC CALENDAR ====================
 var economicEvents = [{ name: 'NFP', day: 5, week: 1, impact: 'High' },{ name: 'FOMC', day: 3, week: 3, impact: 'High' },{ name: 'CPI', day: 3, week: 2, impact: 'High' }];
@@ -1524,15 +1605,15 @@ function updateEconomicCalendar() { var el = document.getElementById('econ-calen
 // ==================== CHARTS ====================
 function updateAllCharts() { updateEquityChart(); updateMonthlyChart(); updateSessionChart(); updateAdvancedStatsDisplay(); }
 function updateEquityChart() { var entries = getActiveEntries(); var cum = 0, data = entries.map(function(e) { cum += (parseFloat(e.pnl) || 0); return cum; }).reverse(); var labels = entries.map(function(_, i) { return 'T' + (i + 1); }).reverse(); var ctx = document.getElementById('equityChart'); if (!ctx) return; var ctx2d = ctx.getContext('2d'); if (equityChart) equityChart.destroy(); equityChart = new Chart(ctx2d, { type: 'line', data: { labels: labels.length ? labels : ['Start'], datasets: [{ data: data.length ? data : [0], borderColor: '#00e676', backgroundColor: 'rgba(0,230,118,0.06)', fill: true, tension: 0.4, borderWidth: 2 }] }, options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--chart-text').trim(), font: { size: 8 } } }, y: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--chart-text').trim(), font: { size: 8 }, callback: function(v) { return '$' + v; } } } } } }); }
-function updateMonthlyChart() { var entries = getActiveEntries(); var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; var mp = new Array(12).fill(0); entries.forEach(function(e) { var m = new Date(e.date).getMonth(); mp[m] += (parseFloat(e.pnl) || 0); }); var ctx = document.getElementById('monthlyChart'); if (!ctx) return; var ctx2d = ctx.getContext('2d'); if (monthlyChart) monthlyChart.destroy(); var colors = mp.map(function(v) { return v >= 0 ? 'rgba(0,230,118,0.7)' : 'rgba(255,61,92,0.7)'; }); monthlyChart = new Chart(ctx2d, { type: 'bar', data: { labels: months, datasets: [{ data: mp, backgroundColor: colors, borderRadius: 4 }] }, options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--chart-text').trim(), font: { size: 8 } } }, y: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--chart-text').trim(), font: { size: 8 }, callback: function(v) { return '$' + v; } } } } } }); }
-function updateSessionChart() { var entries = getActiveEntries(); var sessions = { 'London': 0, 'New York': 0, 'Asian': 0, 'Other': 0 }; var sessionCount = { 'London': 0, 'New York': 0, 'Asian': 0, 'Other': 0 }; entries.forEach(function(e) { var s = e.session || 'Other'; sessions[s] = (sessions[s] || 0) + (parseFloat(e.pnl) || 0); sessionCount[s] = (sessionCount[s] || 0) + 1; }); var labels = Object.keys(sessions); var data = labels.map(function(k) { return sessionCount[k] > 0 ? sessions[k] : 0; }); var ctx = document.getElementById('sessionChart'); if (!ctx) return; var ctx2d = ctx.getContext('2d'); if (sessionChart) sessionChart.destroy(); sessionChart = new Chart(ctx2d, { type: 'bar', data: { labels: labels, datasets: [{ data: data, backgroundColor: ['rgba(68,138,255,0.7)','rgba(0,230,118,0.7)','rgba(255,145,0,0.7)','rgba(180,136,255,0.7)'], borderRadius: 6 }] }, options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--chart-text').trim(), font: { size: 8 } } }, y: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--chart-text').trim(), font: { size: 8 }, callback: function(v) { return '$' + v; } } } } } }); }
+function updateMonthlyChart() { var entries = getActiveEntries(); var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; var mp = new Array(12).fill(0); entries.forEach(function(e) { var m = new Date(e.date).getMonth(); mp[m] += (parseFloat(e.pnl) || 0); }); var ctx = document.getElementById('monthlyChart'); if (!ctx) return; var ctx2d = ctx.getContext('2d'); if (monthlyChart) monthlyChart.destroy(); var colors = mp.map(function(v) { return v >= 0 ? 'rgba(0,230,118,0.7)' : 'rgba(255,61,92,0.7)'; }); monthlyChart = new Chart(ctx2d, { type: 'line', data: { labels: months, datasets: [{ data: mp, borderColor: '#00e676', backgroundColor: 'rgba(0,230,118,0.08)', fill: true, tension: 0.4, borderWidth: 2, pointRadius: 3, pointBackgroundColor: mp.map(function(v){return v>=0?'#00e676':'#ff3d5c';}), pointBorderColor: 'transparent' }] }, options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--chart-text').trim(), font: { size: 8 } } }, y: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--chart-text').trim(), font: { size: 8 }, callback: function(v) { return '$' + v; } } } } } }); }
+function updateSessionChart() { var entries = getActiveEntries(); var sessions = { 'London': 0, 'New York': 0, 'Asian': 0, 'Other': 0 }; var sessionCount = { 'London': 0, 'New York': 0, 'Asian': 0, 'Other': 0 }; entries.forEach(function(e) { var s = e.session || 'Other'; sessions[s] = (sessions[s] || 0) + (parseFloat(e.pnl) || 0); sessionCount[s] = (sessionCount[s] || 0) + 1; }); var labels = Object.keys(sessions); var data = labels.map(function(k) { return sessionCount[k] > 0 ? sessions[k] : 0; }); var ctx = document.getElementById('sessionChart'); if (!ctx) return; var ctx2d = ctx.getContext('2d'); if (sessionChart) sessionChart.destroy(); sessionChart = new Chart(ctx2d, { type: 'line', data: { labels: labels, datasets: [{ data: data, borderColor: '#448aff', backgroundColor: 'rgba(68,138,255,0.08)', fill: true, tension: 0.4, borderWidth: 2, pointRadius: 5, pointBackgroundColor: data.map(function(v){return v>=0?'#00e676':'#ff3d5c';}), pointBorderColor: 'transparent' }] }, options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--chart-text').trim(), font: { size: 8 } } }, y: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--chart-text').trim(), font: { size: 8 }, callback: function(v) { return '$' + v; } } } } } }); }
 
 // ==================== EXPORT & IMPORT ====================
-function exportAllData() { var data = { version: '1.0', profile: userProfile, badges: userBadges, journalEntries: journalEntries, demoEntries: demoEntries, dividendTracker: dividendTracker, fxPlans: fxPlans, synPlans: synPlans, stocksPlans: stocksPlans, cryptoPlans: cryptoPlans }; var blob = new Blob([JSON.stringify(data)], { type: 'application/json' }); var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'nexatrade-backup-' + new Date().toISOString().split('T')[0] + '.json'; a.click(); toast('Data exported!', '*'); }
-function importAllData(event) { var file = event.target.files[0]; if (!file) return; var reader = new FileReader(); reader.onload = function(e) { try { var data = JSON.parse(e.target.result); if (data.journalEntries) { journalEntries = data.journalEntries; localStorage.setItem('journalEntries', JSON.stringify(journalEntries)); } if (data.dividendTracker) { dividendTracker = data.dividendTracker; localStorage.setItem('dividendTracker', JSON.stringify(dividendTracker)); } if (data.fxPlans) { fxPlans = data.fxPlans; localStorage.setItem('fxPlans', JSON.stringify(fxPlans)); renderFXPlansList(); } if (data.synPlans) { synPlans = data.synPlans; localStorage.setItem('synPlans', JSON.stringify(synPlans)); renderSyntheticPlansList(); } if (data.stocksPlans) { stocksPlans = data.stocksPlans; localStorage.setItem('stocksPlans', JSON.stringify(stocksPlans)); renderStocksPlansList(); } if (data.cryptoPlans) { cryptoPlans = data.cryptoPlans; localStorage.setItem('cryptoPlans', JSON.stringify(cryptoPlans)); renderCryptoPlansList(); } renderJournal(); renderDividendTracker(); updateAllCharts(); toast('Data imported!', '*'); } catch(err) { toast('Invalid file!', '*'); } }; reader.readAsText(file); }
+function exportAllData() { var data = { version: '1.0', profile: userProfile, badges: userBadges, journalEntries: journalEntries, demoEntries: demoEntries, dividendTracker: dividendTracker, fxPlans: fxPlans, synPlans: synPlans, stocksPlans: stocksPlans, cryptoPlans: cryptoPlans }; var blob = new Blob([JSON.stringify(data)], { type: 'application/json' }); var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'nexatrade-backup-' + new Date().toISOString().split('T')[0] + '.json'; a.click(); toast('Data exported!', ''); }
+function importAllData(event) { var file = event.target.files[0]; if (!file) return; var reader = new FileReader(); reader.onload = function(e) { try { var data = JSON.parse(e.target.result); if (data.journalEntries) { journalEntries = data.journalEntries; localStorage.setItem('journalEntries', JSON.stringify(journalEntries)); } if (data.dividendTracker) { dividendTracker = data.dividendTracker; localStorage.setItem('dividendTracker', JSON.stringify(dividendTracker)); } if (data.fxPlans) { fxPlans = data.fxPlans; localStorage.setItem('fxPlans', JSON.stringify(fxPlans)); renderFXPlansList(); } if (data.synPlans) { synPlans = data.synPlans; localStorage.setItem('synPlans', JSON.stringify(synPlans)); renderSyntheticPlansList(); } if (data.stocksPlans) { stocksPlans = data.stocksPlans; localStorage.setItem('stocksPlans', JSON.stringify(stocksPlans)); renderStocksPlansList(); } if (data.cryptoPlans) { cryptoPlans = data.cryptoPlans; localStorage.setItem('cryptoPlans', JSON.stringify(cryptoPlans)); renderCryptoPlansList(); } renderJournal(); renderDividendTracker(); updateAllCharts(); toast('Data imported!', ''); } catch(err) { toast('Invalid file!', ''); } }; reader.readAsText(file); }
 function parseCSVLine(line){ var out=[], cur='', q=false; for(var i=0;i<line.length;i++){ var c=line[i]; if(c==='"'){ if(q && line[i+1]==='"'){ cur+='"'; i++; } else q=!q; } else if(c===',' && !q){ out.push(cur); cur=''; } else cur+=c; } out.push(cur); return out.map(function(s){return s.trim();}); }
-function importBrokerCSV(event){ var file = event.target.files[0]; if(!file) return; var reader = new FileReader(); reader.onload = function(e){ try { var text = e.target.result.replace(/\r/g,''); var lines = text.split('\n').filter(function(l){return l.trim();}); if(lines.length<2){ toast('CSV haina data','*'); return; } var headers = parseCSVLine(lines[0]).map(function(h){return h.toLowerCase().trim();}); var idx = function(names){ for(var i=0;i<names.length;i++){ var p=headers.indexOf(names[i]); if(p>-1) return p; } return -1; }; var iDate=idx(['date','time','open_time','close_time','tarehe']); var iPair=idx(['pair','symbol','instrument','asset']); var iType=idx(['type','side','action','direction']); var iPnl=idx(['pnl','profit','p&l','net','net profit','result']); var iProfit=idx(['profit']); var iLoss=idx(['loss']); var added=0, skipped=0; for(var k=1;k<lines.length;k++){ var c=parseCSVLine(lines[k]); if(!c.length) continue; var pnl = 0; if(iPnl>-1) pnl = parseFloat((c[iPnl]||'0').replace(/[^0-9.\-]/g,''))||0; else if(iProfit>-1 || iLoss>-1){ var p = iProfit>-1?(parseFloat((c[iProfit]||'0').replace(/[^0-9.\-]/g,''))||0):0; var l = iLoss>-1?(parseFloat((c[iLoss]||'0').replace(/[^0-9.\-]/g,''))||0):0; pnl = p - Math.abs(l); } if(pnl===0 && iPnl===-1){ skipped++; continue; } var rawDate = iDate>-1?(c[iDate]||''):''; var d = rawDate?new Date(rawDate):new Date(); if(isNaN(d.getTime())) d=new Date(); var pair = iPair>-1?(c[iPair]||'CSV'):'CSV'; var type = iType>-1?((c[iType]||'').toUpperCase().indexOf('SELL')>-1?'SELL':'BUY'):'BUY'; var status = pnl>0?'WIN':(pnl<0?'LOSS':'BE'); journalEntries.unshift({ id: Date.now()+k, market:'Forex', pair:pair, type:type, sl:'', tp:'', pnl: pnl.toFixed(2), status: status, mistake:'', session:'', time:'', mood:'neutral', strategy:'', tags:['imported'], screenshot:'[]', notes:'Imported from broker CSV', checklist:0, mode:'live', date: d.toISOString().split('T')[0] }); added++; } localStorage.setItem('journalEntries', JSON.stringify(journalEntries)); renderJournal(); updateAllCharts(); toast('Imeagiza trades '+added+(skipped?(' (skipped '+skipped+')'):''),'*'); } catch(err){ console.error(err); toast('CSV haijaweza kusomwa','*'); } }; reader.readAsText(file); event.target.value=''; }
-function resetAllData() { if (confirm('DELETE ALL DATA? This cannot be undone!')) { localStorage.clear(); journalEntries = []; demoEntries = []; dividendTracker = []; fxPlans = []; synPlans = []; stocksPlans = []; cryptoPlans = []; renderJournal(); renderDividendTracker(); renderFXPlansList(); renderSyntheticPlansList(); renderStocksPlansList(); renderCryptoPlansList(); updateAllCharts(); toast('All data deleted!', '*'); } }
+function importBrokerCSV(event){ var file = event.target.files[0]; if(!file) return; var reader = new FileReader(); reader.onload = function(e){ try { var text = e.target.result.replace(/\r/g,''); var lines = text.split('\n').filter(function(l){return l.trim();}); if(lines.length<2){ toast('CSV haina data',''); return; } var headers = parseCSVLine(lines[0]).map(function(h){return h.toLowerCase().trim();}); var idx = function(names){ for(var i=0;i<names.length;i++){ var p=headers.indexOf(names[i]); if(p>-1) return p; } return -1; }; var iDate=idx(['date','time','open_time','close_time','tarehe']); var iPair=idx(['pair','symbol','instrument','asset']); var iType=idx(['type','side','action','direction']); var iPnl=idx(['pnl','profit','p&l','net','net profit','result']); var iProfit=idx(['profit']); var iLoss=idx(['loss']); var added=0, skipped=0; for(var k=1;k<lines.length;k++){ var c=parseCSVLine(lines[k]); if(!c.length) continue; var pnl = 0; if(iPnl>-1) pnl = parseFloat((c[iPnl]||'0').replace(/[^0-9.\-]/g,''))||0; else if(iProfit>-1 || iLoss>-1){ var p = iProfit>-1?(parseFloat((c[iProfit]||'0').replace(/[^0-9.\-]/g,''))||0):0; var l = iLoss>-1?(parseFloat((c[iLoss]||'0').replace(/[^0-9.\-]/g,''))||0):0; pnl = p - Math.abs(l); } if(pnl===0 && iPnl===-1){ skipped++; continue; } var rawDate = iDate>-1?(c[iDate]||''):''; var d = rawDate?new Date(rawDate):new Date(); if(isNaN(d.getTime())) d=new Date(); var pair = iPair>-1?(c[iPair]||'CSV'):'CSV'; var type = iType>-1?((c[iType]||'').toUpperCase().indexOf('SELL')>-1?'SELL':'BUY'):'BUY'; var status = pnl>0?'WIN':(pnl<0?'LOSS':'BE'); journalEntries.unshift({ id: Date.now()+k, market:'Forex', pair:pair, type:type, sl:'', tp:'', pnl: pnl.toFixed(2), status: status, mistake:'', session:'', time:'', mood:'neutral', strategy:'', tags:['imported'], screenshot:'[]', notes:'Imported from broker CSV', checklist:0, mode:'live', date: d.toISOString().split('T')[0] }); added++; } localStorage.setItem('journalEntries', JSON.stringify(journalEntries)); renderJournal(); updateAllCharts(); toast('Imeagiza trades '+added+(skipped?(' (skipped '+skipped+')'):''),''); } catch(err){ console.error(err); toast('CSV haijaweza kusomwa',''); } }; reader.readAsText(file); event.target.value=''; }
+function resetAllData() { if (confirm('DELETE ALL DATA? This cannot be undone!')) { localStorage.clear(); journalEntries = []; demoEntries = []; dividendTracker = []; fxPlans = []; synPlans = []; stocksPlans = []; cryptoPlans = []; renderJournal(); renderDividendTracker(); renderFXPlansList(); renderSyntheticPlansList(); renderStocksPlansList(); renderCryptoPlansList(); updateAllCharts(); toast('All data deleted!', ''); } }
 
 // ==================== SIMPLE FUNCTIONS ====================
 function calcPosition() { var b = parseFloat(document.getElementById('pos-balance').value) || 0, r = parseFloat(document.getElementById('pos-risk').value) || 0, s = parseFloat(document.getElementById('pos-sl').value) || 1; document.getElementById('pos-result').textContent = formatMoney((b * r / 100) / s) + ' per pip'; }
@@ -1606,7 +1687,7 @@ var LESSONS = [
  {h:'Trading Plan', b:'Kabla ya trade jaza: Pair, sababu ya setup, SL, TP, lot, R:R, mood. Bila taarifa hizi, USIINGIE.'},
  {h:'Revenge Trading', b:'Hasara 2-3 mfululizo? SIMAMA kwa dakika 30. App ina Revenge Blocker — itumie. Soko litakuwepo kesho.'},
  {h:'Mood & Performance', b:'Tumia Psychology Journal kurekodi mood kabla ya trade. Utagundua hali (uchovu, hasira, msongo) zinazokufanya upoteze.'},
- {h:'Pumzika Macho', b:'Kila dakika 45-60, pumzika dakika 5 (sheria ya 20-20-20: kila dakika 20, angalia kitu cha futi 20 kwa sekunde 20). Wezesha Health Break Alerts.'}
+ {h:'Pumzika Macho', b:'Kila dakika 45-60, pumzika dakika 5 (sheria ya 20-20-20: kila dakika 20, angalia kitu cha futi 20 kwa sekunde 20). WezeshaArifa za Kupumzika.'}
  ],
  en:[
  {h:'The Five Enemies', b:'1) FOMO — entering without a setup, fearing you miss out. 2) Revenge — chasing losses. 3) Greed — holding winners too long. 4) Fear — exiting before TP. 5) Overconfidence — risking more after wins.'},
@@ -1614,7 +1695,7 @@ var LESSONS = [
  {h:'Trading Plan', b:'Before each trade fill: Pair, setup reason, SL, TP, lot, R:R, mood. Without these, DO NOT enter.'},
  {h:'Revenge Trading', b:'2-3 losses in a row? STOP for 30 minutes. The app has a Revenge Blocker — use it. The market will be here tomorrow.'},
  {h:'Mood & Performance', b:'Use the Psychology Journal to log mood before trades. You will discover the states (tired, angry, stressed) that cause losses.'},
- {h:'Rest Your Eyes', b:'Every 45-60 minutes, rest 5 min (20-20-20 rule: every 20 min look at something 20 feet away for 20 seconds). Enable Health Break Alerts.'}
+ {h:'Rest Your Eyes', b:'Every 45-60 minutes, rest 5 min (20-20-20 rule: every 20 min look at something 20 feet away for 20 seconds). EnableArifa za Kupumzika.'}
  ]
  },
  quiz:[
@@ -1766,7 +1847,7 @@ function updateCertProgress() {
 }
 
 // ---- Lesson reader modal ----
-var _lessonState = { id:null, idx:0, phase:'read' /* 'read' | 'quiz' | 'done' */, qIdx:0, qScore:0, qLocked:false };
+var _lessonState = { id:null, idx:0, phase:'read', qIdx:0, qScore:0, qLocked:false };
 
 function openLesson(id){
  var l = LESSONS.find(function(x){ return x.id===id; }); if(!l) return;
@@ -1818,13 +1899,12 @@ function renderLessonStep(){
  var s = secs[_lessonState.idx];
  stepEl.textContent = (lang==='sw'?'Sehemu':'Section')+' '+(_lessonState.idx+1)+' / '+totalRead;
  body.innerHTML = '<div style="font-weight:700;font-size:0.95rem;margin-bottom:8px;color:var(--accent)">'+s.h+'</div><div>'+s.b+'</div>';
- var pct = Math.round(((_lessonState.idx) / (totalRead + totalQuiz)) * 100);
+ var readPct = Math.round(((_lessonState.idx+1)/totalRead)*60);
+ var pct = Math.min(100, readPct);
  bar.style.width = pct + '%';
  prevBtn.style.visibility = _lessonState.idx===0 ? 'hidden' : 'visible';
  nextBtn.textContent = (_lessonState.idx === totalRead-1) ? (lang==='sw'?'Anza Quiz →':'Start Quiz →') : (lang==='sw'?'Inayofuata →':'Next →');
- // mark read progress (proportional, up to 60% before quiz)
- var readPct = Math.round(((_lessonState.idx+1)/totalRead)*60);
- setLessonProgress(_lessonState.id, readPct);
+ setLessonProgress(_lessonState.id, pct);
  } else if(_lessonState.phase === 'quiz'){
  var q = l.quiz[_lessonState.qIdx];
  stepEl.textContent = (lang==='sw'?'Swali':'Question')+' '+(_lessonState.qIdx+1)+' / '+totalQuiz+' · '+(lang==='sw'?'Alama':'Score')+': '+_lessonState.qScore;
@@ -1983,19 +2063,6 @@ function renderTagChips(){
 document.addEventListener('click', function(e){ if(e.target.classList && e.target.classList.contains('tag-chip') && e.target.classList.contains('active')){ e.target.style.background='rgba(0,230,118,0.2)'; e.target.style.color='var(--accent)'; e.target.style.borderColor='var(--accent)'; } else if(e.target.classList && e.target.classList.contains('tag-chip')){ e.target.style.background='var(--surface)'; e.target.style.color=''; e.target.style.borderColor='var(--border)'; } });
 
 // ==================== REVENGE BLOCKER ====================
-function isRevengeBlocked(){
- var until = parseInt(localStorage.getItem('revengeBlockedUntil')||'0');
- if(Date.now() < until) return true;
- // detect 3 consecutive losses today in live mode
- var today = new Date().toISOString().split('T')[0];
- var todays = journalEntries.filter(function(e){ return e.date===today && e.type!=='DIVIDEND'; }).slice(0,3);
- if(todays.length===3 && todays.every(function(t){ return parseFloat(t.pnl)<0; })){
- var u = Date.now() + 30*60*1000;
- localStorage.setItem('revengeBlockedUntil', u);
- return true;
- }
- return false;
-}
 function updateRevengeStatus(){
  var el = document.getElementById('revenge-status'); if(!el) return;
  var until = parseInt(localStorage.getItem('revengeBlockedUntil')||'0');
@@ -2115,10 +2182,10 @@ function generateReport(period){
 var _strategyChart=null, _moodChart=null;
 function renderStrategyChart(){
  var canvas = document.getElementById('strategyChart'); if(!canvas || !window.Chart) return;
- var byStrat = {}; journalEntries.filter(function(e){ return e.type!=='DIVIDEND'; }).forEach(function(t){ var s = t.strategy||'other'; byStrat[s]=(byStrat[s]||0)+parseFloat(t.pnl||0); });
+ var byStrat = {}; journalEntries.filter(function(e){ return e.type!=='DIVIDEND'; }).forEach(function(t){ var s=t.strategy||'other'; byStrat[s]=(byStrat[s]||0)+parseFloat(t.pnl||0); });
  var labels = Object.keys(byStrat), data = labels.map(function(k){ return byStrat[k]; });
  if(_strategyChart) _strategyChart.destroy();
- _strategyChart = new Chart(canvas, { type:'bar', data:{ labels: labels.length?labels:['No data'], datasets:[{ label:'P&L', data: data.length?data:[0], backgroundColor: data.map(function(v){ return v>=0?'#00e676':'#ff3d5c'; }) }] }, options:{ plugins:{ legend:{display:false}}, scales:{ y:{ ticks:{color:'#888'} }, x:{ ticks:{color:'#888'} } } } });
+ _strategyChart = new Chart(canvas, { type:'line', data:{ labels: labels.length?labels:['No data'], datasets:[{ label:'P&L', data: data.length?data:[0], backgroundColor: data.map(function(v){ return v>=0?'#00e676':'#ff3d5c'; }) }] }, options:{ plugins:{ legend:{display:false}}, scales:{ y:{ ticks:{color:'#888'} }, x:{ ticks:{color:'#888'} } } } });
 }
 function renderTagStats(){
  var el = document.getElementById('tag-stats'); if(!el) return;
@@ -2133,7 +2200,7 @@ function renderMoodChart(){
  var byMood = {}; journalEntries.filter(function(e){ return e.type!=='DIVIDEND'; }).forEach(function(t){ var m=t.mood||'neutral'; byMood[m]=(byMood[m]||0)+parseFloat(t.pnl||0); });
  var labels = Object.keys(byMood), data = labels.map(function(k){ return byMood[k]; });
  if(_moodChart) _moodChart.destroy();
- _moodChart = new Chart(canvas, { type:'bar', data:{ labels: labels.length?labels:['No data'], datasets:[{ label:'P&L', data: data.length?data:[0], backgroundColor: data.map(function(v){ return v>=0?'#00e676':'#ff3d5c'; }) }] }, options:{ plugins:{legend:{display:false}}, scales:{ y:{ticks:{color:'#888'}}, x:{ticks:{color:'#888'}} } } });
+ _moodChart = new Chart(canvas, { type:'line', data:{ labels: labels.length?labels:['No data'], datasets:[{ label:'P&L', data: data.length?data:[0], backgroundColor: data.map(function(v){ return v>=0?'#00e676':'#ff3d5c'; }) }] }, options:{ plugins:{ legend:{display:false}}, scales:{ y:{ticks:{color:'#888'}}, x:{ticks:{color:'#888'}} } } });
 }
 function renderMoodInsights(){
  var el = document.getElementById('mood-insights'); if(!el) return;
@@ -2192,7 +2259,7 @@ function generateShareCard(id){
 }
 function quickShare(id){ goPage('ai-coach',5); setTimeout(function(){ switchCoachTab('share', document.querySelector('#pg-ai-coach .asset-tab:nth-child(4)')); populateShareDropdown(); var sel=document.getElementById('share-trade-pick'); if(sel) sel.value=id; generateShareCard(id); }, 100); }
 
-function startHealthTimer() { if (healthInterval) clearInterval(healthInterval); healthTimer = 3600; healthInterval = setInterval(function() { healthTimer--; if (healthTimer <= 0) { toast('Break time!', '*'); healthTimer = 3600; } var mins = Math.floor(healthTimer / 60); var secs = healthTimer % 60; var el = document.getElementById('timer-display'); if (el) el.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs; }, 1000); }
+function startHealthTimer() { if (healthInterval) clearInterval(healthInterval); healthTimer = 3600; healthInterval = setInterval(function() { healthTimer--; if (healthTimer <= 0) { toast('Break time!', ''); healthTimer = 3600; } var mins = Math.floor(healthTimer / 60); var secs = healthTimer % 60; var el = document.getElementById('timer-display'); if (el) el.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs; }, 1000); }
 
 // ==================== TOOLS PAGE: TAB SWITCH ====================
 function switchToolsTab(tab, el) {
@@ -2205,6 +2272,10 @@ function switchToolsTab(tab, el) {
  if (tab==='brokers') { renderBrokersList(); renderBrokerFeesSummary(); }
  if (tab==='convert') doConvert();
  if (tab==='corr') renderCorrelationMatrix();
+ if (tab==='sweet') runSweetSpot();
+ if (tab==='monte') runMonteCarlo();
+ if (tab==='replay') { if (!rpState) initReplay(); else drawReplay(); }
+ if (tab==='dna') renderTradingDNA();
 }
 
 // ==================== CALCULATORS ====================
@@ -2286,7 +2357,7 @@ function addPriceAlert(){
  var price = parseFloat(document.getElementById('al-price').value);
  var cond = document.getElementById('al-cond').value;
  var current = parseFloat(document.getElementById('al-current').value) || null;
- if(!asset || !price) return toast('Jaza asset na bei!', '*');
+ if(!asset || !price) return toast('Jaza asset na bei!', '');
  priceAlerts.push({ id: Date.now(), asset: asset, price: price, cond: cond, current: current, active: true });
  localStorage.setItem('priceAlerts', JSON.stringify(priceAlerts));
  document.getElementById('al-asset').value=''; document.getElementById('al-price').value=''; document.getElementById('al-current').value='';
@@ -2349,10 +2420,10 @@ function checkSessionAlerts(){
  if(!alertSettings.session) return;
  var now = new Date();
  // EAT = UTC+3
- var eat = new Date(now.getTime() + (3*60 - now.getTimezoneOffset())*60000);
+ var eat = new Date(now.getTime() + (360 - now.getTimezoneOffset())*60000);
  var hm = eat.getUTCHours()*60 + eat.getUTCMinutes();
  // London 10:00 EAT → fire at 9:30. NY 15:00 EAT → fire at 14:30
- [{t:9*60+30,name:'London'},{t:14*60+30,name:'New York'}].forEach(function(s){
+ [{t:960+30,name:'London'},{t:1460+30,name:'New York'}].forEach(function(s){
  var key='sess_'+s.name+'_'+eat.toISOString().slice(0,10);
  if(Math.abs(hm - s.t) < 1 && !alertFiredToday[key]){
  fireAlert(' '+s.name+' opens in 30min', 'Jiandae kwa session!');
@@ -2391,7 +2462,7 @@ function addBrokerAccount(){
  var acc = document.getElementById('br-account').value.trim();
  var bal = parseFloat(document.getElementById('br-balance').value)||0;
  var type = document.getElementById('br-type').value;
- if(!acc) return toast('Jaza account number!','*');
+ if(!acc) return toast('Jaza account number!','');
  brokerAccounts.push({ id: Date.now(), broker: name, account: acc, balance: bal, type: type });
  localStorage.setItem('brokerAccounts', JSON.stringify(brokerAccounts));
  document.getElementById('br-account').value=''; document.getElementById('br-balance').value='';
@@ -2413,7 +2484,7 @@ function addBrokerFee(){
  var pair = document.getElementById('bf-pair').value.trim();
  var spread = parseFloat(document.getElementById('bf-spread').value)||0;
  var comm = parseFloat(document.getElementById('bf-comm').value)||0;
- if(!broker || !pair) return toast('Jaza broker na pair!','*');
+ if(!broker || !pair) return toast('Jaza broker na pair!','');
  brokerFees.push({ id: Date.now(), broker: broker, pair: pair, spread: spread, commission: comm, date: new Date().toISOString().slice(0,10) });
  localStorage.setItem('brokerFees', JSON.stringify(brokerFees));
  document.getElementById('bf-broker').value=''; document.getElementById('bf-pair').value=''; document.getElementById('bf-spread').value=''; document.getElementById('bf-comm').value='';
@@ -2434,7 +2505,7 @@ function renderBrokerFeesSummary(){
 }
 function importBrokerCSV(){
  var text = document.getElementById('br-import-text').value.trim();
- if(!text) return toast('Paste CSV kwanza!','*');
+ if(!text) return toast('Paste CSV kwanza!','');
  var lines = text.split(/\r?\n/).filter(function(l){ return l.trim() && !l.toLowerCase().startsWith('date'); });
  var added = 0;
  lines.forEach(function(line){
@@ -2444,14 +2515,14 @@ function importBrokerCSV(){
  journalEntries.unshift(entry); added++;
  });
  if(added){ localStorage.setItem('journalEntries', JSON.stringify(journalEntries)); document.getElementById('br-import-text').value=''; renderJournal(); updateAllCharts(); toast(added+' trades zimeingizwa!',''); }
- else toast('Hakuna data sahihi!','*');
+ else toast('Hakuna data sahihi!','');
 }
 
 // ==================== CSV EXPORT ====================
 function exportTradesCSV(){
  var rows = [['Date','Mode','Market','Pair','Type','Entry','SL','TP','PnL','Session','Time','Mood','Strategy','Checklist','Notes']];
  var all = [].concat(journalEntries||[], demoEntries||[]);
- if(all.length===0) return toast('Hakuna trades za ku-export!','*');
+ if(all.length===0) return toast('Hakuna trades za ku-export!','');
  all.forEach(function(e){
  rows.push([e.date||'', e.mode||'live', e.market||'', e.pair||'', e.type||'', '', e.sl||'', e.tp||'', e.pnl||'', e.session||'', e.time||'', e.mood||'', e.strategy||'', e.checklist||0, (e.notes||'').replace(/[\r\n,]/g,' ')]);
  });
@@ -2495,7 +2566,7 @@ function calcKeyPress(k){
  } else {
  calcEqPresses=0;
  if(k==='C') calcBuf='0';
- else if(k==='') calcBuf = calcBuf.length>1 ? calcBuf.slice(0,-1) : '0';
+ else if(k==='⌫') calcBuf = calcBuf.length>1 ? calcBuf.slice(0,-1) : '0';
  else if(k==='±') calcBuf = calcBuf.startsWith('-') ? calcBuf.slice(1) : '-'+calcBuf;
  else if(k==='%') calcBuf = String(parseFloat(calcBuf)/100);
  else { if(calcBuf==='0' && /[0-9.]/.test(k)) calcBuf=k; else calcBuf+=k; }
@@ -2526,7 +2597,7 @@ window.addEventListener('load', function() {
  setInterval(function(){ checkPriceAlerts(); checkSessionAlerts(); checkDivAlerts(); }, 30000);
  // Reset fired-today daily
  setInterval(function(){ var keep={}; var dayMs=86400000; Object.keys(alertFiredToday).forEach(function(k){ if(Date.now()-alertFiredToday[k] < dayMs) keep[k]=alertFiredToday[k]; }); alertFiredToday=keep; localStorage.setItem('alertFiredToday', JSON.stringify(keep)); }, 60*60*1000);
- setTimeout(function() { toast('Karibu NexaTrade Pro - Germ Tech', '*'); }, 2400);
+ setTimeout(function() { toast('Karibu NexaTrade Pro - Germ Tech', ''); }, 2400);
  if ('serviceWorker' in navigator) navigator.serviceWorker.register('/nexa-app/sw.js', { scope: '/nexa-app/' }).catch(function() {});
  if ('Notification' in window) Notification.requestPermission();
 });
@@ -2554,13 +2625,9 @@ window.addEventListener('load', function() {
 })();
 
 // ==================== IDB-KEYVAL WRAPPER + ONE-TIME MIGRATION ====================
-// All persistent app data is mirrored to IndexedDB for capacity. localStorage stays
-// as fast sync fallback for small settings. A one-time migration pushes any pre-existing
-// localStorage data into IDB so nothing is lost from prior versions.
 var IDB_KEYS = ['journalEntries','demoEntries','archivedTrades','dividendTracker',
  'aiTradeIdeas','replayHistory','fxPlans','synPlans','stocksPlans','cryptoPlans',
  'userBadges','userProfile','userGoals','academyProgress','tradingDNA','psychJournal'];
-// Map IDB key -> live in-memory variable updater + re-render hook
 var IDB_BINDINGS = {
  journalEntries: function(v){ journalEntries = v; if(typeof renderJournal==='function') renderJournal(); if(typeof updateAllCharts==='function') updateAllCharts(); },
  demoEntries: function(v){ demoEntries = v; if(journalMode==='demo' && typeof renderJournal==='function') renderJournal(); },
@@ -2578,7 +2645,6 @@ var IDB_MIGRATION_FLAG = 'idbMigratedV1';
 var idbReady = false;
 (function(){
  if (!window.idbKeyval) { console.warn('[IDB] idb-keyval not loaded'); return; }
- // Patch setItem to mirror into IDB for tracked keys
  var origSet = localStorage.setItem.bind(localStorage);
  localStorage.setItem = function(k,v){
  origSet(k,v);
@@ -2591,7 +2657,6 @@ var idbReady = false;
  origRemove(k);
  if (IDB_KEYS.indexOf(k) > -1) { try { idbKeyval.del(k).catch(function(){}); } catch(_){} }
  };
- // STEP 1: One-time push of pre-existing localStorage data into IDB (idempotent)
  var migrated = localStorage.getItem(IDB_MIGRATION_FLAG);
  var pushPromises = IDB_KEYS.map(function(k){
  var raw = localStorage.getItem(k); if (raw == null) return Promise.resolve();
@@ -2601,7 +2666,6 @@ var idbReady = false;
  });
  Promise.all(pushPromises).then(function(){
  if (!migrated) { localStorage.setItem(IDB_MIGRATION_FLAG, new Date().toISOString()); console.log('[IDB] Migration complete'); }
- // STEP 2: Hydrate from IDB if it has equal/larger data (handles cross-device or cleared LS)
  return Promise.all(IDB_KEYS.map(function(k){
  return idbKeyval.get(k).then(function(v){
  if (v == null) return;
@@ -2621,9 +2685,8 @@ var idbReady = false;
  }).then(function(){ idbReady = true; });
 })();
 
-// Verification: compare localStorage vs IDB and report any mismatch
 function verifyIdbMigration(){
- if (!window.idbKeyval) { toast('IndexedDB haipo', '*'); return; }
+ if (!window.idbKeyval) { toast('IndexedDB haipo', ''); return; }
  Promise.all(IDB_KEYS.map(function(k){
  return idbKeyval.get(k).then(function(v){
  var lsRaw = localStorage.getItem(k);
@@ -2637,8 +2700,8 @@ function verifyIdbMigration(){
  var msg = (currentLang==='sw'?'Ukaguzi wa IDB:\n':'IDB verification:\n') +
  rows.map(function(r){ return (r.ok?'OK ':'!! ') + r.key + ' LS='+r.ls+' IDB='+r.idb; }).join('\n');
  console.log(msg);
- if (bad.length === 0) toast((currentLang==='sw'?'Data yote imehifadhiwa salama (':'All data verified (')+rows.length+' keys)', '*');
- else { toast((currentLang==='sw'?'Tofauti zimepatikana: ':'Mismatches: ')+bad.map(function(b){return b.key;}).join(', '), '*'); alert(msg); }
+ if (bad.length === 0) toast((currentLang==='sw'?'Data yote imehifadhiwa salama (':'All data verified (')+rows.length+' keys)', '');
+ else { toast((currentLang==='sw'?'Tofauti zimepatikana: ':'Mismatches: ')+bad.map(function(b){return b.key;}).join(', '), ''); alert(msg); }
  });
 }
 
@@ -2669,7 +2732,6 @@ function analyzeChartImage(ev){
  if (r > g+25 && r > b+10) red++;
  var lum = 0.299*r + 0.587*g + 0.114*b;
  bright += lum;
- // Brightness gradient = chart slope proxy
  if (x < W*0.3) { leftAvg += lum; leftCount++; }
  else if (x > W*0.7) { rightAvg += lum; rightCount++; }
  }
@@ -2711,7 +2773,7 @@ function saveAiIdea(){
  var ideas = JSON.parse(localStorage.getItem('aiTradeIdeas') || '[]');
  ideas.unshift(lastAiAnalysis);
  localStorage.setItem('aiTradeIdeas', JSON.stringify(ideas.slice(0,50)));
- toast(currentLang==='sw'?'Trade Idea imehifadhiwa':'Trade Idea saved','*');
+ toast(currentLang==='sw'?'Trade Idea imehifadhiwa':'Trade Idea saved','');
 }
 
 // ==================== MARKET REPLAY SIMULATOR ====================
@@ -2778,9 +2840,9 @@ function drawReplay(){
  pnlEl.textContent = 'P&L: ' + (totalPnl<0?'-$':'$') + Math.abs(totalPnl).toFixed(2) + (rpState.position?' ('+rpState.position.side+')':'');
  pnlEl.style.color = totalPnl<0?'var(--red)':'var(--green)';
 }
-function replayStep(){ if(!rpState) initReplay(); if (rpState.idx < rpState.candles.length) { rpState.idx++; drawReplay(); } else { toast(currentLang==='sw'?'Mwisho wa data':'End of data','*'); if(rpInterval){clearInterval(rpInterval);rpInterval=null;} } }
-function replayBuy(){ if(!rpState) return; if(rpState.position){toast(currentLang==='sw'?'Funga position kwanza':'Close position first','*');return;} rpState.position={side:'BUY', entry:rpState.candles[rpState.idx-1].c, idx:rpState.idx}; drawReplay(); }
-function replaySell(){ if(!rpState) return; if(rpState.position){toast(currentLang==='sw'?'Funga position kwanza':'Close position first','*');return;} rpState.position={side:'SELL', entry:rpState.candles[rpState.idx-1].c, idx:rpState.idx}; drawReplay(); }
+function replayStep(){ if(!rpState) initReplay(); if (rpState.idx < rpState.candles.length) { rpState.idx++; drawReplay(); } else { toast(currentLang==='sw'?'Mwisho wa data':'End of data',''); if(rpInterval){clearInterval(rpInterval);rpInterval=null;} } }
+function replayBuy(){ if(!rpState) return; if(rpState.position){toast(currentLang==='sw'?'Funga position kwanza':'Close position first','');return;} rpState.position={side:'BUY', entry:rpState.candles[rpState.idx-1].c, idx:rpState.idx}; drawReplay(); }
+function replaySell(){ if(!rpState) return; if(rpState.position){toast(currentLang==='sw'?'Funga position kwanza':'Close position first','');return;} rpState.position={side:'SELL', entry:rpState.candles[rpState.idx-1].c, idx:rpState.idx}; drawReplay(); }
 function replayClose(){
  if(!rpState||!rpState.position) return;
  var cur = rpState.candles[rpState.idx-1].c;
@@ -2789,7 +2851,7 @@ function replayClose(){
  rpState.pnl += pnl;
  rpState.history.push({side:rpState.position.side, entry:rpState.position.entry, exit:cur, pnl:pnl});
  rpState.position=null;
- toast((pnl>=0?'+$':'-$')+Math.abs(pnl).toFixed(2),'*');
+ toast((pnl>=0?'+$':'-$')+Math.abs(pnl).toFixed(2),'');
  drawReplay();
 }
 function replayAuto(){
@@ -2865,14 +2927,154 @@ function renderTradingDNA(){
  (moodList ? '<div class="card" style="margin-top:10px;"><div style="font-weight:700;margin-bottom:6px;font-size:0.78rem;">'+(currentLang==='sw'?'Mood vs P&L':'Mood vs P&L')+'</div>'+moodList+'</div>' : '');
 }
 
-// Extend switchToolsTab for new sub-tabs
-if (typeof switchToolsTab === 'function') {
- var _origSwitchTools = switchToolsTab;
- switchToolsTab = function(tab, el){
- _origSwitchTools(tab, el);
- if (tab === 'replay') { if (!rpState) initReplay(); else drawReplay(); }
- if (tab === 'dna') renderTradingDNA();
- };
+// ========== SWEET-SPOT OPTIMIZER ==========
+function runSweetSpot() {
+  var all = [].concat(journalEntries||[], demoEntries||[]);
+  if(all.length < 5) {
+    document.getElementById('sweet-result').innerHTML = '<div style="color:var(--muted);font-size:0.75rem;text-align:center;padding:20px;">' + (currentLang==='sw'?'Rekodi trades 5+ kuanza uchambuzi.':'Record 5+ trades to start analysis.') + '</div>';
+    return;
+  }
+
+  var days = ['Jumapili','Jumatatu','Jumanne','Jumatano','Alhamisi','Ijumaa','Jumamosi'];
+  var daysEn = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var dayStats = {}, hourStats = {};
+
+  all.forEach(function(e) {
+    if(!e.date || e.pnl === undefined) return;
+    var d = new Date(e.date);
+    var day = d.getDay();
+    var hour = e.time ? parseInt(e.time.split(':')[0]) : -1;
+    var win = parseFloat(e.pnl) > 0;
+
+    if(!dayStats[day]) dayStats[day] = {wins:0,total:0,pnl:0};
+    dayStats[day].wins += win ? 1 : 0;
+    dayStats[day].total++;
+    dayStats[day].pnl += parseFloat(e.pnl)||0;
+
+    if(hour >= 0) {
+      var hk = hour + ':00';
+      if(!hourStats[hk]) hourStats[hk] = {wins:0,total:0,pnl:0};
+      hourStats[hk].wins += win ? 1 : 0;
+      hourStats[hk].total++;
+      hourStats[hk].pnl += parseFloat(e.pnl)||0;
+    }
+  });
+
+  var bestDay = null, worstDay = null, bestHour = null, worstHour = null;
+  var bestDayWR = -1, worstDayWR = 999;
+  Object.keys(dayStats).forEach(function(d) {
+    var s = dayStats[d];
+    if(s.total < 2) return;
+    var wr = s.wins / s.total;
+    if(wr > bestDayWR) { bestDayWR = wr; bestDay = d; }
+    if(wr < worstDayWR) { worstDayWR = wr; worstDay = d; }
+  });
+
+  var bestHourWR = -1, worstHourWR = 999;
+  Object.keys(hourStats).forEach(function(h) {
+    var s = hourStats[h];
+    if(s.total < 2) return;
+    var wr = s.wins / s.total;
+    if(wr > bestHourWR) { bestHourWR = wr; bestHour = h; }
+    if(wr < worstHourWR) { worstHourWR = wr; worstHour = h; }
+  });
+
+  var sw = currentLang === 'sw';
+  var html = '<div style="font-size:0.78rem;">';
+
+  if(bestDay !== null) {
+    var dayName = sw ? days[parseInt(bestDay)] : daysEn[parseInt(bestDay)];
+    var worstDayName = sw ? days[parseInt(worstDay)] : daysEn[parseInt(worstDay)];
+    html += '<div style="background:rgba(0,230,118,0.1);border-left:3px solid var(--green);padding:10px;border-radius:6px;margin-bottom:8px;">';
+    html += '<div style="color:var(--green);font-weight:700;margin-bottom:4px;">' + (sw?'Siku Bora':'Best Day') + '</div>';
+    html += '<div>' + dayName + ' &mdash; Win Rate: <b>' + Math.round(bestDayWR*100) + '%</b> (' + dayStats[bestDay].total + ' trades)</div>';
+    html += '<div style="color:var(--muted);font-size:0.7rem;">' + (sw?'Fanya biashara zaidi siku hii.':'Trade more on this day.') + '</div></div>';
+
+    if(worstDay !== null && worstDay !== bestDay) {
+      html += '<div style="background:rgba(255,61,92,0.1);border-left:3px solid var(--red);padding:10px;border-radius:6px;margin-bottom:8px;">';
+      html += '<div style="color:var(--red);font-weight:700;margin-bottom:4px;">' + (sw?'Siku Mbaya':'Worst Day') + '</div>';
+      html += '<div>' + worstDayName + ' &mdash; Win Rate: <b>' + Math.round(worstDayWR*100) + '%</b> (' + dayStats[worstDay].total + ' trades)</div>';
+      html += '<div style="color:var(--muted);font-size:0.7rem;">' + (sw?'Punguza biashara siku hii.':'Reduce trading on this day.') + '</div></div>';
+    }
+  }
+
+  if(bestHour !== null) {
+    html += '<div style="background:rgba(100,181,246,0.1);border-left:3px solid var(--blue);padding:10px;border-radius:6px;margin-bottom:8px;">';
+    html += '<div style="color:var(--blue);font-weight:700;margin-bottom:4px;">' + (sw?'Saa Bora':'Best Hour') + '</div>';
+    html += '<div>' + bestHour + ' &mdash; Win Rate: <b>' + Math.round(bestHourWR*100) + '%</b> (' + hourStats[bestHour].total + ' trades)</div>';
+    if(worstHour && worstHour !== bestHour) {
+      html += '<div style="color:var(--muted);margin-top:6px;">' + (sw?'Saa mbaya zaidi: ':'Worst hour: ') + worstHour + ' (' + Math.round(worstHourWR*100) + '% WR)</div>';
+    }
+    html += '</div>';
+  }
+
+  html += '</div>';
+  document.getElementById('sweet-result').innerHTML = html;
+}
+
+// ========== MONTE CARLO SIMULATION ==========
+function runMonteCarlo() {
+  var all = [].concat(journalEntries||[], demoEntries||[]).filter(function(e){ return e.pnl !== undefined && e.type !== 'DIVIDEND'; });
+  if(all.length < 5) {
+    document.getElementById('monte-result').innerHTML = '<div style="color:var(--muted);font-size:0.75rem;text-align:center;padding:20px;">' + (currentLang==='sw'?'Rekodi trades 5+ kuanza mfano.':'Record 5+ trades to run simulation.') + '</div>';
+    return;
+  }
+
+  var wins = all.filter(function(e){ return parseFloat(e.pnl)>0; }).length;
+  var losses = all.filter(function(e){ return parseFloat(e.pnl)<0; }).length;
+  var winRate = wins / all.length;
+  var avgWin = wins > 0 ? all.filter(function(e){ return parseFloat(e.pnl)>0; }).reduce(function(s,e){ return s+parseFloat(e.pnl); },0)/wins : 1;
+  var avgLoss = losses > 0 ? Math.abs(all.filter(function(e){ return parseFloat(e.pnl)<0; }).reduce(function(s,e){ return s+parseFloat(e.pnl); },0)/losses) : 1;
+
+  var numSims = parseInt(document.getElementById('monte-sims-count').value)||1000;
+  var targetLoss = (parseInt(document.getElementById('monte-target-val').value)||50)/100;
+  var tradesToSim = Math.min(all.length * 2, 100);
+
+  var ruin = 0, finalBalances = [];
+  var startBalance = 1000;
+
+  for(var sim=0; sim<numSims; sim++) {
+    var bal = startBalance;
+    var ruined = false;
+    for(var t=0; t<tradesToSim; t++) {
+      if(Math.random() < winRate) bal += avgWin;
+      else bal -= avgLoss;
+      if(bal <= startBalance * (1-targetLoss)) { ruined = true; break; }
+    }
+    if(ruined) ruin++;
+    finalBalances.push(Math.round(bal));
+  }
+
+  finalBalances.sort(function(a,b){ return a-b; });
+  var p10 = finalBalances[Math.floor(numSims*0.1)];
+  var p50 = finalBalances[Math.floor(numSims*0.5)];
+  var p90 = finalBalances[Math.floor(numSims*0.9)];
+  var ruinPct = (ruin/numSims*100).toFixed(1);
+
+  var sw = currentLang === 'sw';
+  var riskColor = parseFloat(ruinPct) < 10 ? 'var(--green)' : parseFloat(ruinPct) < 25 ? 'var(--gold)' : 'var(--red)';
+
+  var html = '<div style="font-size:0.78rem;">';
+  html += '<div style="text-align:center;margin-bottom:12px;">';
+  html += '<div style="font-size:0.7rem;color:var(--muted);">' + (sw?'Hatari ya Kufilisika':'Risk of Ruin') + '</div>';
+  html += '<div style="font-size:2rem;font-weight:800;color:' + riskColor + ';">' + ruinPct + '%</div>';
+  html += '<div style="font-size:0.65rem;color:var(--muted);">' + (sw?'kwa mfano '+numSims+' wa trades '+tradesToSim:'from '+numSims+' simulations of '+tradesToSim+' trades') + '</div>';
+  html += '</div>';
+
+  html += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px;">';
+  html += '<div style="text-align:center;background:var(--card2);padding:8px;border-radius:8px;"><div style="font-size:0.6rem;color:var(--muted);">P10</div><div style="font-weight:700;color:var(--red);font-size:0.8rem;">$'+p10+'</div></div>';
+  html += '<div style="text-align:center;background:var(--card2);padding:8px;border-radius:8px;"><div style="font-size:0.6rem;color:var(--muted);">P50</div><div style="font-weight:700;color:var(--text);font-size:0.8rem;">$'+p50+'</div></div>';
+  html += '<div style="text-align:center;background:var(--card2);padding:8px;border-radius:8px;"><div style="font-size:0.6rem;color:var(--muted);">P90</div><div style="font-weight:700;color:var(--green);font-size:0.8rem;">$'+p90+'</div></div>';
+  html += '</div>';
+
+  html += '<div style="font-size:0.68rem;color:var(--muted);padding:8px;background:var(--card2);border-radius:6px;">';
+  html += (sw?'WR: ':'WR: ') + Math.round(winRate*100) + '% | ';
+  html += (sw?'Faida ya wastani: ':'Avg win: ') + '$' + avgWin.toFixed(2) + ' | ';
+  html += (sw?'Hasara ya wastani: ':'Avg loss: ') + '$' + avgLoss.toFixed(2);
+  html += '</div></div>';
+
+  document.getElementById('monte-result').innerHTML = html;
+  document.getElementById('monte-chart').style.display = 'none';
 }
 </script>
 </body>
