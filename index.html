@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/idb-keyval@6/dist/umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/idb-keyval/6.2.1/idb-keyval-min.js"></script>
 <style>
 :root {
  --bg: #06060d; --surface: #0d0d18; --card: #141424; --card2: #1a1a2e;
@@ -38,6 +38,35 @@ body.forest { --bg: #0a1a0a; --surface: #0f200f; --card: #142214; --card2: #1a2a
 html{height:100%;scroll-behavior:smooth;font-size:14px}
 body{font-family:var(--font-body);background:var(--bg);color:var(--text);height:100%;overflow:hidden;display:flex;flex-direction:column;-webkit-tap-highlight-color:transparent;transition:background 0.3s,color 0.3s}
 
+/* ==================== GOAL MODAL ==================== */
+#goal-modal-overlay {
+  animation: goalModalFade 0.25s ease both;
+}
+
+@keyframes goalModalFade {
+  from { opacity: 0; transform: scale(0.92) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+#goal-save-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 16px rgba(0,230,118,0.3);
+}
+
+#goal-cancel-btn:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: var(--border);
+}
+
+#goal-modal-overlay::-webkit-scrollbar {
+  width: 4px;
+}
+#goal-modal-overlay::-webkit-scrollbar-thumb {
+  background: var(--border2);
+  border-radius: 4px;
+}
+
+/* ==================== PIN ==================== */
 .pin-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--muted);transition:all 0.2s}
 .pin-dot.filled{background:var(--accent);border-color:var(--accent)}
 .pin-key{width:60px;height:60px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--text);font-size:1.2rem;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
@@ -206,7 +235,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
 .screenshot-gallery{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .screenshot-gallery img{width:80px;height:80px;object-fit:cover;border-radius:8px;cursor:pointer}
 
-/ === Polish enhancements === /
+/* ==================== Polish enhancements ==================== */
 #topbar{box-shadow:0 4px 20px rgba(0,0,0,0.25)}
 .brand{letter-spacing:-0.5px;text-shadow:0 0 24px color-mix(in srgb,var(--accent) 25%,transparent)}
 .card{box-shadow:0 2px 8px rgba(0,0,0,0.15);transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s}
@@ -2155,9 +2184,84 @@ function selectQuizAnswer(idx, el) {
 }
 function nextQuiz() { quizIdx++; renderQuiz(); }
 
-function showGoalForm() { var _t=appTranslations[currentLang]||appTranslations.sw; var name = prompt(_t['goal-prompt-name']||'Jina la Lengo:'); var target = prompt(_t['goal-prompt-target']||'Target (%)'); if(name && target) { userGoals.push({ id: Date.now(), name: name, target: parseFloat(target), current: 0 }); localStorage.setItem('userGoals', JSON.stringify(userGoals)); renderGoalsList(); } }
-function renderGoalsList() { var c = document.getElementById('goals-tracker-list'); if (!c) return; var _t=appTranslations[currentLang]||appTranslations.sw; if (userGoals.length === 0) { c.innerHTML = '<div style="text-align:center;padding:20px;">'+(_t['goals-empty']||'Bado huna malengo')+'</div>'; return; } c.innerHTML = userGoals.map(function(g) { return '<div class="goal-item"><div class="goal-header"><span class="goal-name">' + g.name + '</span><span class="goal-pct">' + (g.current || 0) + '% / ' + g.target + '%</span></div><div class="goal-bar"><div class="goal-fill" style="width:' + Math.min(100, ((g.current||0)/g.target)*100) + '%;background:var(--accent)"></div></div><button class="btn btn-outline btn-sm" style="margin-top:6px;" onclick="updateGoalProgress(' + g.id + ')">'+(_t['btn-update']||'Update')+'</button></div>'; }).join(''); }
-function updateGoalProgress(id) { var g = userGoals.find(g => g.id === id); if(g) { var val = prompt((appTranslations[currentLang]||appTranslations.sw)['goal-progress-prompt']||'Current progress (%)', g.current || 0); if(val !== null) { g.current = parseFloat(val); localStorage.setItem('userGoals', JSON.stringify(userGoals)); renderGoalsList(); } } }
+// ==================== GOAL FORM (CUSTOM MODAL) ====================
+function showGoalForm() {
+  var _t = appTranslations[currentLang] || appTranslations.sw;
+  
+  // Unda modal yetu
+  var overlay = document.createElement('div');
+  overlay.id = 'goal-modal-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;';
+  
+  overlay.innerHTML = `
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
+      <div style="font-family:var(--font-head);font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:16px;">${_t['goal-prompt-name']||'Jina la Lengo:'}</div>
+      
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.7rem;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:4px;">${_t['goal-prompt-name']||'Jina'}</label>
+        <input id="goal-name-input" type="text" placeholder="k.m. Pata $1000" style="width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:0.85rem;outline:none;transition:border-color 0.2s;">
+      </div>
+      
+      <div style="margin-bottom:20px;">
+        <label style="font-size:0.7rem;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:4px;">${_t['goal-prompt-target']||'Target (%)'}</label>
+        <input id="goal-target-input" type="number" placeholder="100" style="width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:0.85rem;outline:none;transition:border-color 0.2s;">
+      </div>
+      
+      <div style="display:flex;gap:10px;">
+        <button id="goal-cancel-btn" style="flex:1;padding:10px;border-radius:10px;background:transparent;border:1px solid var(--border2);color:var(--muted);font-weight:600;cursor:pointer;transition:all 0.2s;">${_t['btn-cancel']||'Ghairi'}</button>
+        <button id="goal-save-btn" style="flex:1;padding:10px;border-radius:10px;background:var(--accent);border:none;color:#000;font-weight:700;cursor:pointer;transition:all 0.2s;">${_t['btn-save']||'Hifadhi'}</button>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(overlay);
+  
+  // Focus kwenye input
+  setTimeout(function() {
+    document.getElementById('goal-name-input').focus();
+  }, 150);
+  
+  // Cancel
+  document.getElementById('goal-cancel-btn').onclick = function() {
+    overlay.remove();
+  };
+  
+  // Save
+  document.getElementById('goal-save-btn').onclick = function() {
+    var name = document.getElementById('goal-name-input').value.trim();
+    var target = parseFloat(document.getElementById('goal-target-input').value);
+    if(name && target > 0) {
+      userGoals.push({ id: Date.now(), name: name, target: target, current: 0 });
+      localStorage.setItem('userGoals', JSON.stringify(userGoals));
+      renderGoalsList();
+      overlay.remove();
+      toast('Lengo limeongezwa!', '✓');
+    } else {
+      toast('Jaza jina na target sahihi!', '⚠️');
+    }
+  };
+  
+  // Enter key = save
+  document.getElementById('goal-target-input').addEventListener('keydown', function(e) {
+    if(e.key === 'Enter') document.getElementById('goal-save-btn').click();
+  });
+  document.getElementById('goal-name-input').addEventListener('keydown', function(e) {
+    if(e.key === 'Enter') document.getElementById('goal-target-input').focus();
+  });
+  
+  // Focus effects
+  document.querySelectorAll('#goal-modal-overlay input').forEach(function(input) {
+    input.addEventListener('focus', function() {
+      this.style.borderColor = 'var(--accent)';
+      this.style.boxShadow = '0 0 0 3px rgba(0,230,118,0.15)';
+    });
+    input.addEventListener('blur', function() {
+      this.style.borderColor = 'var(--border)';
+      this.style.boxShadow = 'none';
+    });
+  });
+}
+
 // ==================== AFFIRMATIONS ====================
 var AFFIRMATIONS = {
  sw: ['"Nidhamu ni daraja kati ya malengo na mafanikio."','"Mfanyabiashara bora ni mvumilivu."','"Hasara ni gharama ya elimu, si kushindwa."','"Subiri setup kamili. Pesa itakuja."','"Nidhamu yangu ni nguvu yangu kubwa."','"Sina haraka ya kuwa tajiri — nina muda."','"Kila trade ni biashara, si kamari."','"Hisia hazifanyi maamuzi yangu — sheria zinafanya."','"Kuachana na trade mbaya ni ushindi."','"Risk management ni silaha yangu kuu."','"Soko litakuwepo kesho. Subiri."','"Ubora wa setup ni muhimu kuliko idadi."','"Ninaheshimu mtaji wangu kama hazina."','"Win rate ni paragraph; expectancy ni hadithi."','"Kupotea kidogo leo ni kushinda kesho."'],
