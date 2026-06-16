@@ -248,7 +248,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div class="splash-developer">by Germ Tech</div>
 </div>
 
-<div id="offline-banner">Offline Mode</div>
+<div id="offline-banner" data-i18n="offline-banner">Offline Mode</div>
 <div id="topbar"><div class="brand">NexaTrade</div></div>
 
 <div id="content">
@@ -256,8 +256,8 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <!-- HOME -->
  <div class="page active" id="pg-home">
  <div style="text-align:center;padding:12px 0;"><h1 style="font-family:var(--font-head);font-size:1.5rem;"><span style="color:var(--accent);">NexaTrade</span></h1></div>
- <div class="affirmation-box"><div class="affirmation-text" id="affirmation-text">"Discipline is the bridge between goals and accomplishment."</div></div>
- <div class="health-timer" id="health-timer"> Next break: <span id="timer-display">60:00</span></div>
+ <div class="affirmation-box"><div class="affirmation-text" id="affirmation-text"></div></div>
+ <div class="health-timer" id="health-timer"><span data-i18n="health-next-break"> Next break: </span><span id="timer-display">60:00</span></div>
  
  <!-- Session Clock -->
  <div class="card" style="text-align:center;margin-bottom:10px;"><div style="font-weight:700;margin-bottom:8px;" data-i18n="card-markets">Masoko Yaliyofunguka</div><div id="session-clock" style="display:flex;justify-content:center;gap:6px;flex-wrap:wrap;"></div></div>
@@ -285,7 +285,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div style="font-weight:700;" data-i18n="card-alerts">Arifa za Bei</div>
  <button class="btn btn-outline btn-sm" onclick="goPage('tools',4);setTimeout(function(){switchToolsTab('alerts',null)},50)" data-i18n="btn-manage">Simamia</button>
  </div>
- <div id="home-alerts-summary" style="font-size:0.7rem;color:var(--muted);">Hakuna alerts zilizowekwa</div>
+ <div id="home-alerts-summary" style="font-size:0.7rem;color:var(--muted);" data-i18n="home-no-alerts">Hakuna alerts zilizowekwa</div>
  </div>
  
  <div class="chart-container"><div style="font-weight:700;font-size:0.82rem;margin-bottom:8px;" data-i18n="card-equity">Equity Curve</div><canvas id="equityChart" height="160"></canvas></div>
@@ -309,7 +309,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  
  <div class="asset-content active" id="acad-courses">
  <div id="acad-courses-list"></div>
- <div class="card" style="text-align:center;margin-top:8px;"><div style="font-weight:700;" id="cert-label">Certificates</div><div style="font-size:0.72rem;color:var(--accent);margin-top:4px;" id="cert-progress">0 / 0 completed</div></div>
+ <div class="card" style="text-align:center;margin-top:8px;"><div style="font-weight:700;" id="cert-label" data-i18n="cert-label">Certificates</div><div style="font-size:0.72rem;color:var(--accent);margin-top:4px;" id="cert-progress">0 / 0 completed</div></div>
  </div>
 
  <div class="asset-content" id="acad-quiz">
@@ -323,20 +323,20 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div id="quiz-options"></div>
  <div id="quiz-explain" style="font-size:0.72rem;color:var(--muted);margin-top:8px;display:none;"></div>
  <div style="display:flex;gap:8px;margin-top:12px;">
- <button class="btn btn-outline btn-sm" id="quiz-restart-btn" onclick="restartQuiz()">Restart</button>
- <button class="btn btn-primary btn-sm" id="quiz-next-btn" onclick="nextQuiz()" style="flex:1;">Next</button>
+ <button class="btn btn-outline btn-sm" id="quiz-restart-btn" data-i18n="quiz-restart" onclick="restartQuiz()">Restart</button>
+ <button class="btn btn-primary btn-sm" id="quiz-next-btn" data-i18n="quiz-next" onclick="nextQuiz()" style="flex:1;">Next</button>
  </div>
  </div>
  </div>
 
  <div class="asset-content" id="acad-journal">
  <div class="btn-row" style="margin-bottom:14px;"><button class="btn btn-primary btn-sm" id="mode-live-btn" onclick="setJournalMode('live')" style="flex:1;" data-i18n="btn-live">Biashara Halisi</button><button class="btn btn-outline btn-sm" id="mode-demo-btn" onclick="setJournalMode('demo')" style="flex:1;" data-i18n="btn-demo">Biashara ya Mazoezi</button></div>
- <button class="btn btn-outline" style="width:100%;margin-bottom:14px;" onclick="showJournalForm()">+ Record Trade</button>
- <div id="pre-trade-checklist" class="card form-hidden" style="margin-bottom:10px;"><div style="font-weight:700;margin-bottom:8px;">Pre-Trade Checklist</div><div class="checklist-item"><input type="checkbox" id="chk-plan"> Nimefuata mpango wangu</div><div class="checklist-item"><input type="checkbox" id="chk-rsi"> RSI / Indicators ziko sawa</div><div class="checklist-item"><input type="checkbox" id="chk-news"> Hakuna habari kubwa za uchumi</div><div class="checklist-item"><input type="checkbox" id="chk-sl"> Nimeweka Stop Loss</div><div class="checklist-item"><input type="checkbox" id="chk-tp"> Nimeweka Take Profit</div><div style="font-size:0.65rem;color:var(--muted);margin-top:4px;" id="checklist-score">Score: 0/5</div></div>
+ <button class="btn btn-outline" style="width:100%;margin-bottom:14px;" data-i18n="btn-record" onclick="showJournalForm()">+ Record Trade</button>
+ <div id="pre-trade-checklist" class="card form-hidden" style="margin-bottom:10px;"><div style="font-weight:700;margin-bottom:8px;" data-i18n="checklist-title">Pre-Trade Checklist</div><div class="checklist-item"><input type="checkbox" id="chk-plan"> <span data-i18n="chk-plan">Nimefuata mpango wangu</span></div><div class="checklist-item"><input type="checkbox" id="chk-rsi"> <span data-i18n="chk-rsi">RSI / Indicators ziko sawa</span></div><div class="checklist-item"><input type="checkbox" id="chk-news"> <span data-i18n="chk-news">Hakuna habari kubwa za uchumi</span></div><div class="checklist-item"><input type="checkbox" id="chk-sl"> <span data-i18n="chk-sl">Nimeweka Stop Loss</span></div><div class="checklist-item"><input type="checkbox" id="chk-tp"> <span data-i18n="chk-tp">Nimeweka Take Profit</span></div><div style="font-size:0.65rem;color:var(--muted);margin-top:4px;" id="checklist-score">Score: 0/5</div></div>
  <div id="journal-form" class="card form-hidden">
- <div class="row-2"><div class="form-group"><label data-i18n="j-market-label">Soko</label><select id="j-market"><option>Forex</option><option>Synthetic</option><option>Crypto</option><option>Stocks</option></select></div><div class="form-group"><label data-i18n="j-pair-label">Jozi</label><input type="text" id="j-pair" placeholder="EUR/USD"></div></div>
- <div class="row-2"><div class="form-group"><label data-i18n="j-type-label">Aina</label><select id="j-type"><option>BUY</option><option>SELL</option></select></div><div class="form-group"><label data-i18n="j-pnl-label">Matokeo ($)</label><input type="text" id="j-pnl" placeholder="+50" oninput="syncStatusFromPnl()"></div></div>
- <div class="form-group"><label>Hali ya Trade / Trade Status</label>
+ <div class="row-2"><div class="form-group"><label data-i18n="j-market-label">Soko</label><select id="j-market"><option>Forex</option><option>Synthetic</option><option>Crypto</option><option>Stocks</option></select></div><div class="form-group"><label data-i18n="j-pair-label">Jozi</label><input type="text" id="j-pair" placeholder="EUR/USD" data-i18n-ph="ph-eurusd"></div></div>
+ <div class="row-2"><div class="form-group"><label data-i18n="j-type-label">Aina</label><select id="j-type"><option>BUY</option><option>SELL</option></select></div><div class="form-group"><label data-i18n="j-pnl-label">Matokeo ($)</label><input type="text" id="j-pnl" placeholder="+50" data-i18n-ph="ph-pnl" oninput="syncStatusFromPnl()"></div></div>
+ <div class="form-group"><label data-i18n="j-status-label">Hali ya Trade / Trade Status</label>
  <div class="btn-row" id="j-status-row" style="gap:6px;">
  <button type="button" class="btn btn-outline btn-sm" data-status="WIN" onclick="setTradeStatus('WIN')" style="flex:1;">WIN</button>
  <button type="button" class="btn btn-outline btn-sm" data-status="LOSS" onclick="setTradeStatus('LOSS')" style="flex:1;">LOSS</button>
@@ -344,101 +344,101 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  </div>
  <input type="hidden" id="j-status" value="">
  </div>
- <div class="form-group form-hidden" id="j-mistake-group"><label>Kosa Lililotokea (Mistake)</label>
+ <div class="form-group form-hidden" id="j-mistake-group"><label data-i18n="j-mistake-label">Kosa Lililotokea</label>
  <select id="j-mistake">
- <option value="">--</option>
- <option value="early-entry">Kuingia mapema</option>
- <option value="no-sl">Kutoweka Stop Loss</option>
- <option value="violated-plan">Kukiuka muundo/mpango</option>
- <option value="chased-profit">Kukimbilia faida</option>
- <option value="overleveraged">Lot size kubwa</option>
- <option value="emotional">Maamuzi ya hisia</option>
- <option value="news">Kucheza wakati wa news</option>
- <option value="other">Nyingine</option>
+ <option value="" data-i18n-opt="opt-select">--</option>
+ <option value="early-entry" data-i18n-opt="mistake-early">Kuingia mapema</option>
+ <option value="no-sl" data-i18n-opt="mistake-no-sl">Kutoweka Stop Loss</option>
+ <option value="violated-plan" data-i18n-opt="mistake-plan">Kukiuka mpango</option>
+ <option value="chased-profit" data-i18n-opt="mistake-profit">Kukimbilia faida</option>
+ <option value="overleveraged" data-i18n-opt="mistake-lot">Lot size kubwa</option>
+ <option value="emotional" data-i18n-opt="mistake-emotion">Maamuzi ya hisia</option>
+ <option value="news" data-i18n-opt="mistake-news">Kucheza wakati wa news</option>
+ <option value="other" data-i18n-opt="mistake-other">Nyingine</option>
  </select>
  </div>
- <div class="row-2"><div class="form-group"><label data-i18n="j-sl-label">Kizuizi cha Hasara</label><input type="text" id="j-sl" placeholder="1.0800"></div><div class="form-group"><label data-i18n="j-tp-label">Lengo la Faida</label><input type="text" id="j-tp" placeholder="1.0900"></div></div>
- <div class="row-2"><div class="form-group"><label>Session</label><select id="j-session"><option>London</option><option>New York</option><option>Asian</option><option>Other</option></select></div><div class="form-group"><label>Time</label><input type="time" id="j-time" value="10:00"></div></div>
- <div class="row-2"><div class="form-group"><label>Mood</label><select id="j-mood"><option value="neutral">Neutral</option><option value="confident">Confident</option><option value="fomo">FOMO</option><option value="fear">Fear</option><option value="greed">Greed</option><option value="revenge">Revenge Trading</option></select></div><div class="form-group"><label>Strategy</label><select id="j-strategy"><option value="">Chagua...</option><option value="scalping">Scalping</option><option value="day-trading">Day Trading</option><option value="swing">Swing Trading</option><option value="breakout">Breakout</option><option value="reversal">Reversal</option><option value="news">News Trading</option></select></div></div>
- <div class="form-group"><label>Tags (chagua zaidi ya moja)</label><div id="j-tags" style="display:flex;flex-wrap:wrap;gap:6px;"></div></div>
- <div class="form-group"><label>Screenshots (Max 3)</label>
+ <div class="row-2"><div class="form-group"><label data-i18n="j-sl-label">Kizuizi cha Hasara</label><input type="text" id="j-sl" placeholder="1.0800" data-i18n-ph="ph-sl-price"></div><div class="form-group"><label data-i18n="j-tp-label">Lengo la Faida</label><input type="text" id="j-tp" placeholder="1.0900" data-i18n-ph="ph-tp-price"></div></div>
+ <div class="row-2"><div class="form-group"><label data-i18n="j-session-label">Session</label><select id="j-session"><option>London</option><option>New York</option><option>Asian</option><option>Other</option></select></div><div class="form-group"><label data-i18n="j-time-label">Time</label><input type="time" id="j-time" value="10:00"></div></div>
+ <div class="row-2"><div class="form-group"><label data-i18n="j-mood-label">Mood</label><select id="j-mood"><option value="neutral" data-i18n-opt="mood-neutral">Neutral</option><option value="confident" data-i18n-opt="mood-confident">Confident</option><option value="fomo">FOMO</option><option value="fear" data-i18n-opt="mood-fear">Fear</option><option value="greed" data-i18n-opt="mood-greed">Greed</option><option value="revenge" data-i18n-opt="mood-revenge">Revenge Trading</option></select></div><div class="form-group"><label data-i18n="j-strategy-label">Strategy</label><select id="j-strategy"><option value="" data-i18n-opt="opt-choose">Chagua...</option><option value="scalping">Scalping</option><option value="day-trading">Day Trading</option><option value="swing">Swing Trading</option><option value="breakout">Breakout</option><option value="reversal">Reversal</option><option value="news" data-i18n-opt="strat-news">News Trading</option></select></div></div>
+ <div class="form-group"><label data-i18n="j-tags-label">Tags (chagua zaidi ya moja)</label><div id="j-tags" style="display:flex;flex-wrap:wrap;gap:6px;"></div></div>
+ <div class="form-group"><label data-i18n="j-screenshots-label">Screenshots (Max 3)</label>
  <div class="screenshot-upload" onclick="document.getElementById('j-screenshot-input').click()">
  <div id="screenshot-preview-container" class="screenshot-gallery" style="display:none;"></div>
- <div id="screenshot-placeholder" style="padding:20px;text-align:center;border:2px dashed var(--border);border-radius:8px;cursor:pointer;"><div style="font-size:1.5rem;">+</div><div style="font-size:0.7rem;color:var(--muted);">Bonyeza kupakia picha</div></div>
+ <div id="screenshot-placeholder" style="padding:20px;text-align:center;border:2px dashed var(--border);border-radius:8px;cursor:pointer;"><div style="font-size:1.5rem;">+</div><div style="font-size:0.7rem;color:var(--muted);" data-i18n="ph-screenshot">Bonyeza kupakia picha</div></div>
  </div>
  <input type="file" id="j-screenshot-input" accept="image/*" multiple style="display:none;" onchange="handleScreenshotUpload(event)">
  </div>
- <div class="form-group"><label data-i18n="j-notes-label">Maelezo</label><textarea id="j-notes" rows="2" placeholder="Sababu ya kuingia..."></textarea></div>
- <div class="btn-row"><button class="btn btn-primary" onclick="saveJournalEntry()">Save</button><button class="btn btn-outline btn-sm" onclick="cancelJournalForm()">Cancel</button></div>
+ <div class="form-group"><label data-i18n="j-notes-label">Maelezo</label><textarea id="j-notes" rows="2" placeholder="Sababu ya kuingia..." data-i18n-ph="ph-notes"></textarea></div>
+ <div class="btn-row"><button class="btn btn-primary" data-i18n="btn-save" onclick="saveJournalEntry()">Save</button><button class="btn btn-outline btn-sm" data-i18n="btn-cancel" onclick="cancelJournalForm()">Cancel</button></div>
  </div>
  <div id="journal-stats" class="row-3" style="margin-top:12px;"></div>
  <div id="journal-entries"></div>
  </div>
 
  <div class="asset-content" id="acad-dividends">
- <div style="font-weight:700;font-size:0.9rem;margin-bottom:12px;">Dividend Tracker</div>
- <div class="card" style="margin-bottom:12px;"><div style="font-weight:600;margin-bottom:8px;">+ Add Dividend Stock</div>
- <div class="row-2"><div class="form-group"><label>Ticker</label><input type="text" id="div-ticker" placeholder="AAPL"></div><div class="form-group"><label>Company</label><input type="text" id="div-company" placeholder="Apple Inc."></div></div>
- <div class="row-2"><div class="form-group"><label>Shares</label><input type="number" id="div-shares" placeholder="100"></div><div class="form-group"><label>Div/Share ($)</label><input type="number" id="div-amount" placeholder="0.25" step="0.01"></div></div>
- <div class="row-2"><div class="form-group"><label>Country</label><select id="div-country"><option>TZ</option><option>KE</option><option>UG</option><option>RW</option><option>US</option></select></div><div class="form-group"><label>Tax Rate (%)</label><input type="number" id="div-tax" placeholder="15" value="15"></div></div>
- <div class="row-2"><div class="form-group"><label>Frequency</label><select id="div-frequency"><option>Monthly</option><option>Quarterly</option><option>Semi-Annual</option><option>Annual</option></select></div><div class="form-group"><label>Next Pay Date</label><input type="date" id="div-next-date"></div></div>
- <button class="btn btn-primary" onclick="addDividendStock()">Add Stock</button>
+ <div style="font-weight:700;font-size:0.9rem;margin-bottom:12px;" data-i18n="div-tracker-title">Dividend Tracker</div>
+ <div class="card" style="margin-bottom:12px;"><div style="font-weight:600;margin-bottom:8px;" data-i18n="div-add-stock">+ Add Dividend Stock</div>
+ <div class="row-2"><div class="form-group"><label data-i18n="lbl-ticker">Ticker</label><input type="text" id="div-ticker" placeholder="AAPL" data-i18n-ph="ph-ticker"></div><div class="form-group"><label data-i18n="lbl-company">Company</label><input type="text" id="div-company" placeholder="Apple Inc." data-i18n-ph="ph-company"></div></div>
+ <div class="row-2"><div class="form-group"><label data-i18n="lbl-shares">Shares</label><input type="number" id="div-shares" placeholder="100"></div><div class="form-group"><label data-i18n="lbl-div-share">Div/Share ($)</label><input type="number" id="div-amount" placeholder="0.25" step="0.01"></div></div>
+ <div class="row-2"><div class="form-group"><label data-i18n="lbl-country">Country</label><select id="div-country"><option>TZ</option><option>KE</option><option>UG</option><option>RW</option><option>US</option></select></div><div class="form-group"><label data-i18n="lbl-tax-rate">Tax Rate (%)</label><input type="number" id="div-tax" placeholder="15" value="15"></div></div>
+ <div class="row-2"><div class="form-group"><label data-i18n="lbl-frequency">Frequency</label><select id="div-frequency"><option data-i18n-opt="freq-monthly">Monthly</option><option data-i18n-opt="freq-quarterly">Quarterly</option><option data-i18n-opt="freq-semi">Semi-Annual</option><option data-i18n-opt="freq-annual">Annual</option></select></div><div class="form-group"><label data-i18n="lbl-next-date">Next Pay Date</label><input type="date" id="div-next-date"></div></div>
+ <button class="btn btn-primary" data-i18n="btn-add-stock" onclick="addDividendStock()">Add Stock</button>
  </div>
  <div id="dividend-tracker-list"></div>
- <div class="card" style="margin-top:12px;border-left:3px solid var(--red);"><div style="font-weight:700;font-size:0.9rem;color:var(--red);margin-bottom:10px;">Tax Report</div>
- <div class="row-2"><div class="form-group"><label>Mwaka</label><select id="tax-report-year" onchange="generateTaxReport()"></select></div><div class="form-group"><label>Nchi</label><select id="tax-report-country" onchange="generateTaxReport()"><option value="ALL">Zote</option><option value="TZ">Tanzania</option><option value="KE">Kenya</option><option value="UG">Uganda</option><option value="US">USA</option></select></div></div>
- <div id="tax-report-content" style="display:none;"><table style="width:100%;font-size:0.72rem;border-collapse:collapse;margin-bottom:10px;"><tr style="border-bottom:1px solid var(--border);"><th style="text-align:left;padding:6px 4px;">Maelezo</th><th style="text-align:right;padding:6px 4px;">Kiasi ($)</th></tr><tr><td style="padding:4px;">Jumla Gross</td><td id="tr-gross" style="text-align:right;">$0</td></tr><tr><td style="color:var(--red);">Jumla Kodi</td><td id="tr-tax" style="text-align:right;color:var(--red);">$0</td></tr><tr style="border-top:2px solid var(--border);"><td>Net Income</td><td id="tr-net" style="text-align:right;color:var(--green);">$0</td></tr></table><div id="tr-breakdown" style="font-size:0.65rem;color:var(--muted);margin-bottom:10px;"></div><button class="btn btn-outline btn-sm" style="width:100%;" onclick="exportTaxReport()">Export Tax Report (TXT)</button></div>
- <div id="tax-report-empty" style="text-align:center;padding:15px;color:var(--muted);font-size:0.72rem;display:none;">Hakuna rekodi za dividend.</div>
+ <div class="card" style="margin-top:12px;border-left:3px solid var(--red);"><div style="font-weight:700;font-size:0.9rem;color:var(--red);margin-bottom:10px;" data-i18n="tax-report-title">Tax Report</div>
+ <div class="row-2"><div class="form-group"><label data-i18n="lbl-year">Mwaka</label><select id="tax-report-year" onchange="generateTaxReport()"></select></div><div class="form-group"><label data-i18n="lbl-country">Nchi</label><select id="tax-report-country" onchange="generateTaxReport()"><option value="ALL" data-i18n-opt="opt-all">Zote</option><option value="TZ">Tanzania</option><option value="KE">Kenya</option><option value="UG">Uganda</option><option value="US">USA</option></select></div></div>
+ <div id="tax-report-content" style="display:none;"><table style="width:100%;font-size:0.72rem;border-collapse:collapse;margin-bottom:10px;"><tr style="border-bottom:1px solid var(--border);"><th style="text-align:left;padding:6px 4px;" data-i18n="tax-col-desc">Maelezo</th><th style="text-align:right;padding:6px 4px;" data-i18n="tax-col-amount">Kiasi ($)</th></tr><tr><td style="padding:4px;" data-i18n="tax-gross">Jumla Gross</td><td id="tr-gross" style="text-align:right;">$0</td></tr><tr><td style="color:var(--red);" data-i18n="tax-total-tax">Jumla Kodi</td><td id="tr-tax" style="text-align:right;color:var(--red);">$0</td></tr><tr style="border-top:2px solid var(--border);"><td data-i18n="tax-net">Net Income</td><td id="tr-net" style="text-align:right;color:var(--green);">$0</td></tr></table><div id="tr-breakdown" style="font-size:0.65rem;color:var(--muted);margin-bottom:10px;"></div><button class="btn btn-outline btn-sm" style="width:100%;" data-i18n="btn-export-tax" onclick="exportTaxReport()">Export Tax Report (TXT)</button></div>
+ <div id="tax-report-empty" style="text-align:center;padding:15px;color:var(--muted);font-size:0.72rem;display:none;" data-i18n="tax-empty">Hakuna rekodi za dividend.</div>
  </div>
  </div>
 
  <div class="asset-content" id="acad-tools">
- <div class="tool-card"><div style="font-weight:700;margin-bottom:8px;">Position Size Calculator</div><div class="form-group"><label>Balance ($)</label><input type="number" id="pos-balance" value="1000" oninput="calcPosition()"></div><div class="form-group"><label>Risk %</label><input type="number" id="pos-risk" value="1" step="0.1" oninput="calcPosition()"></div><div class="form-group"><label>SL (Pips)</label><input type="number" id="pos-sl" value="20" oninput="calcPosition()"></div><div class="tool-result" id="pos-result">$0.50 per pip</div></div>
- <div class="tool-card"><div style="font-weight:700;margin-bottom:8px;" data-i18n="kelly-title">Kelly Criterion</div><div class="row-2"><div class="form-group"><label>Win Rate (%)</label><input type="number" id="kelly-wr" value="55" oninput="calcKelly()"></div><div class="form-group"><label>Reward:Risk</label><input type="number" id="kelly-rr" value="2" step="0.1" oninput="calcKelly()"></div></div><div class="tool-result" id="kelly-result">--%</div><div style="font-size:0.6rem;color:var(--muted);margin-top:4px;">Optimal position size %</div></div>
- <div class="tool-card"><div style="font-weight:700;margin-bottom:8px;" data-i18n="dd-sim-title">Mfano wa Kupungua</div><div class="form-group"><label>Balance ($)</label><input type="number" id="dd-balance" value="1000" oninput="calcDrawdown()"></div><div class="form-group"><label>Risk/Trade (%)</label><input type="number" id="dd-risk" value="2" step="0.5" oninput="calcDrawdown()"></div><div class="form-group"><label>Consecutive Losses</label><input type="number" id="dd-losses" value="5" oninput="calcDrawdown()"></div><div class="tool-result" id="dd-result">$903.92</div></div>
- <div class="tool-card"><div style="font-weight:700;margin-bottom:8px;" data-i18n="compound-title">Kikokotoo cha Ukuaji</div><div class="form-group"><label>Capital ($)</label><input type="number" id="comp-start" value="100" oninput="calcCompound()"></div><div class="form-group"><label>Return %</label><input type="number" id="comp-return" value="10" oninput="calcCompound()"></div><div class="form-group"><label>Months</label><input type="number" id="comp-months" value="12" oninput="calcCompound()"></div><div class="tool-result" id="comp-result">$313.84</div></div>
+ <div class="tool-card"><div style="font-weight:700;margin-bottom:8px;">Position Size Calculator</div><div class="form-group"><label data-i18n="lbl-balance">Balance ($)</label><input type="number" id="pos-balance" value="1000" oninput="calcPosition()"></div><div class="form-group"><label data-i18n="lbl-risk-pct">Risk %</label><input type="number" id="pos-risk" value="1" step="0.1" oninput="calcPosition()"></div><div class="form-group"><label data-i18n="lbl-sl-pips">SL (Pips)</label><input type="number" id="pos-sl" value="20" oninput="calcPosition()"></div><div class="tool-result" id="pos-result">$0.50 per pip</div></div>
+ <div class="tool-card"><div style="font-weight:700;margin-bottom:8px;" data-i18n="kelly-title">Kelly Criterion</div><div class="row-2"><div class="form-group"><label data-i18n="lbl-win-rate">Win Rate (%)</label><input type="number" id="kelly-wr" value="55" oninput="calcKelly()"></div><div class="form-group"><label data-i18n="lbl-reward-risk">Reward:Risk</label><input type="number" id="kelly-rr" value="2" step="0.1" oninput="calcKelly()"></div></div><div class="tool-result" id="kelly-result">--%</div><div style="font-size:0.6rem;color:var(--muted);margin-top:4px;" data-i18n="kelly-hint">Optimal position size %</div></div>
+ <div class="tool-card"><div style="font-weight:700;margin-bottom:8px;" data-i18n="dd-sim-title">Mfano wa Kupungua</div><div class="form-group"><label data-i18n="lbl-balance">Balance ($)</label><input type="number" id="dd-balance" value="1000" oninput="calcDrawdown()"></div><div class="form-group"><label data-i18n="lbl-risk-trade">Risk/Trade (%)</label><input type="number" id="dd-risk" value="2" step="0.5" oninput="calcDrawdown()"></div><div class="form-group"><label data-i18n="lbl-consec-losses">Consecutive Losses</label><input type="number" id="dd-losses" value="5" oninput="calcDrawdown()"></div><div class="tool-result" id="dd-result">$903.92</div></div>
+ <div class="tool-card"><div style="font-weight:700;margin-bottom:8px;" data-i18n="compound-title">Kikokotoo cha Ukuaji</div><div class="form-group"><label data-i18n="lbl-capital">Capital ($)</label><input type="number" id="comp-start" value="100" oninput="calcCompound()"></div><div class="form-group"><label data-i18n="lbl-return-pct">Return %</label><input type="number" id="comp-return" value="10" oninput="calcCompound()"></div><div class="form-group"><label data-i18n="lbl-months">Months</label><input type="number" id="comp-months" value="12" oninput="calcCompound()"></div><div class="tool-result" id="comp-result">$313.84</div></div>
  </div>
 
  <!-- PSYCHOLOGY -->
  <div class="asset-content" id="acad-psych">
  <div class="card" style="border-left:3px solid var(--red);">
- <div style="font-weight:700;margin-bottom:6px;"> Revenge Trading Blocker</div>
- <div style="font-size:0.7rem;color:var(--muted);margin-bottom:8px;">Ukipoteza mara 3 mfululizo, app inakuzuia kuongeza trade kwa dakika 30.</div>
+ <div style="font-weight:700;margin-bottom:6px;" data-i18n="psy-revenge-title"> Revenge Trading Blocker</div>
+ <div style="font-size:0.7rem;color:var(--muted);margin-bottom:8px;" data-i18n="psy-revenge-desc">Ukipoteza mara 3 mfululizo, app inakuzuia kuongeza trade kwa dakika 30.</div>
  <div id="revenge-status" style="font-size:0.75rem;font-weight:700;"></div>
  </div>
  <div class="card">
- <div style="font-weight:700;margin-bottom:10px;"> Breathing Exercise (4-7-8)</div>
+ <div style="font-weight:700;margin-bottom:10px;" data-i18n="psy-breath-title"> Breathing Exercise (4-7-8)</div>
  <div style="display:flex;justify-content:center;align-items:center;height:160px;">
- <div id="breath-circle" style="width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,var(--accent) 0%,transparent 70%);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--text);transition:transform 4s ease;">Tayari</div>
+ <div id="breath-circle" data-i18n-ready="psy-ready" style="width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,var(--accent) 0%,transparent 70%);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--text);transition:transform 4s ease;">Tayari</div>
  </div>
- <button class="btn btn-primary" style="width:100%;margin-top:8px;" onclick="startBreathing()">Anza (mara 4)</button>
+ <button class="btn btn-primary" style="width:100%;margin-top:8px;" data-i18n="psy-breath-start" onclick="startBreathing()">Anza (mara 4)</button>
  </div>
  <div class="card">
- <div style="font-weight:700;margin-bottom:8px;"> Psychology Journal</div>
- <textarea id="psy-entry" rows="3" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px;color:var(--text);font-size:0.78rem;" placeholder="Unajisikiaje leo?"></textarea>
- <button class="btn btn-primary" style="width:100%;margin-top:8px;" onclick="savePsyEntry()">Hifadhi</button>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="psy-journal-title"> Psychology Journal</div>
+ <textarea id="psy-entry" rows="3" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px;color:var(--text);font-size:0.78rem;" placeholder="Unajisikiaje leo?" data-i18n-ph="ph-psy-entry"></textarea>
+ <button class="btn btn-primary" style="width:100%;margin-top:8px;" data-i18n="btn-save" onclick="savePsyEntry()">Hifadhi</button>
  <div id="psy-list" style="margin-top:10px;"></div>
  </div>
  <div class="card">
- <div style="font-weight:700;margin-bottom:6px;"> Daily Affirmation</div>
+ <div style="font-weight:700;margin-bottom:6px;" data-i18n="psy-affirmation-title"> Daily Affirmation</div>
  <div id="psy-affirmation" style="font-style:italic;color:var(--accent);font-size:0.85rem;text-align:center;padding:10px;"></div>
- <button class="btn btn-outline btn-sm" style="width:100%;" onclick="updateAffirmation(true)"> Nyingine</button>
+ <button class="btn btn-outline btn-sm" style="width:100%;" data-i18n="psy-next-affirmation" onclick="updateAffirmation(true)"> Nyingine</button>
  </div>
  </div>
 
  <!-- CHALLENGES -->
  <div class="asset-content" id="acad-chal">
  <div class="card" style="text-align:center;">
- <div style="font-weight:700;font-size:0.9rem;margin-bottom:6px;"> Daily Streak</div>
+ <div style="font-weight:700;font-size:0.9rem;margin-bottom:6px;" data-i18n="chal-streak-title"> Daily Streak</div>
  <div id="chal-streak" style="font-size:2rem;font-weight:800;color:var(--orange);">0</div>
- <div style="font-size:0.7rem;color:var(--muted);">siku mfululizo</div>
+ <div style="font-size:0.7rem;color:var(--muted);" data-i18n="chal-days-row">siku mfululizo</div>
  </div>
  <div class="card">
- <div style="font-weight:700;margin-bottom:10px;"> Changamoto Hai</div>
+ <div style="font-weight:700;margin-bottom:10px;" data-i18n="chal-active-title"> Changamoto Hai</div>
  <div id="chal-list"></div>
  </div>
  <div class="card">
- <div style="font-weight:700;margin-bottom:8px;"> Beji Zilizopatikana</div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="chal-badges-title"> Beji Zilizopatikana</div>
  <div id="chal-badges" style="display:flex;flex-wrap:wrap;gap:6px;color:var(--muted);font-size:0.75rem;"></div>
  </div>
  </div>
@@ -463,16 +463,16 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div style="font-weight:700;margin-bottom:8px;" data-i18n="new-fx">Mpango Mpya wa Forex</div>
  <input type="hidden" id="fx-id">
  <div class="row-2">
- <div class="form-group"><label data-i18n="j-pair-label">Jozi</label><input type="text" id="fx-pair" placeholder="EUR/USD"></div>
- <div class="form-group"><label>Mkakati</label><input type="text" id="fx-strategy" placeholder="k.m. Breakout"></div>
+ <div class="form-group"><label data-i18n="j-pair-label">Jozi</label><input type="text" id="fx-pair" placeholder="EUR/USD" data-i18n-ph="ph-eurusd"></div>
+ <div class="form-group"><label data-i18n="lbl-strategy">Mkakati</label><input type="text" id="fx-strategy" placeholder="k.m. Breakout" data-i18n-ph="ph-fx-strategy"></div>
  </div>
  <div class="row-2">
- <div class="form-group"><label>Entry Price</label><input type="number" id="fx-entry" placeholder="1.08500" step="0.00001"></div>
- <div class="form-group"><label>Risk (%)</label><input type="number" id="fx-risk" placeholder="1" step="0.5"></div>
+ <div class="form-group"><label data-i18n="lbl-entry">Entry Price</label><input type="number" id="fx-entry" placeholder="1.08500" step="0.00001"></div>
+ <div class="form-group"><label data-i18n="lbl-risk-pct2">Risk (%)</label><input type="number" id="fx-risk" placeholder="1" step="0.5"></div>
  </div>
  <div class="row-2">
- <div class="form-group"><label>Stop Loss (SL)</label><input type="number" id="fx-sl" placeholder="1.08000" step="0.00001"></div>
- <div class="form-group"><label>Take Profit (TP)</label><input type="number" id="fx-tp" placeholder="1.09500" step="0.00001"></div>
+ <div class="form-group"><label data-i18n="lbl-sl">Stop Loss (SL)</label><input type="number" id="fx-sl" placeholder="1.08000" step="0.00001"></div>
+ <div class="form-group"><label data-i18n="lbl-tp">Take Profit (TP)</label><input type="number" id="fx-tp" placeholder="1.09500" step="0.00001"></div>
  </div>
  <div class="btn-row">
  <button class="btn btn-primary" onclick="saveFXPlan()">Save</button>
@@ -490,8 +490,8 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div style="font-weight:700;margin-bottom:8px;" data-i18n="new-syn">Mpango Mpya wa Synthetic</div>
  <input type="hidden" id="syn-id">
  <div class="row-2">
- <div class="form-group"><label>Index</label><input type="text" id="syn-index" placeholder="k.m. Volatility 75"></div>
- <div class="form-group"><label>Lot Size</label><input type="number" id="syn-lot" placeholder="0.001" step="0.001"></div>
+ <div class="form-group"><label data-i18n="lbl-index">Index</label><input type="text" id="syn-index" placeholder="k.m. Volatility 75" data-i18n-ph="ph-syn-index"></div>
+ <div class="form-group"><label data-i18n="lbl-lot-size">Lot Size</label><input type="number" id="syn-lot" placeholder="0.001" step="0.001"></div>
  </div>
  <div class="row-2">
  <div class="form-group"><label data-i18n="j-sl-label">Kizuizi cha Hasara</label><input type="number" id="syn-sl" placeholder="0" step="0.01"></div>
@@ -513,12 +513,12 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div style="font-weight:700;margin-bottom:8px;" data-i18n="new-stocks">Mpango Mpya wa Hisa</div>
  <input type="hidden" id="stock-id">
  <div class="row-2">
- <div class="form-group"><label>Ticker</label><input type="text" id="stock-ticker" placeholder="k.m. AAPL"></div>
- <div class="form-group"><label>Shares</label><input type="number" id="stock-shares" placeholder="10"></div>
+ <div class="form-group"><label data-i18n="lbl-ticker">Ticker</label><input type="text" id="stock-ticker" placeholder="k.m. AAPL" data-i18n-ph="ph-stock-ticker"></div>
+ <div class="form-group"><label data-i18n="lbl-shares">Shares</label><input type="number" id="stock-shares" placeholder="10"></div>
  </div>
  <div class="row-2">
- <div class="form-group"><label>Entry Price</label><input type="number" id="stock-entry" placeholder="150.00" step="0.01"></div>
- <div class="form-group"><label>Target (TP)</label><input type="number" id="stock-target" placeholder="180.00" step="0.01"></div>
+ <div class="form-group"><label data-i18n="lbl-entry">Entry Price</label><input type="number" id="stock-entry" placeholder="150.00" step="0.01"></div>
+ <div class="form-group"><label data-i18n="lbl-target-tp">Target (TP)</label><input type="number" id="stock-target" placeholder="180.00" step="0.01"></div>
  </div>
  <div class="btn-row">
  <button class="btn btn-primary" onclick="saveStocksPlan()">Save</button>
@@ -536,16 +536,16 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div style="font-weight:700;margin-bottom:8px;" data-i18n="new-crypto">Mpango Mpya wa Crypto</div>
  <input type="hidden" id="crypto-id">
  <div class="row-2">
- <div class="form-group"><label>Coin</label><input type="text" id="crypto-coin" placeholder="k.m. BTC/USDT"></div>
- <div class="form-group"><label>Amount / Mtaji</label><input type="number" id="crypto-amount" placeholder="100"></div>
+ <div class="form-group"><label data-i18n="lbl-coin">Coin</label><input type="text" id="crypto-coin" placeholder="k.m. BTC/USDT" data-i18n-ph="ph-crypto-coin"></div>
+ <div class="form-group"><label data-i18n="lbl-amount-capital">Amount / Mtaji</label><input type="number" id="crypto-amount" placeholder="100"></div>
  </div>
  <div class="row-2">
- <div class="form-group"><label>Entry Price</label><input type="number" id="crypto-entry" placeholder="60000" step="0.01"></div>
- <div class="form-group"><label>Leverage (Kama ipo)</label><input type="number" id="crypto-leverage" placeholder="10"></div>
+ <div class="form-group"><label data-i18n="lbl-entry">Entry Price</label><input type="number" id="crypto-entry" placeholder="60000" step="0.01"></div>
+ <div class="form-group"><label data-i18n="lbl-leverage-opt">Leverage (Kama ipo)</label><input type="number" id="crypto-leverage" placeholder="10"></div>
  </div>
  <div class="row-2">
- <div class="form-group"><label>Stop Loss (SL)</label><input type="number" id="crypto-sl" placeholder="0" step="0.01"></div>
- <div class="form-group"><label>Take Profit (TP)</label><input type="number" id="crypto-tp" placeholder="0" step="0.01"></div>
+ <div class="form-group"><label data-i18n="lbl-sl">Stop Loss (SL)</label><input type="number" id="crypto-sl" placeholder="0" step="0.01"></div>
+ <div class="form-group"><label data-i18n="lbl-tp">Take Profit (TP)</label><input type="number" id="crypto-tp" placeholder="0" step="0.01"></div>
  </div>
  <div class="btn-row">
  <button class="btn btn-primary" onclick="saveCryptoPlan()">Save</button>
@@ -559,54 +559,54 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div class="page" id="pg-ai-coach">
  <div class="pg-title" data-i18n="pg-coach">AI Coach</div>
  <div class="asset-tabs">
- <button class="asset-tab active" onclick="switchCoachTab('chat',this)">Chat</button>
- <button class="asset-tab" onclick="switchCoachTab('reports',this)">Reports</button>
- <button class="asset-tab" onclick="switchCoachTab('mood',this)">Mood</button>
- <button class="asset-tab" onclick="switchCoachTab('share',this)">Share</button>
+ <button class="asset-tab active" data-i18n="tab-chat" onclick="switchCoachTab('chat',this)">Chat</button>
+ <button class="asset-tab" data-i18n="tab-reports" onclick="switchCoachTab('reports',this)">Reports</button>
+ <button class="asset-tab" data-i18n="tab-mood" onclick="switchCoachTab('mood',this)">Mood</button>
+ <button class="asset-tab" data-i18n="tab-share" onclick="switchCoachTab('share',this)">Share</button>
  </div>
  <div class="asset-content active" id="coach-chat">
- <div class="chat-wrap"><div class="chat-header-bar"><div class="ai-avatar">🤖</div><div><div style="font-weight:600;">NexaCoach AI</div><div style="font-size:0.62rem;color:var(--green);">Online</div></div></div><div class="chat-body" id="chat-body"><div class="msg ai">Habari! Andika 'Chambua' nichambue trades zako, au uliza chochote!</div></div><div class="chat-input-bar"><input type="text" id="chat-in" placeholder="Uliza au andika 'Chambua'..." onkeydown="if(event.key==='Enter')sendMsg()"><button class="send-btn" onclick="sendMsg()">&gt;</button></div></div>
- <div class="topic-chips"><span class="topic-chip" onclick="quickMsg('Chambua')">Chambua</span><span class="topic-chip" onclick="quickMsg('Forex')">Forex</span><span class="topic-chip" onclick="quickMsg('Crypto')">Crypto</span><span class="topic-chip" onclick="quickMsg('Synthetic')">Synthetic</span><span class="topic-chip" onclick="quickMsg('Risk')">Risk</span><span class="topic-chip" onclick="quickMsg('Psychology')">Psychology</span></div>
+ <div class="chat-wrap"><div class="chat-header-bar"><div class="ai-avatar">🤖</div><div><div style="font-weight:600;">NexaCoach AI</div><div style="font-size:0.62rem;color:var(--green);">Online</div></div></div><div class="chat-body" id="chat-body"><div class="msg ai" id="ai-welcome-msg">Habari! Andika 'Chambua' nichambue trades zako, au uliza chochote!</div></div><div class="chat-input-bar"><input type="text" id="chat-in" placeholder="Uliza au andika 'Chambua'..." data-i18n-ph="ph-chat-input" onkeydown="if(event.key==='Enter')sendMsg()"><button class="send-btn" onclick="sendMsg()">&gt;</button></div></div>
+ <div class="topic-chips"><span class="topic-chip" data-i18n="chip-analyze" onclick="quickMsg(currentLang==='sw'?'Chambua':'Analyze')">Chambua</span><span class="topic-chip" onclick="quickMsg('Forex')">Forex</span><span class="topic-chip" onclick="quickMsg('Crypto')">Crypto</span><span class="topic-chip" onclick="quickMsg('Synthetic')">Synthetic</span><span class="topic-chip" onclick="quickMsg('Risk')">Risk</span><span class="topic-chip" onclick="quickMsg('Psychology')">Psychology</span></div>
  <div class="card"><div style="font-weight:700;font-size:0.9rem;margin-bottom:12px;" data-i18n="card-goals">Malengo Yangu</div><div id="goals-tracker-list"></div><button class="btn btn-outline btn-sm" style="width:100%;margin-top:8px;" data-i18n="btn-add-goal" onclick="showGoalForm()">+ Ongeza Lengo</button></div>
  </div>
  <div class="asset-content" id="coach-reports">
  <div class="card">
- <div style="font-weight:700;margin-bottom:8px;"> Ripoti ya PDF</div>
- <div style="font-size:0.7rem;color:var(--muted);margin-bottom:10px;">Ripoti ya kina ya utendaji wako (Win Rate, PF, Max DD, Mood, Tags).</div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="coach-pdf-title"> Ripoti ya PDF</div>
+ <div style="font-size:0.7rem;color:var(--muted);margin-bottom:10px;" data-i18n="coach-pdf-desc">Ripoti ya kina ya utendaji wako (Win Rate, PF, Max DD, Mood, Tags).</div>
  <div class="btn-row">
- <button class="btn btn-primary" onclick="generateReport('week')"> Wiki</button>
- <button class="btn btn-primary" onclick="generateReport('month')"> Mwezi</button>
+ <button class="btn btn-primary" data-i18n="btn-week-report" onclick="generateReport('week')"> Wiki</button>
+ <button class="btn btn-primary" data-i18n="btn-month-report" onclick="generateReport('month')"> Mwezi</button>
  </div>
  </div>
  <div class="card">
- <div style="font-weight:700;margin-bottom:10px;"> Performance kwa Strategy</div>
+ <div style="font-weight:700;margin-bottom:10px;" data-i18n="coach-strat-perf"> Performance kwa Strategy</div>
  <canvas id="strategyChart" height="160"></canvas>
  </div>
  <div class="card">
- <div style="font-weight:700;margin-bottom:10px;"> Performance kwa Tag</div>
+ <div style="font-weight:700;margin-bottom:10px;" data-i18n="coach-tag-perf"> Performance kwa Tag</div>
  <div id="tag-stats" style="font-size:0.78rem;"></div>
  </div>
  </div>
  <div class="asset-content" id="coach-mood">
  <div class="card">
- <div style="font-weight:700;margin-bottom:10px;"> Mood vs P&L</div>
+ <div style="font-weight:700;margin-bottom:10px;" data-i18n="coach-mood-pnl"> Mood vs P&L</div>
  <canvas id="moodChart" height="160"></canvas>
  </div>
  <div class="card">
- <div style="font-weight:700;margin-bottom:8px;"> Insights</div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="coach-insights"> Insights</div>
  <div id="mood-insights" style="font-size:0.78rem;line-height:1.6;"></div>
  </div>
  <div class="card">
- <div style="font-weight:700;margin-bottom:8px;">Makosa Yako (Mistake Tracker)</div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="coach-mistakes">Makosa Yako (Mistake Tracker)</div>
  <div id="mistake-tracker-list" style="font-size:0.78rem;line-height:1.7;"></div>
  </div>
  </div>
  <div class="asset-content" id="coach-share">
  <div class="card">
- <div style="font-weight:700;margin-bottom:8px;"> Share Trade Card</div>
- <div style="font-size:0.7rem;color:var(--muted);margin-bottom:10px;">Chagua trade ya hivi karibuni — tunatengeneza picha ya kushare.</div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="coach-share-title"> Share Trade Card</div>
+ <div style="font-size:0.7rem;color:var(--muted);margin-bottom:10px;" data-i18n="coach-share-desc">Chagua trade ya hivi karibuni — tunatengeneza picha ya kushare.</div>
  <select id="share-trade-pick" style="width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:8px;border-radius:8px;margin-bottom:10px;"></select>
- <button class="btn btn-primary" style="width:100%;" onclick="generateShareCard()"> Tengeneza & Pakua</button>
+ <button class="btn btn-primary" style="width:100%;" data-i18n="btn-share-gen" onclick="generateShareCard()"> Tengeneza & Pakua</button>
  <canvas id="share-card-canvas" width="800" height="450" style="width:100%;margin-top:10px;border-radius:8px;display:none;background:#06060d;"></canvas>
  </div>
  </div>
@@ -625,7 +625,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <button class="settings-tab" onclick="switchSettingsTab('about',this)" data-i18n="tab-about">Kuhusu</button>
  </div>
  
- <div class="settings-content active" id="settings-profile"><div class="card" style="text-align:center;margin-bottom:12px;"><div id="profile-avatar-container" style="width:70px;height:70px;border-radius:50%;background:var(--card2);margin:0 auto 8px;overflow:hidden;cursor:pointer;border:2px solid var(--border);" onclick="document.getElementById('profile-pic-input').click()"><img id="profile-pic-preview" src=""><span id="profile-pic-placeholder" style="font-size:1.8rem;line-height:70px;">N</span></div><input type="file" id="profile-pic-input" accept="image/*" style="display:none;" onchange="handleProfilePic(event)"><div class="badge-row" id="settings-badges-display"></div></div><div id="profile-view" class="card"><div style="font-weight:600;" id="profile-view-name">Jina halijawekwa</div><div class="btn-row"><button class="btn btn-primary btn-sm" onclick="editProfile()">Edit</button></div></div><div id="profile-form" class="card form-hidden"><div class="form-group"><label>Name</label><input type="text" id="profile-fullname"></div><div class="form-group"><label>Nickname</label><input type="text" id="profile-nickname"></div><div class="btn-row"><button class="btn btn-primary" onclick="saveProfile()">Save</button><button class="btn btn-outline btn-sm" onclick="cancelProfileEdit()">Cancel</button></div></div></div>
+ <div class="settings-content active" id="settings-profile"><div class="card" style="text-align:center;margin-bottom:12px;"><div id="profile-avatar-container" style="width:70px;height:70px;border-radius:50%;background:var(--card2);margin:0 auto 8px;overflow:hidden;cursor:pointer;border:2px solid var(--border);" onclick="document.getElementById('profile-pic-input').click()"><img id="profile-pic-preview" src=""><span id="profile-pic-placeholder" style="font-size:1.8rem;line-height:70px;">N</span></div><input type="file" id="profile-pic-input" accept="image/*" style="display:none;" onchange="handleProfilePic(event)"><div class="badge-row" id="settings-badges-display"></div></div><div id="profile-view" class="card"><div style="font-weight:600;" id="profile-view-name" data-i18n="profile-no-name">Jina halijawekwa</div><div class="btn-row"><button class="btn btn-primary btn-sm" data-i18n="btn-edit" onclick="editProfile()">Edit</button></div></div><div id="profile-form" class="card form-hidden"><div class="form-group"><label data-i18n="lbl-name">Name</label><input type="text" id="profile-fullname" data-i18n-ph="ph-name"></div><div class="form-group"><label data-i18n="lbl-nickname">Nickname</label><input type="text" id="profile-nickname" data-i18n-ph="ph-nickname"></div><div class="btn-row"><button class="btn btn-primary" data-i18n="btn-save" onclick="saveProfile()">Save</button><button class="btn btn-outline btn-sm" data-i18n="btn-cancel" onclick="cancelProfileEdit()">Cancel</button></div></div></div>
  
  <div class="settings-content" id="settings-security"><div class="card"><div style="font-weight:700;margin-bottom:12px;" data-i18n="card-pin">PIN Security</div><button class="btn btn-primary" style="width:100%;margin-bottom:8px;" data-i18n="btn-set-pin" onclick="setPin()">Set PIN</button><button class="btn btn-danger btn-sm" style="width:100%;" data-i18n="btn-remove-pin" onclick="removePin()">Remove PIN</button></div></div>
  
@@ -653,13 +653,13 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div class="import-zone" onclick="document.getElementById('import-file').click()"><div style="font-size:2rem;">+</div><div style="font-weight:600;" data-i18n="btn-import">Import Data</div></div>
  <input type="file" id="import-file" accept=".json" style="display:none;" onchange="importAllData(event)">
  <button class="btn btn-gold btn-sm" style="width:100%;margin-top:8px;" data-i18n="btn-archive" onclick="archiveOldData()">Archive Old Trades (3+ months)</button>
- <button class="btn btn-outline btn-sm" style="width:100%;margin-top:8px;" onclick="verifyIdbMigration()">Hakikisha IndexedDB (Verify Data)</button>
+ <button class="btn btn-outline btn-sm" style="width:100%;margin-top:8px;" data-i18n="btn-verify-idb" onclick="verifyIdbMigration()">Hakikisha IndexedDB (Verify Data)</button>
  <button class="btn btn-danger btn-sm" style="width:100%;margin-top:8px;" data-i18n="btn-delete-all" onclick="resetAllData()">Delete All Data</button>
  </div>
  <div class="card" style="border-left:3px solid var(--gold);">
- <div style="font-weight:700;margin-bottom:8px;">Upload Broker Statement (CSV)</div>
- <div style="font-size:0.7rem;color:var(--muted);margin-bottom:8px;">Pakia faili la CSV la broker wako. Safu zinazotambuliwa: <b>date, pair, type, pnl</b> (au profit/loss). Trades zitaongezwa kwenye Journal kiotomatiki.</div>
- <div class="import-zone" onclick="document.getElementById('csv-statement-input').click()"><div style="font-size:1.5rem;">+</div><div style="font-weight:600;">Chagua CSV</div></div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="broker-upload-title">Upload Broker Statement (CSV)</div>
+ <div style="font-size:0.7rem;color:var(--muted);margin-bottom:8px;" data-i18n="broker-upload-desc">Pakia faili la CSV la broker wako. Safu zinazotambuliwa: <b>date, pair, type, pnl</b> (au profit/loss). Trades zitaongezwa kwenye Journal kiotomatiki.</div>
+ <div class="import-zone" onclick="document.getElementById('csv-statement-input').click()"><div style="font-size:1.5rem;">+</div><div style="font-weight:600;" data-i18n="btn-choose-csv">Chagua CSV</div></div>
  <input type="file" id="csv-statement-input" accept=".csv,text/csv" style="display:none;" onchange="importBrokerCSV(event)">
  </div>
  <div class="card" style="border-left:3px solid var(--blue);">
@@ -667,7 +667,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div style="font-size:0.7rem;color:var(--muted);margin-bottom:8px;" data-i18n="stealth-desc">App ionekane kama calculator. PIN yako ya siri inaifungua kurudi NexaTrade.</div>
  <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
  <input type="checkbox" id="stealth-toggle" onchange="toggleStealthMode()" style="width:18px;height:18px;accent-color:var(--accent);">
- <span data-i18n="stealth-enable">WezeshaHali ya Siri</span>
+ <span data-i18n="stealth-enable">Wezesha Hali ya Siri</span>
  </label>
  </div>
  </div>
@@ -675,39 +675,39 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div class="settings-content" id="settings-about">
  <div class="card" style="text-align:center;">
  <div style="font-family:var(--font-head);font-size:1.4rem;color:var(--accent);font-weight:800;">NexaTrade Pro</div>
- <div style="font-size:0.72rem;color:var(--muted);margin-top:4px;">Toleo 1.0.0 &middot; Imeandaliwa na <b>Germ Tech</b></div>
- <div style="font-size:0.7rem;color:var(--muted);margin-top:4px;">Kwa ajili ya Traders wenye Nidhamu</div>
+ <div style="font-size:0.72rem;color:var(--muted);margin-top:4px;" data-i18n="about-version">Toleo 1.0.0 &middot; Imeandaliwa na Germ Tech</div>
+ <div style="font-size:0.7rem;color:var(--muted);margin-top:4px;" data-i18n="about-tagline">Kwa ajili ya Traders wenye Nidhamu</div>
  </div>
  <div class="card">
- <div style="font-weight:700;margin-bottom:6px;">Lengo Letu</div>
- <div style="font-size:0.74rem;line-height:1.55;color:var(--muted);">NexaTrade Pro ni Smart Trading Journal iliyoundwa kuwasaidia wafanyabiashara wa Forex, Crypto, na Stocks kufuatilia trade zao, kudhibiti saikolojia, na kujenga nidhamu thabiti sokoni.</div>
+ <div style="font-weight:700;margin-bottom:6px;" data-i18n="about-mission-title">Lengo Letu</div>
+ <div style="font-size:0.74rem;line-height:1.55;color:var(--muted);" data-i18n="about-mission-text">NexaTrade Pro ni Smart Trading Journal iliyoundwa kuwasaidia wafanyabiashara wa Forex, Crypto, na Stocks kufuatilia trade zao, kudhibiti saikolojia, na kujenga nidhamu thabiti sokoni.</div>
  </div>
  <div class="card">
- <div style="font-weight:700;margin-bottom:8px;">Vipengele Vikuu</div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="about-features-title">Vipengele Vikuu</div>
  <ul style="font-size:0.74rem;line-height:1.6;color:var(--muted);padding-left:18px;margin:0;">
- <li><b>Smart Journaling</b> &mdash; Live na Demo accounts.</li>
- <li><b>Revenge Trading Blocker</b> &mdash; Kinga ya hasira baada ya hasara.</li>
- <li><b>Psychology &amp; Mistake Tracker</b> &mdash; Chambua hisia na makosa yako.</li>
- <li><b>Multi-Currency</b> &mdash; TZS, KES, UGX, USD.</li>
- <li><b>Chart AI &amp; Market Replay</b> &mdash; Mafunzo bila kuingia sokoni halisi.</li>
+ <li><b>Smart Journaling</b> &mdash; <span data-i18n="feat-journal">Live na Demo accounts.</span></li>
+ <li><b>Revenge Trading Blocker</b> &mdash; <span data-i18n="feat-revenge">Kinga ya hasira baada ya hasara.</span></li>
+ <li><b>Psychology &amp; Mistake Tracker</b> &mdash; <span data-i18n="feat-psych">Chambua hisia na makosa yako.</span></li>
+ <li><b>Multi-Currency</b> &mdash; <span data-i18n="feat-currency">TZS, KES, UGX, USD.</span></li>
+ <li><b>Chart AI &amp; Market Replay</b> &mdash; <span data-i18n="feat-chartai">Mafunzo bila kuingia sokoni halisi.</span></li>
  </ul>
  </div>
  <div class="card" style="border-left:3px solid var(--green);">
- <div style="font-weight:700;margin-bottom:6px;"> Usalama wa Data (Privacy First)</div>
- <div style="font-size:0.72rem;line-height:1.55;color:var(--muted);">
- &bull; <b>Hakuna Data Inayosafirishwa:</b> Hatukusanyi wala kutuma taarifa zako mtandaoni.<br>
- &bull; <b>Local Storage / IndexedDB:</b> Data zote zinakaa ndani ya kifaa chako pekee. Ukifuta cache, data zinaweza kufutika &mdash; fanya Backup mara kwa mara.<br>
- &bull; <b>Ulinzi wa PIN:</b> Mfumo wa PIN unazuia mtu mwingine kuona shajara yako.
+ <div style="font-weight:700;margin-bottom:6px;" data-i18n="about-privacy-title"> Usalama wa Data (Privacy First)</div>
+ <div style="font-size:0.72rem;line-height:1.55;color:var(--muted);" id="about-privacy-content">
+ &bull; <b data-i18n="privacy-1-title">Hakuna Data Inayosafirishwa:</b> <span data-i18n="privacy-1-text">Hatukusanyi wala kutuma taarifa zako mtandaoni.</span><br>
+ &bull; <b>Local Storage / IndexedDB:</b> <span data-i18n="privacy-2-text">Data zote zinakaa ndani ya kifaa chako pekee. Ukifuta cache, data zinaweza kufutika &mdash; fanya Backup mara kwa mara.</span><br>
+ &bull; <b data-i18n="privacy-3-title">Ulinzi wa PIN:</b> <span data-i18n="privacy-3-text">Mfumo wa PIN unazuia mtu mwingine kuona shajara yako.</span>
  </div>
  </div>
  <div class="card" style="border-left:3px solid var(--red);">
- <div style="font-weight:700;margin-bottom:6px;"> Ilani ya Riski</div>
- <div style="font-size:0.72rem;line-height:1.55;color:var(--muted);">Biashara ya masoko ya fedha ina hatari kubwa na inaweza kupelekea kupoteza mtaji wako wote. NexaTrade Pro ni zana ya kujifunza na kuchambua tu; haitoi ushauri wa kifedha wala signals. Maamuzi yote sokoni ni jukumu lako mwenyewe.</div>
+ <div style="font-weight:700;margin-bottom:6px;" data-i18n="about-risk-title"> Ilani ya Riski</div>
+ <div style="font-size:0.72rem;line-height:1.55;color:var(--muted);" data-i18n="about-risk-text">Biashara ya masoko ya fedha ina hatari kubwa na inaweza kupelekea kupoteza mtaji wako wote. NexaTrade Pro ni zana ya kujifunza na kuchambua tu; haitoi ushauri wa kifedha wala signals. Maamuzi yote sokoni ni jukumu lako mwenyewe.</div>
  </div>
  <div class="card">
- <div style="font-weight:700;margin-bottom:8px;">Mawasiliano &amp; Msaada</div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="about-contact-title">Mawasiliano &amp; Msaada</div>
  <div style="font-size:0.75rem;line-height:1.7;">
- <a href="mailto:support@nexatrade.com" style="color:var(--accent);">support@nexatrade.com</a><br>
+ <a href="mailto:info.germtech@gmail.com" style="color:var(--accent);">info.germtech@gmail.com</a><br>
  <a href="https://www.nexatrade.com" target="_blank" rel="noopener" style="color:var(--accent);">www.nexatrade.com</a><br>
  <a href="https://wa.me/255781861850" target="_blank" rel="noopener" style="color:var(--accent);">WhatsApp: +255 781 861 850</a>
  </div>
@@ -737,29 +737,29 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div style="font-weight:700;margin-bottom:8px;" data-i18n="pip-calc-title">Pip Calculator</div>
  <div class="row-2">
  <div class="form-group"><label data-i18n="j-pair-label">Jozi</label><select id="pip-pair" onchange="calcPip()"><option value="0.0001|100000">EUR/USD</option><option value="0.0001|100000">GBP/USD</option><option value="0.01|100000">USD/JPY</option><option value="0.0001|100000">AUD/USD</option><option value="0.0001|100000">USD/CAD</option><option value="0.01|100000">EUR/JPY</option></select></div>
- <div class="form-group"><label>Lot Size</label><input type="number" id="pip-lot" value="1" step="0.01" oninput="calcPip()"></div>
+ <div class="form-group"><label data-i18n="lbl-lot-size">Lot Size</label><input type="number" id="pip-lot" value="1" step="0.01" oninput="calcPip()"></div>
  </div>
- <div class="form-group"><label>Quote → USD rate</label><input type="number" id="pip-rate" value="1" step="0.001" oninput="calcPip()"></div>
+ <div class="form-group"><label data-i18n="lbl-quote-rate">Quote → USD rate</label><input type="number" id="pip-rate" value="1" step="0.001" oninput="calcPip()"></div>
  <div class="tool-result" id="pip-result">$10.00 / pip</div>
  </div>
 
  <div class="tool-card">
  <div style="font-weight:700;margin-bottom:8px;" data-i18n="margin-calc-title">Kikokotoo cha Amana</div>
  <div class="row-2">
- <div class="form-group"><label>Lot Size</label><input type="number" id="mar-lot" value="1" step="0.01" oninput="calcMargin()"></div>
- <div class="form-group"><label>Leverage (1:X)</label><input type="number" id="mar-lev" value="500" oninput="calcMargin()"></div>
+ <div class="form-group"><label data-i18n="lbl-lot-size">Lot Size</label><input type="number" id="mar-lot" value="1" step="0.01" oninput="calcMargin()"></div>
+ <div class="form-group"><label data-i18n="lbl-leverage">Leverage (1:X)</label><input type="number" id="mar-lev" value="500" oninput="calcMargin()"></div>
  </div>
- <div class="form-group"><label>Price</label><input type="number" id="mar-price" value="1.085" step="0.00001" oninput="calcMargin()"></div>
+ <div class="form-group"><label data-i18n="lbl-price">Price</label><input type="number" id="mar-price" value="1.085" step="0.00001" oninput="calcMargin()"></div>
  <div class="tool-result" id="mar-result">$217.00</div>
  </div>
 
  <div class="tool-card">
  <div style="font-weight:700;margin-bottom:8px;" data-i18n="swap-calc-title">Kikokotoo cha Swap</div>
  <div class="row-2">
- <div class="form-group"><label>Lot Size</label><input type="number" id="sw-lot" value="1" step="0.01" oninput="calcSwap()"></div>
- <div class="form-group"><label>Swap rate/lot/usiku ($)</label><input type="number" id="sw-rate" value="-7.5" step="0.1" oninput="calcSwap()"></div>
+ <div class="form-group"><label data-i18n="lbl-lot-size">Lot Size</label><input type="number" id="sw-lot" value="1" step="0.01" oninput="calcSwap()"></div>
+ <div class="form-group"><label data-i18n="lbl-swap-rate">Swap rate/lot/usiku ($)</label><input type="number" id="sw-rate" value="-7.5" step="0.1" oninput="calcSwap()"></div>
  </div>
- <div class="form-group"><label>Idadi ya siku</label><input type="number" id="sw-days" value="3" oninput="calcSwap()"></div>
+ <div class="form-group"><label data-i18n="lbl-num-days">Idadi ya siku</label><input type="number" id="sw-days" value="3" oninput="calcSwap()"></div>
  <div class="tool-result" id="sw-result">-$22.50</div>
  </div>
 
@@ -767,10 +767,10 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div class="tool-card">
  <div style="font-weight:700;margin-bottom:8px;" data-i18n="pos-size-title">Kikokotoo cha Ukubwa wa Nafasi</div>
  <div class="row-2">
- <div class="form-group"><label>Balance ($)</label><input type="number" id="pos2-balance" value="1000" oninput="calcPosition2()"></div>
- <div class="form-group"><label>Risk %</label><input type="number" id="pos2-risk" value="1" step="0.1" oninput="calcPosition2()"></div>
+ <div class="form-group"><label data-i18n="lbl-balance">Balance ($)</label><input type="number" id="pos2-balance" value="1000" oninput="calcPosition2()"></div>
+ <div class="form-group"><label data-i18n="lbl-risk-pct">Risk %</label><input type="number" id="pos2-risk" value="1" step="0.1" oninput="calcPosition2()"></div>
  </div>
- <div class="form-group"><label>SL (Pips)</label><input type="number" id="pos2-sl" value="20" oninput="calcPosition2()"></div>
+ <div class="form-group"><label data-i18n="lbl-sl-pips">SL (Pips)</label><input type="number" id="pos2-sl" value="20" oninput="calcPosition2()"></div>
  <div class="tool-result" id="pos2-result">$0.50 per pip</div>
  </div>
  </div>
@@ -780,12 +780,12 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div class="card">
  <div style="font-weight:700;margin-bottom:10px;" data-i18n="al-price-title">Arifa za Bei</div>
  <div class="row-2">
- <div class="form-group"><label>Asset</label><input type="text" id="al-asset" placeholder="EUR/USD au BTC"></div>
- <div class="form-group"><label>Bei</label><input type="number" id="al-price" placeholder="1.0850" step="0.00001"></div>
+ <div class="form-group"><label data-i18n="al-asset-label">Asset</label><input type="text" id="al-asset" placeholder="EUR/USD au BTC" data-i18n-ph="ph-alert-asset"></div>
+ <div class="form-group"><label data-i18n="al-price-label">Bei</label><input type="number" id="al-price" placeholder="1.0850" step="0.00001"></div>
  </div>
  <div class="row-2">
- <div class="form-group"><label>Sharti</label><select id="al-cond"><option value="above" data-i18n-opt="al-above">Ikifika juu ya</option><option value="below" data-i18n-opt="al-below">Ikishuka chini ya</option></select></div>
- <div class="form-group"><label>Bei ya sasa</label><input type="number" id="al-current" placeholder="(hiari)" step="0.00001"></div>
+ <div class="form-group"><label data-i18n="al-cond-label">Sharti</label><select id="al-cond"><option value="above" data-i18n-opt="al-above">Ikifika juu ya</option><option value="below" data-i18n-opt="al-below">Ikishuka chini ya</option></select></div>
+ <div class="form-group"><label data-i18n="al-current-label">Bei ya sasa</label><input type="number" id="al-current" placeholder="(hiari)" data-i18n-ph="ph-optional" step="0.00001"></div>
  </div>
  <button class="btn btn-primary" style="width:100%;" onclick="addPriceAlert()" data-i18n="al-add">+ Ongeza Alert</button>
  <div id="alerts-list" style="margin-top:12px;"></div>
@@ -794,13 +794,13 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div class="card">
  <div style="font-weight:700;margin-bottom:8px;" data-i18n="al-session-title">Vikumbusho vya Kikao</div>
  <div style="font-size:0.7rem;color:var(--muted);margin-bottom:8px;" data-i18n="al-session-desc">Pata kengele dakika 30 kabla ya London (10:00 EAT) na New York (15:00 EAT).</div>
- <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" id="al-session-toggle" onchange="toggleSessionReminder()" style="width:18px;height:18px;accent-color:var(--accent);"><span data-i18n="al-session-enable">WezeshaVikumbusho vya Kikao</span></label>
+ <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" id="al-session-toggle" onchange="toggleSessionReminder()" style="width:18px;height:18px;accent-color:var(--accent);"><span data-i18n="al-session-enable">Wezesha Vikumbusho vya Kikao</span></label>
  </div>
 
  <div class="card">
  <div style="font-weight:700;margin-bottom:8px;" data-i18n="al-div-title">Arifa za Gawio</div>
  <div style="font-size:0.7rem;color:var(--muted);margin-bottom:8px;" data-i18n="al-div-desc">Kikumbusho siku 3 kabla ya ex-dividend date kwa stocks zako.</div>
- <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" id="al-div-toggle" onchange="toggleDivAlerts()" style="width:18px;height:18px;accent-color:var(--accent);"><span data-i18n="al-div-enable">WezeshaArifa za Gawio</span></label>
+ <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" id="al-div-toggle" onchange="toggleDivAlerts()" style="width:18px;height:18px;accent-color:var(--accent);"><span data-i18n="al-div-enable">Wezesha Arifa za Gawio</span></label>
  </div>
 
  <div class="card">
@@ -815,12 +815,12 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div class="card">
  <div style="font-weight:700;margin-bottom:10px;" data-i18n="br-accounts">Akaunti Nyingi</div>
  <div class="row-2">
- <div class="form-group"><label>Broker</label><select id="br-name"><option>Exness</option><option>Deriv</option><option>XM</option><option>FBS</option><option>IC Markets</option><option>OctaFX</option><option>Other</option></select></div>
- <div class="form-group"><label>Account #</label><input type="text" id="br-account" placeholder="12345678"></div>
+ <div class="form-group"><label data-i18n="br-broker-label">Broker</label><select id="br-name"><option>Exness</option><option>Deriv</option><option>XM</option><option>FBS</option><option>IC Markets</option><option>OctaFX</option><option>Other</option></select></div>
+ <div class="form-group"><label data-i18n="br-account-label">Account #</label><input type="text" id="br-account" placeholder="12345678" data-i18n-ph="ph-account-num"></div>
  </div>
  <div class="row-2">
- <div class="form-group"><label>Balance ($)</label><input type="number" id="br-balance" placeholder="1000"></div>
- <div class="form-group"><label>Aina</label><select id="br-type"><option>Live</option><option>Demo</option></select></div>
+ <div class="form-group"><label data-i18n="lbl-balance">Balance ($)</label><input type="number" id="br-balance" placeholder="1000"></div>
+ <div class="form-group"><label data-i18n="lbl-type">Aina</label><select id="br-type"><option data-i18n-opt="type-live">Live</option><option data-i18n-opt="type-demo">Demo</option></select></div>
  </div>
  <button class="btn btn-primary" style="width:100%;" onclick="addBrokerAccount()" data-i18n="br-add">+ Ongeza Account</button>
  <div id="brokers-list" style="margin-top:12px;"></div>
@@ -829,12 +829,12 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div class="card">
  <div style="font-weight:700;margin-bottom:10px;" data-i18n="br-fees">Kifuatilio cha Gharama za Broker</div>
  <div class="row-2">
- <div class="form-group"><label>Broker</label><input type="text" id="bf-broker" placeholder="Exness"></div>
+ <div class="form-group"><label data-i18n="br-broker-label">Broker</label><input type="text" id="bf-broker" placeholder="Exness" data-i18n-ph="ph-broker-name"></div>
  <div class="form-group"><label data-i18n="j-pair-label">Jozi</label><input type="text" id="bf-pair" placeholder="EUR/USD"></div>
  </div>
  <div class="row-2">
- <div class="form-group"><label>Spread (pips)</label><input type="number" id="bf-spread" step="0.1" placeholder="1.2"></div>
- <div class="form-group"><label>Commission ($)</label><input type="number" id="bf-comm" step="0.01" placeholder="3.5"></div>
+ <div class="form-group"><label data-i18n="lbl-spread">Spread (pips)</label><input type="number" id="bf-spread" step="0.1" placeholder="1.2"></div>
+ <div class="form-group"><label data-i18n="lbl-commission">Commission ($)</label><input type="number" id="bf-comm" step="0.01" placeholder="3.5"></div>
  </div>
  <button class="btn btn-primary" style="width:100%;" onclick="addBrokerFee()" data-i18n="br-add-fee">+ Rekodi Gharama</button>
  <div id="broker-fees-summary" style="margin-top:12px;font-size:0.72rem;color:var(--muted);"></div>
@@ -843,7 +843,7 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div class="card">
  <div style="font-weight:700;margin-bottom:8px;" data-i18n="br-import">Leta Data MT4/MT5 CSV</div>
  <div style="font-size:0.68rem;color:var(--muted);margin-bottom:8px;" data-i18n="br-import-desc">Paste statement CSV kutoka MetaTrader (headers: Date,Pair,Type,Lots,Profit).</div>
- <textarea id="br-import-text" rows="4" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px;color:var(--text);font-family:var(--font-mono);font-size:0.7rem;" placeholder="2024-01-15,EUR/USD,BUY,0.1,25.50"></textarea>
+ <textarea id="br-import-text" rows="4" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px;color:var(--text);font-family:var(--font-mono);font-size:0.7rem;" placeholder="2024-01-15,EUR/USD,BUY,0.1,25.50" data-i18n-ph="ph-mt4"></textarea>
  <button class="btn btn-outline" style="width:100%;margin-top:8px;" onclick="importBrokerCSV()" data-i18n="br-do-import">Import kwenye Journal</button>
  </div>
  </div>
@@ -852,21 +852,21 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div class="asset-content" id="tools-convert">
  <div class="tool-card">
  <div style="font-weight:700;margin-bottom:10px;" data-i18n="cv-title">Kubadilisha Sarafu</div>
- <div class="form-group"><label>Kiasi</label><input type="number" id="cv-amount" value="100" oninput="doConvert()"></div>
+ <div class="form-group"><label data-i18n="lbl-amount">Kiasi</label><input type="number" id="cv-amount" value="100" oninput="doConvert()"></div>
  <div class="row-2">
- <div class="form-group"><label>Kutoka</label><select id="cv-from" onchange="doConvert()"><option value="USD">USD</option><option value="TZS">TZS</option><option value="KES">KES</option><option value="UGX">UGX</option><option value="RWF">RWF</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></div>
- <div class="form-group"><label>Kwenda</label><select id="cv-to" onchange="doConvert()"><option value="TZS">TZS</option><option value="USD">USD</option><option value="KES">KES</option><option value="UGX">UGX</option><option value="RWF">RWF</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></div>
+ <div class="form-group"><label data-i18n="lbl-from">Kutoka</label><select id="cv-from" onchange="doConvert()"><option value="USD">USD</option><option value="TZS">TZS</option><option value="KES">KES</option><option value="UGX">UGX</option><option value="RWF">RWF</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></div>
+ <div class="form-group"><label data-i18n="lbl-to">Kwenda</label><select id="cv-to" onchange="doConvert()"><option value="TZS">TZS</option><option value="USD">USD</option><option value="KES">KES</option><option value="UGX">UGX</option><option value="RWF">RWF</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></div>
  </div>
  <div class="tool-result" id="cv-result">--</div>
- <div style="font-size:0.6rem;color:var(--muted);margin-top:6px;">Rates ni za makadirio. Sasisha kwenye chanzo rasmi.</div>
+ <div style="font-size:0.6rem;color:var(--muted);margin-top:6px;" data-i18n="cv-disclaimer">Rates ni za makadirio. Sasisha kwenye chanzo rasmi.</div>
  </div>
  </div>
 
  <!-- CORRELATION -->
  <div class="asset-content" id="tools-corr">
  <div class="card">
- <div style="font-weight:700;margin-bottom:8px;">Matrix ya Uhusiano wa Sarafu</div>
- <div style="font-size:0.65rem;color:var(--muted);margin-bottom:10px;">Pairs zinazoenda pamoja (+) au kinyume (−). Epuka double-risk.</div>
+ <div style="font-weight:700;margin-bottom:8px;" data-i18n="corr-title">Matrix ya Uhusiano wa Sarafu</div>
+ <div style="font-size:0.65rem;color:var(--muted);margin-bottom:10px;" data-i18n="corr-desc">Pairs zinazoenda pamoja (+) au kinyume (−). Epuka double-risk.</div>
  <div id="corr-matrix" style="overflow-x:auto;"></div>
  </div>
  </div>
@@ -890,15 +890,15 @@ body.light #bottom-nav{background:linear-gradient(180deg,rgba(255,255,255,0.85),
  <div style="font-weight:700;margin-bottom:8px;" data-i18n="rp-title">Market Replay Simulator</div>
  <div class="row-2">
  <div class="form-group"><label data-i18n="j-pair-label">Jozi</label><select id="rp-pair" onchange="initReplay()"><option value="EURUSD">EUR/USD</option><option value="GBPUSD">GBP/USD</option><option value="BTCUSD">BTC/USD</option></select></div>
- <div class="form-group"><label>Speed</label><select id="rp-speed"><option value="800">1x</option><option value="400">2x</option><option value="150">5x</option></select></div>
+ <div class="form-group"><label data-i18n="lbl-speed">Speed</label><select id="rp-speed"><option value="800">1x</option><option value="400">2x</option><option value="150">5x</option></select></div>
  </div>
  <canvas id="rp-canvas" height="220" style="width:100%;background:var(--surface);border-radius:8px;"></canvas>
  <div id="rp-info" style="font-family:var(--font-mono);font-size:0.72rem;margin-top:8px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;">
  <span id="rp-price">--</span><span id="rp-bar">0/0</span><span id="rp-pnl">P&L: $0.00</span>
  </div>
  <div class="btn-row">
- <button class="btn btn-primary btn-sm" onclick="replayBuy()">BUY</button>
- <button class="btn btn-danger btn-sm" onclick="replaySell()">SELL</button>
+ <button class="btn btn-primary btn-sm" data-i18n="btn-buy" onclick="replayBuy()">BUY</button>
+ <button class="btn btn-danger btn-sm" data-i18n="btn-sell" onclick="replaySell()">SELL</button>
  <button class="btn btn-outline btn-sm" onclick="replayClose()" data-i18n="rp-close">Funga</button>
  <button class="btn btn-outline btn-sm" onclick="replayStep()" data-i18n="rp-next">Inayofuata</button>
  <button class="btn btn-gold btn-sm" onclick="replayAuto()" id="rp-auto-btn" data-i18n="rp-auto">Auto</button>
@@ -994,14 +994,14 @@ function setCurrency(curr) { if (CURRENCY_CONFIG[curr]) { currentCurrency = curr
 var pinBuffer = '', MAX_PIN_ATTEMPTS = 5;
 var pinAttempts = parseInt(localStorage.getItem('pinAttempts') || '0');
 var pinLockUntil = parseInt(localStorage.getItem('pinLockUntil') || '0');
-function initPinSystem() { var hasPin = localStorage.getItem('appPin'); var lockScreen = document.getElementById('pin-lock'); if (!hasPin) { lockScreen.classList.add('unlocked'); setTimeout(function() { lockScreen.style.display = 'none'; }, 300); return; } if (Date.now() < pinLockUntil) { var minsLeft = Math.ceil((pinLockUntil - Date.now()) / 60000); document.getElementById('pin-msg').textContent = 'Imefungwa. Jaribu baada ya dk ' + minsLeft; document.getElementById('pin-keypad').style.pointerEvents = 'none'; document.getElementById('pin-keypad').style.opacity = '0.3'; return; } renderKeypad(); }
+function initPinSystem() { var hasPin = localStorage.getItem('appPin'); var lockScreen = document.getElementById('pin-lock'); if (!hasPin) { lockScreen.classList.add('unlocked'); setTimeout(function() { lockScreen.style.display = 'none'; }, 300); return; } if (Date.now() < pinLockUntil) { var minsLeft = Math.ceil((pinLockUntil - Date.now()) / 60000); document.getElementById('pin-msg').textContent = (currentLang==='sw'?'Imefungwa. Jaribu baada ya dk ':'Locked. Try after min ') + minsLeft; document.getElementById('pin-keypad').style.pointerEvents = 'none'; document.getElementById('pin-keypad').style.opacity = '0.3'; return; } renderKeypad(); }
 function renderKeypad() { var keypad = document.getElementById('pin-keypad'); keypad.innerHTML = ''; [1,2,3,4,5,6,7,8,9].forEach(function(n) { var btn = document.createElement('div'); btn.className = 'pin-key'; btn.textContent = n; btn.onclick = function() { handlePinInput(n); }; keypad.appendChild(btn); }); var empty = document.createElement('div'); var zero = document.createElement('div'); zero.className = 'pin-key'; zero.textContent = '0'; zero.onclick = function() { handlePinInput(0); }; var del = document.createElement('div'); del.className = 'pin-key'; del.textContent = '⌫'; del.onclick = function() { handlePinDelete(); }; keypad.append(empty, zero, del); }
 function handlePinInput(num) { if (pinBuffer.length >= 4) return; pinBuffer += num; updatePinDots(); if (pinBuffer.length === 4) verifyPin(); }
 function handlePinDelete() { pinBuffer = pinBuffer.slice(0, -1); updatePinDots(); document.getElementById('pin-msg').textContent = ''; }
 function updatePinDots() { document.querySelectorAll('.pin-dot').forEach(function(d, i) { d.classList.toggle('filled', i < pinBuffer.length); }); }
-function verifyPin() { var stored = localStorage.getItem('appPin'); if (pinBuffer === stored) { pinAttempts = 0; localStorage.setItem('pinAttempts', '0'); document.getElementById('pin-lock').classList.add('unlocked'); setTimeout(function() { document.getElementById('pin-lock').style.display = 'none'; }, 300); } else { pinAttempts++; localStorage.setItem('pinAttempts', pinAttempts.toString()); pinBuffer = ''; updatePinDots(); if (pinAttempts >= MAX_PIN_ATTEMPTS) { pinLockUntil = Date.now() + (5 * 60 * 1000); localStorage.setItem('pinLockUntil', pinLockUntil.toString()); location.reload(); } else { document.getElementById('pin-msg').textContent = 'PIN si sahihi (' + (MAX_PIN_ATTEMPTS - pinAttempts) + ' zilizobaki)'; if (navigator.vibrate) navigator.vibrate(200); } } }
-function setPin() { var pin = prompt('Weka PIN ya tarakimu 4:'); if (pin && /^\d{4}$/.test(pin)) { localStorage.setItem('appPin', pin); toast('PIN imewekwa!', ''); } else if (pin !== null) toast('PIN lazima iwe tarakimu 4', ''); }
-function removePin() { if (confirm('Ondoa PIN?')) { localStorage.removeItem('appPin'); toast('PIN imeondolewa', ''); } }
+function verifyPin() { var stored = localStorage.getItem('appPin'); if (pinBuffer === stored) { pinAttempts = 0; localStorage.setItem('pinAttempts', '0'); document.getElementById('pin-lock').classList.add('unlocked'); setTimeout(function() { document.getElementById('pin-lock').style.display = 'none'; }, 300); } else { pinAttempts++; localStorage.setItem('pinAttempts', pinAttempts.toString()); pinBuffer = ''; updatePinDots(); if (pinAttempts >= MAX_PIN_ATTEMPTS) { pinLockUntil = Date.now() + (5 * 60 * 1000); localStorage.setItem('pinLockUntil', pinLockUntil.toString()); location.reload(); } else { document.getElementById('pin-msg').textContent = (currentLang==='sw'?'PIN si sahihi (':'Incorrect PIN (') + (MAX_PIN_ATTEMPTS - pinAttempts) + (currentLang==='sw'?' zilizobaki)':' left)'); if (navigator.vibrate) navigator.vibrate(200); } } }
+function setPin() { var pin = prompt(currentLang==='sw'?'Weka PIN ya tarakimu 4:':'Enter a 4-digit PIN:'); if (pin && /^\d{4}$/.test(pin)) { localStorage.setItem('appPin', pin); toast(currentLang==='sw'?'PIN imewekwa!':'PIN set!', ''); } else if (pin !== null) toast(currentLang==='sw'?'PIN lazima iwe tarakimu 4':'PIN must be 4 digits', ''); }
+function removePin() { if (confirm(currentLang==='sw'?'Ondoa PIN?':'Remove PIN?')) { localStorage.removeItem('appPin'); toast(currentLang==='sw'?'PIN imeondolewa':'PIN removed', ''); } }
 
 // ==================== MIGRATION ====================
 function migrateData() { journalEntries = journalEntries.map(function(e) { return { mood: e.mood || 'neutral', strategy: e.strategy || '', screenshot: Array.isArray(e.screenshot) ? e.screenshot : (e.screenshot ? [e.screenshot] : []), pair: e.pair, type: e.type, pnl: e.pnl, sl: e.sl, tp: e.tp, session: e.session, time: e.time, notes: e.notes, checklist: e.checklist, mode: e.mode, date: e.date, market: e.market, id: e.id }; }); localStorage.setItem('journalEntries', JSON.stringify(journalEntries)); }
@@ -1016,7 +1016,7 @@ function updateAdvancedStatsDisplay() { var stats = calculateAdvancedStats(); if
 // ==================== AI COACH ====================
 var aiReplies = { forex: ["Forex ni soko la kubadilishana sarafu za kimataifa."], crypto: ["Crypto ni sarafu za digital. BTC ndio kubwa."], synthetic: ["Synthetic Indices zinapatikana Deriv."], indicators: ["EMA inafuata bei. RSI inapima momentum."], risk: ["Risk 1-2% kwa trade. Weka SL kila wakati."], psychology: ["Discipline ni muhimu. Epuka revenge trading."] };
 function analyzeMyTrading() { var stats = calculateAdvancedStats(); if (!stats) return "Bado huna trades za kutosha kuchambuliwa. Anza kurekodi!"; var insights = []; if (parseFloat(stats.profitFactor) < 1.5) insights.push("Profit Factor yako ni chini (<1.5). Angalia risk management."); if (parseFloat(stats.maxDD) > 200) insights.push("Max Drawdown ni kubwa. Punguza lot size au risk %."); var revengeTrades = journalEntries.filter(function(e) { return e.mood === 'revenge'; }); if (revengeTrades.length > 0) insights.push("Umefanya revenge trading mara " + revengeTrades.length + ". Pumzika!"); var fomoTrades = journalEntries.filter(function(e) { return e.mood === 'fomo'; }); if (fomoTrades.length > 2) insights.push("FOMO inaathiri maamuzi yako. Subiri setup kamili."); if (insights.length === 0) return "Utendaji mzuri! Endelea na nidhamu. PF: " + stats.profitFactor; return insights.join('\n\n'); }
-function getAIResponse(q) { var lowerQ = q.toLowerCase(); if (lowerQ.includes('chambua') || lowerQ.includes('analyze') || lowerQ.includes('ushauri')) { return analyzeMyTrading(); } var all = []; Object.keys(aiReplies).forEach(function(k) { if (lowerQ.includes(k)) all = all.concat(aiReplies[k]); }); return all.length ? all[Math.floor(Math.random() * all.length)] : "Samahani, uliza kuhusu Forex, Crypto, Synthetic, au andika 'Chambua' kwa uchambuzi."; }
+function getAIResponse(q) { var lowerQ = q.toLowerCase(); if (lowerQ.includes('chambua') || lowerQ.includes('analyze') || lowerQ.includes('ushauri')) { return analyzeMyTrading(); } var all = []; Object.keys(aiReplies).forEach(function(k) { if (lowerQ.includes(k)) all = all.concat(aiReplies[k]); }); return all.length ? all[Math.floor(Math.random() * all.length)] : (currentLang==='sw'?'Samahani, uliza kuhusu Forex, Crypto, Synthetic, au andika \'Chambua\' kwa uchambuzi.':"Sorry, ask about Forex, Crypto, Synthetic, or type 'Analyze' for analysis."); }
 function sendMsg() { var inp = document.getElementById('chat-in'), val = inp.value.trim(); if (!val) return; addMsg(val, 'user'); inp.value = ''; var t = addMsg('...', 'ai typing'); setTimeout(function() { t.remove(); addMsg(getAIResponse(val), 'ai'); }, 1500); }
 function quickMsg(msg) { document.getElementById('chat-in').value = msg; sendMsg(); goPage('ai-coach', 4); }
 function addMsg(text, cls) { var body = document.getElementById('chat-body'), el = document.createElement('div'); el.className = 'msg ' + cls; el.textContent = text; body.appendChild(el); body.scrollTop = body.scrollHeight; return el; }
@@ -1029,7 +1029,7 @@ setInterval(updateSessionClock, 60000);
 function calcKelly() { var wr = parseFloat(document.getElementById('kelly-wr').value) / 100 || 0; var rr = parseFloat(document.getElementById('kelly-rr').value) || 0; var kelly = (wr - ((1 - wr) / rr)) * 100; var el = document.getElementById('kelly-result'); el.textContent = (kelly > 0 ? kelly.toFixed(1) : '0') + '%'; el.style.color = kelly > 0 ? 'var(--green)' : 'var(--red)'; }
 
 // ==================== SCREENSHOTS ====================
-function handleScreenshotUpload(event) { var files = Array.from(event.target.files); if (pendingScreenshots.length + files.length > 3) { toast('Max picha 3 tu!', ''); return; } files.forEach(function(file) { if (file.size > 3 * 1024 * 1024) { toast('Picha kubwa sana! Max 3MB', ''); return; } var reader = new FileReader(); reader.onload = function(e) { var img = new Image(); img.onload = function() { var canvas = document.createElement('canvas'); var maxW = 400, maxH = 300; var ratio = Math.min(maxW / img.width, maxH / img.height, 1); canvas.width = img.width * ratio; canvas.height = img.height * ratio; var ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, canvas.width, canvas.height); pendingScreenshots.push(canvas.toDataURL('image/jpeg', 0.5)); renderScreenshotPreviews(); }; img.src = e.target.result; }; reader.readAsDataURL(file); }); event.target.value = ''; }
+function handleScreenshotUpload(event) { var files = Array.from(event.target.files); if (pendingScreenshots.length + files.length > 3) { toast(currentLang==='sw'?'Max picha 3 tu!':'Max 3 images only!', ''); return; } files.forEach(function(file) { if (file.size > 3 * 1024 * 1024) { toast(currentLang==='sw'?'Picha kubwa sana! Max 3MB':'Image too large! Max 3MB', ''); return; } var reader = new FileReader(); reader.onload = function(e) { var img = new Image(); img.onload = function() { var canvas = document.createElement('canvas'); var maxW = 400, maxH = 300; var ratio = Math.min(maxW / img.width, maxH / img.height, 1); canvas.width = img.width * ratio; canvas.height = img.height * ratio; var ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, canvas.width, canvas.height); pendingScreenshots.push(canvas.toDataURL('image/jpeg', 0.5)); renderScreenshotPreviews(); }; img.src = e.target.result; }; reader.readAsDataURL(file); }); event.target.value = ''; }
 function renderScreenshotPreviews() { var container = document.getElementById('screenshot-preview-container'); container.innerHTML = pendingScreenshots.map(function(src, idx) { return '<div style="position:relative;display:inline-block;margin:4px;"><img src="' + src + '" style="width:80px;height:80px;object-fit:cover;border-radius:8px;"><button onclick="removeScreenshot(' + idx + ')" class="screenshot-remove">X</button></div>'; }).join(''); container.style.display = pendingScreenshots.length ? 'flex' : 'none'; if (pendingScreenshots.length === 0) document.getElementById('screenshot-placeholder').style.display = 'block'; else document.getElementById('screenshot-placeholder').style.display = 'none'; }
 function removeScreenshot(idx) { pendingScreenshots.splice(idx, 1); renderScreenshotPreviews(); }
 
@@ -1059,13 +1059,13 @@ const appTranslations = {
  "tt-calc":"Calculators","tt-alerts":"Alerts","tt-brokers":"Brokers","tt-convert":"Convert","tt-corr":"Correlation",
  "card-alerts":"Arifa za Bei","btn-manage":"Simamia",
  "al-price-title":"Arifa za Bei","al-add":"+ Ongeza Alert",
- "al-session-title":"Vikumbusho vya Kikao","al-session-desc":"Pata kengele dakika 30 kabla ya London (10:00 EAT) na New York (15:00 EAT).","al-session-enable":"WezeshaVikumbusho vya Kikao",
- "al-div-title":"Arifa za Gawio","al-div-desc":"Kikumbusho siku 3 kabla ya ex-dividend date kwa stocks zako.","al-div-enable":"WezeshaArifa za Gawio",
+ "al-session-title":"Vikumbusho vya Kikao","al-session-desc":"Pata kengele dakika 30 kabla ya London (10:00 EAT) na New York (15:00 EAT).","al-session-enable":"Wezesha Vikumbusho vya Kikao",
+ "al-div-title":"Arifa za Gawio","al-div-desc":"Kikumbusho siku 3 kabla ya ex-dividend date kwa stocks zako.","al-div-enable":"Wezesha Arifa za Gawio",
  "al-health-title":"Arifa za Kupumzika","al-health-desc":"\"Pumzika macho dakika 5\" kila baada ya dakika 45.","al-health-enable":"Wezesha Health Break",
  "br-accounts":"Akaunti Nyingi","br-add":"+ Ongeza Account","br-fees":"Kifuatilio cha Gharama za Broker","br-add-fee":"+ Rekodi Gharama",
  "br-import":"Leta Data MT4/MT5 CSV","br-import-desc":"Paste statement CSV kutoka MetaTrader (headers: Date,Pair,Type,Lots,Profit).","br-do-import":"Import kwenye Journal",
  "btn-export-csv":" Export Trades (CSV/Excel)",
- "card-stealth":"Hali ya Siri","stealth-desc":"App ionekane kama calculator. PIN yako ya siri inaifungua kurudi NexaTrade.","stealth-enable":"WezeshaHali ya Siri",
+ "card-stealth":"Hali ya Siri","stealth-desc":"App ionekane kama calculator. PIN yako ya siri inaifungua kurudi NexaTrade.","stealth-enable":"Wezesha Hali ya Siri",
  "tg-msg":"Lugha imebadilishwa!",
  "pip-calc-title":"Kikokotoo cha Pip","margin-calc-title":"Kikokotoo cha Amana","swap-calc-title":"Kikokotoo cha Swap",
  "pos-size-title":"Kikokotoo cha Ukubwa wa Nafasi","kelly-title":"Kigezo cha Kelly","dd-sim-title":"Mfano wa Kupungua",
@@ -1086,7 +1086,55 @@ const appTranslations = {
  "div-no-upcoming":"Hakuna gawio linalokuja","econ-loading":"Inapakia...",
  "j-market-label":"Soko","j-pair-label":"Jozi","j-type-label":"Aina","j-pnl-label":"Matokeo ($)",
  "j-sl-label":"Kizuizi cha Hasara","j-tp-label":"Lengo la Faida","j-notes-label":"Maelezo",
- "delete-confirm":"Futa?","export-success":"Data imehamishwa!","import-success":"Data imeingizwa!"
+ "delete-confirm":"Futa?","export-success":"Data imehamishwa!","import-success":"Data imeingizwa!",
+ "cert-label":"Vyeti","quiz-restart":"Anza Upya","quiz-next":"Inayofuata",
+ "checklist-title":"Orodha ya Kabla ya Biashara",
+ "chk-plan":"Nimefuata mpango wangu","chk-rsi":"RSI / Viashiria viko sawa","chk-news":"Hakuna habari kubwa za uchumi","chk-sl":"Nimeweka Kizuizi cha Hasara","chk-tp":"Nimeweka Lengo la Faida",
+ "j-status-label":"Hali ya Biashara","j-mistake-label":"Kosa Lililotokea","j-tags-label":"Alama (chagua zaidi ya moja)","j-screenshots-label":"Picha za Skrini (Max 3)",
+ "ph-screenshot":"Bonyeza kupakia picha","j-session-label":"Kipindi","j-time-label":"Muda","j-mood-label":"Hisia","j-strategy-label":"Mkakati",
+ "opt-select":"--","mood-neutral":"Wastani","mood-confident":"Kujiamini","mood-fear":"Hofu","mood-greed":"Tamaa","mood-revenge":"Biashara ya Hasira",
+ "opt-choose":"Chagua...","strat-news":"Biashara ya Habari",
+ "mistake-early":"Kuingia mapema","mistake-no-sl":"Kutoweka Kizuizi cha Hasara","mistake-plan":"Kukiuka mpango","mistake-profit":"Kukimbilia faida","mistake-lot":"Lot size kubwa","mistake-emotion":"Maamuzi ya hisia","mistake-news":"Kucheza wakati wa habari","mistake-other":"Nyingine",
+ "div-tracker-title":"Kifuatilio cha Gawio","div-add-stock":"+ Ongeza Hisa ya Gawio","btn-add-stock":"Ongeza Hisa",
+ "lbl-ticker":"Alama ya Hisa","lbl-company":"Kampuni","lbl-shares":"Hisa","lbl-div-share":"Gawio/Hisa ($)","lbl-country":"Nchi","lbl-tax-rate":"Kiwango cha Kodi (%)","lbl-frequency":"Mzunguko","lbl-next-date":"Tarehe ya Malipo Ijayo",
+ "freq-monthly":"Kila Mwezi","freq-quarterly":"Kila Robo Mwaka","freq-semi":"Nusu Mwaka","freq-annual":"Kila Mwaka",
+ "tax-report-title":"Ripoti ya Kodi",
+ "lbl-type":"Aina","type-live":"Halisi","type-demo":"Mazoezi",
+ "lbl-lot-size":"Ukubwa wa Lot","lbl-quote-rate":"Bei ya Quote → USD","lbl-leverage":"Mkopo (1:X)","lbl-price":"Bei","lbl-swap-rate":"Kiwango cha Swap/lot/usiku ($)","lbl-num-days":"Idadi ya siku",
+ "lbl-balance":"Salio ($)","lbl-risk-pct":"Hatari %","lbl-sl-pips":"SL (Pips)","lbl-risk-trade":"Hatari/Biashara (%)","lbl-consec-losses":"Hasara Mfululizo","lbl-capital":"Mtaji ($)","lbl-return-pct":"Faida %","lbl-months":"Miezi",
+ "kelly-hint":"Ukubwa bora wa nafasi %",
+ "lbl-spread":"Spread (pips)","lbl-commission":"Kamisheni ($)","lbl-amount":"Kiasi","lbl-from":"Kutoka","lbl-to":"Kwenda","lbl-speed":"Kasi","lbl-win-rate":"Kiwango cha Kushinda (%)","lbl-reward-risk":"Thawabu:Hatari",
+ "cv-disclaimer":"Viwango ni vya makadirio. Thibitisha kwenye chanzo rasmi.",
+ "corr-title":"Matrix ya Uhusiano wa Sarafu","corr-desc":"Jozi zinazoenda pamoja (+) au kinyume (−). Epuka hatari mara mbili.",
+ "tab-chat":"Mazungumzo","tab-reports":"Ripoti","tab-mood":"Hisia","tab-share":"Shiriki",
+ "coach-pdf-title":" Ripoti ya PDF","coach-pdf-desc":"Ripoti ya kina ya utendaji wako (Kiwango cha Kushinda, PF, Max DD, Hisia, Alama).",
+ "btn-week-report":" Wiki","btn-month-report":" Mwezi",
+ "coach-strat-perf":" Utendaji kwa Mkakati","coach-tag-perf":" Utendaji kwa Alama","coach-insights":" Maarifa","coach-mood-pnl":" Hisia vs Faida/Hasara",
+ "coach-mistakes":"Makosa Yako (Kumbukumbu ya Makosa)",
+ "coach-share-title":" Shiriki Kadi ya Biashara","coach-share-desc":"Chagua biashara ya hivi karibuni — tunatayarisha picha ya kushiriki.","btn-share-gen":" Tengeneza & Pakua",
+ "psy-revenge-title":" Kizuizi cha Biashara ya Hasira","psy-revenge-desc":"Ukipoteza mara 3 mfululizo, app inakuzuia kuongeza biashara kwa dakika 30.",
+ "psy-breath-title":" Mazoezi ya Kupumua (4-7-8)","psy-ready":"Tayari","psy-breath-start":"Anza (mara 4)",
+ "psy-journal-title":" Jarida la Saikolojia","psy-affirmation-title":" Kauli ya Kila Siku","psy-next-affirmation":" Nyingine",
+ "chal-streak-title":" Msururu wa Kila Siku","chal-days-row":"siku mfululizo","chal-active-title":" Changamoto Zinazoendelea","chal-badges-title":" Beji Zilizopatikana",
+ "about-mission-title":"Lengo Letu","about-features-title":"Vipengele Vikuu","about-privacy-title":" Usalama wa Data (Faragha Kwanza)","about-risk-title":" Onyo la Hatari","about-contact-title":"Mawasiliano na Msaada",
+ "offline-banner":"Hali ya Nje ya Mtandao","health-next-break":" Mapumziko yajayo: ","home-no-alerts":"Hakuna arifa zilizowekwa",
+ "btn-buy":"NUNUA","btn-sell":"UZA",
+ "broker-upload-title":"Pakia Taarifa ya Broker (CSV)","broker-upload-desc":"Pakia faili la CSV la broker wako. Safu zinazotambuliwa: date, pair, type, pnl (au profit/loss). Biashara zitaongezwa kwenye Jarida kiotomatiki.",
+ "btn-choose-csv":"Chagua CSV","btn-verify-idb":"Thibitisha IndexedDB (Kagua Data)",
+ "ph-eurusd":"EUR/USD","ph-pnl":"+50","ph-sl-price":"1.0800","ph-tp-price":"1.0900","ph-notes":"Sababu ya kuingia...","ph-ticker":"AAPL","ph-company":"Apple Inc.","ph-alert-asset":"EUR/USD au BTC","ph-optional":"(hiari)","ph-account-num":"12345678","ph-chat-input":"Uliza au andika 'Chambua'...","ph-psy-entry":"Unajisikiaje leo?","ph-mt4":"2024-01-15,EUR/USD,NUNUA,0.1,25.50","ph-broker-name":"Exness","ph-breakout":"k.m. Kuvunja",
+ "ph-name":"Jina lako kamili","ph-nickname":"Jina la utani","ph-syn-index":"k.m. Volatility 75","ph-stock-ticker":"k.m. AAPL","ph-crypto-coin":"k.m. BTC/USDT","ph-fx-strategy":"k.m. Kuvunja",
+ "about-version":"Toleo 1.0.0 · Imeandaliwa na Germ Tech","about-tagline":"Kwa ajili ya Traders wenye Nidhamu",
+ "about-mission-text":"NexaTrade Pro ni Smart Trading Journal iliyoundwa kuwasaidia wafanyabiashara wa Forex, Crypto, na Stocks kufuatilia biashara zao, kudhibiti saikolojia, na kujenga nidhamu thabiti sokoni.",
+ "feat-journal":"Akaunti za Halisi na Mazoezi.","feat-revenge":"Kinga ya hasira baada ya hasara.","feat-psych":"Chambua hisia na makosa yako.","feat-currency":"TZS, KES, UGX, USD.","feat-chartai":"Mafunzo bila kuingia sokoni halisi.",
+ "privacy-1-title":"Hakuna Data Inayosafirishwa:","privacy-1-text":"Hatukusanyi wala kutuma taarifa zako mtandaoni.","privacy-2-text":"Data zote zinakaa ndani ya kifaa chako pekee. Ukifuta cache, data zinaweza kufutika — fanya Backup mara kwa mara.","privacy-3-title":"Ulinzi wa PIN:","privacy-3-text":"Mfumo wa PIN unazuia mtu mwingine kuona shajara yako.",
+ "about-risk-text":"Biashara ya masoko ya fedha ina hatari kubwa na inaweza kupelekea kupoteza mtaji wako wote. NexaTrade Pro ni zana ya kujifunza na kuchambua tu; haitoi ushauri wa kifedha wala signals. Maamuzi yote sokoni ni jukumu lako mwenyewe.",
+ "lbl-name":"Jina","lbl-nickname":"Jina la Utani","lbl-entry":"Bei ya Kuingia","lbl-risk-pct2":"Hatari (%)","lbl-sl":"Kizuizi cha Hasara (SL)","lbl-tp":"Lengo la Faida (TP)","lbl-index":"Kiashiria","lbl-target-tp":"Lengo (TP)","lbl-coin":"Sarafu","lbl-amount-capital":"Kiasi / Mtaji","lbl-leverage-opt":"Mkopo (Kama ipo)","lbl-year":"Mwaka","lbl-strategy":"Mkakati",
+ "opt-all":"Zote",
+ "tax-col-desc":"Maelezo","tax-col-amount":"Kiasi ($)","tax-gross":"Jumla Gross","tax-total-tax":"Jumla Kodi","tax-net":"Mapato Halisi","tax-empty":"Hakuna rekodi za dividend.","btn-export-tax":"Hamisha Ripoti ya Kodi (TXT)",
+ "chal-no-badges":"Bado hakuna beji. Endelea kufanya kazi!",
+ "chip-analyze":"Chambua",
+ "goal-prompt-name":"Jina la Lengo:","goal-prompt-target":"Target (%)","goals-empty":"Bado huna malengo","btn-update":"Sasisha","goal-progress-prompt":"Maendeleo ya sasa (%)",
+ "ai-welcome":"Habari! Andika 'Chambua' nichambue biashara zako, au uliza chochote!"
  },
  en: {
  "nav-home":"Home","nav-academy":"Academy","nav-assets":"Assets","nav-coach":"Coach","nav-settings":"Settings",
@@ -1139,7 +1187,55 @@ const appTranslations = {
  "div-no-upcoming":"No upcoming dividends","econ-loading":"Loading...",
  "j-market-label":"Market","j-pair-label":"Pair","j-type-label":"Type","j-pnl-label":"Result ($)",
  "j-sl-label":"Stop Loss","j-tp-label":"Take Profit","j-notes-label":"Notes",
- "delete-confirm":"Delete?","export-success":"Data exported!","import-success":"Data imported!"
+ "delete-confirm":"Delete?","export-success":"Data exported!","import-success":"Data imported!",
+ "cert-label":"Certificates","quiz-restart":"Restart","quiz-next":"Next",
+ "checklist-title":"Pre-Trade Checklist",
+ "chk-plan":"I followed my plan","chk-rsi":"RSI / Indicators are aligned","chk-news":"No major economic news","chk-sl":"I set a Stop Loss","chk-tp":"I set a Take Profit",
+ "j-status-label":"Trade Status","j-mistake-label":"Mistake Made","j-tags-label":"Tags (select multiple)","j-screenshots-label":"Screenshots (Max 3)",
+ "ph-screenshot":"Tap to upload image","j-session-label":"Session","j-time-label":"Time","j-mood-label":"Mood","j-strategy-label":"Strategy",
+ "opt-select":"--","mood-neutral":"Neutral","mood-confident":"Confident","mood-fear":"Fear","mood-greed":"Greed","mood-revenge":"Revenge Trading",
+ "opt-choose":"Select...","strat-news":"News Trading",
+ "mistake-early":"Early entry","mistake-no-sl":"No Stop Loss","mistake-plan":"Violated plan","mistake-profit":"Chased profit","mistake-lot":"Overleveraged","mistake-emotion":"Emotional decision","mistake-news":"Traded during news","mistake-other":"Other",
+ "div-tracker-title":"Dividend Tracker","div-add-stock":"+ Add Dividend Stock","btn-add-stock":"Add Stock",
+ "lbl-ticker":"Ticker","lbl-company":"Company","lbl-shares":"Shares","lbl-div-share":"Div/Share ($)","lbl-country":"Country","lbl-tax-rate":"Tax Rate (%)","lbl-frequency":"Frequency","lbl-next-date":"Next Pay Date",
+ "freq-monthly":"Monthly","freq-quarterly":"Quarterly","freq-semi":"Semi-Annual","freq-annual":"Annual",
+ "tax-report-title":"Tax Report",
+ "lbl-type":"Type","type-live":"Live","type-demo":"Demo",
+ "lbl-lot-size":"Lot Size","lbl-quote-rate":"Quote → USD rate","lbl-leverage":"Leverage (1:X)","lbl-price":"Price","lbl-swap-rate":"Swap rate/lot/night ($)","lbl-num-days":"Number of days",
+ "lbl-balance":"Balance ($)","lbl-risk-pct":"Risk %","lbl-sl-pips":"SL (Pips)","lbl-risk-trade":"Risk/Trade (%)","lbl-consec-losses":"Consecutive Losses","lbl-capital":"Capital ($)","lbl-return-pct":"Return %","lbl-months":"Months",
+ "kelly-hint":"Optimal position size %",
+ "lbl-spread":"Spread (pips)","lbl-commission":"Commission ($)","lbl-amount":"Amount","lbl-from":"From","lbl-to":"To","lbl-speed":"Speed","lbl-win-rate":"Win Rate (%)","lbl-reward-risk":"Reward:Risk",
+ "cv-disclaimer":"Rates are approximate. Verify from an official source.",
+ "corr-title":"Currency Correlation Matrix","corr-desc":"Pairs that move together (+) or opposite (−). Avoid double risk.",
+ "tab-chat":"Chat","tab-reports":"Reports","tab-mood":"Mood","tab-share":"Share",
+ "coach-pdf-title":" PDF Report","coach-pdf-desc":"Detailed performance report (Win Rate, PF, Max DD, Mood, Tags).",
+ "btn-week-report":" Week","btn-month-report":" Month",
+ "coach-strat-perf":" Performance by Strategy","coach-tag-perf":" Performance by Tag","coach-insights":" Insights","coach-mood-pnl":" Mood vs P&L",
+ "coach-mistakes":"Your Mistakes (Mistake Tracker)",
+ "coach-share-title":" Share Trade Card","coach-share-desc":"Select a recent trade — we'll generate an image to share.","btn-share-gen":" Generate & Download",
+ "psy-revenge-title":" Revenge Trading Blocker","psy-revenge-desc":"After 3 consecutive losses, the app blocks you from adding a trade for 30 minutes.",
+ "psy-breath-title":" Breathing Exercise (4-7-8)","psy-ready":"Ready","psy-breath-start":"Start (4 rounds)",
+ "psy-journal-title":" Psychology Journal","psy-affirmation-title":" Daily Affirmation","psy-next-affirmation":" Next",
+ "chal-streak-title":" Daily Streak","chal-days-row":"consecutive days","chal-active-title":" Active Challenges","chal-badges-title":" Badges Earned",
+ "about-mission-title":"Our Mission","about-features-title":"Key Features","about-privacy-title":" Data Security (Privacy First)","about-risk-title":" Risk Disclaimer","about-contact-title":"Contact & Support",
+ "offline-banner":"Offline Mode","health-next-break":" Next break: ","home-no-alerts":"No alerts set",
+ "btn-buy":"BUY","btn-sell":"SELL",
+ "broker-upload-title":"Upload Broker Statement (CSV)","broker-upload-desc":"Upload your broker's CSV file. Recognized columns: date, pair, type, pnl (or profit/loss). Trades will be added to the Journal automatically.",
+ "btn-choose-csv":"Choose CSV","btn-verify-idb":"Verify IndexedDB (Check Data)",
+ "ph-eurusd":"EUR/USD","ph-pnl":"+50","ph-sl-price":"1.0800","ph-tp-price":"1.0900","ph-notes":"Reason for entry...","ph-ticker":"AAPL","ph-company":"Apple Inc.","ph-alert-asset":"EUR/USD or BTC","ph-optional":"(optional)","ph-account-num":"12345678","ph-chat-input":"Ask or type 'Analyze'...","ph-psy-entry":"How are you feeling today?","ph-mt4":"2024-01-15,EUR/USD,BUY,0.1,25.50","ph-broker-name":"Exness","ph-breakout":"e.g. Breakout",
+ "ph-name":"Your full name","ph-nickname":"Nickname","ph-syn-index":"e.g. Volatility 75","ph-stock-ticker":"e.g. AAPL","ph-crypto-coin":"e.g. BTC/USDT","ph-fx-strategy":"e.g. Breakout",
+ "about-version":"Version 1.0.0 · Developed by Germ Tech","about-tagline":"For Disciplined Traders",
+ "about-mission-text":"NexaTrade Pro is a Smart Trading Journal built to help Forex, Crypto, and Stock traders track their trades, manage psychology, and build solid market discipline.",
+ "feat-journal":"Live and Demo accounts.","feat-revenge":"Protection against anger after losses.","feat-psych":"Analyze your emotions and mistakes.","feat-currency":"TZS, KES, UGX, USD.","feat-chartai":"Learn without entering the real market.",
+ "privacy-1-title":"No Data Transmitted:","privacy-1-text":"We do not collect or send your information online.","privacy-2-text":"All data stays inside your device only. If you clear cache, data may be lost — back up regularly.","privacy-3-title":"PIN Protection:","privacy-3-text":"The PIN system prevents others from viewing your journal.",
+ "about-risk-text":"Trading financial markets carries significant risk and may result in losing all your capital. NexaTrade Pro is a learning and analysis tool only; it does not provide financial advice or signals. All market decisions are your sole responsibility.",
+ "lbl-name":"Name","lbl-nickname":"Nickname","lbl-entry":"Entry Price","lbl-risk-pct2":"Risk (%)","lbl-sl":"Stop Loss (SL)","lbl-tp":"Take Profit (TP)","lbl-index":"Index","lbl-target-tp":"Target (TP)","lbl-coin":"Coin","lbl-amount-capital":"Amount / Capital","lbl-leverage-opt":"Leverage (If applicable)","lbl-year":"Year","lbl-strategy":"Strategy",
+ "opt-all":"All",
+ "tax-col-desc":"Description","tax-col-amount":"Amount ($)","tax-gross":"Total Gross","tax-total-tax":"Total Tax","tax-net":"Net Income","tax-empty":"No dividend records.","btn-export-tax":"Export Tax Report (TXT)",
+ "chal-no-badges":"No badges yet. Keep up the work!",
+ "chip-analyze":"Analyze",
+ "goal-prompt-name":"Goal Name:","goal-prompt-target":"Target (%)","goals-empty":"You have no goals yet","btn-update":"Update","goal-progress-prompt":"Current progress (%)",
+ "ai-welcome":"Hello! Type 'Analyze' to analyze your trades, or ask anything!"
  }
 };
 
@@ -1153,14 +1249,41 @@ function changeAppLanguage(lang) {
  if(document.getElementById('lang-en')) document.getElementById('lang-en').checked = (lang === 'en');
 
  const t = appTranslations[lang];
+ // Translate text elements
  document.querySelectorAll('[data-i18n]').forEach(function(el){
  var key = el.getAttribute('data-i18n');
  if(t[key] != null) el.textContent = t[key];
  });
+ // Translate placeholders
  document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
  var key = el.getAttribute('data-i18n-ph');
  if(t[key] != null) el.setAttribute('placeholder', t[key]);
  });
+ // Translate select <option> elements
+ document.querySelectorAll('[data-i18n-opt]').forEach(function(el){
+ var key = el.getAttribute('data-i18n-opt');
+ if(t[key] != null) el.textContent = t[key];
+ });
+ // Translate breath-circle "ready" text (only if not mid-animation)
+ var breathEl = document.getElementById('breath-circle');
+ if(breathEl && breathEl.getAttribute('data-i18n-ready')) {
+ var rkey = breathEl.getAttribute('data-i18n-ready');
+ if(t[rkey] != null && !breathEl.dataset.breathing) breathEl.textContent = t[rkey];
+ }
+ // Update chat input placeholder
+ var chatIn = document.getElementById('chat-in');
+ if(chatIn && t['ph-chat-input']) chatIn.placeholder = t['ph-chat-input'];
+ // Update home alerts default text if still default
+ var homeAlerts = document.getElementById('home-alerts-summary');
+ if(homeAlerts && (homeAlerts.textContent.trim() === 'Hakuna alerts zilizowekwa' || homeAlerts.textContent.trim() === 'No alerts set')) {
+ if(t['home-no-alerts']) homeAlerts.textContent = t['home-no-alerts'];
+ }
+ // Update Offline banner
+ var offlineBanner = document.getElementById('offline-banner');
+ if(offlineBanner && t['offline-banner']) offlineBanner.textContent = t['offline-banner'];
+ // Update AI welcome message
+ var aiWelcome = document.getElementById('ai-welcome-msg');
+ if(aiWelcome && t['ai-welcome']) aiWelcome.textContent = t['ai-welcome'];
  try { refreshLocaleViews(); } catch(_){}
  try { renderCoursesList(); } catch(_){}
  try { if(document.getElementById('acad-quiz') && document.getElementById('acad-quiz').classList.contains('active')) restartQuiz(); else { quizPool=[]; quizIdx=0; quizScore=0; } } catch(_){}
@@ -1215,7 +1338,7 @@ function saveFXPlan() {
  let tp = parseFloat(document.getElementById('fx-tp').value);
  let risk = parseFloat(document.getElementById('fx-risk').value) || 1;
 
- if(!entry || !sl || !tp) return toast('Jaza Entry, SL na TP!', '');
+ if(!entry || !sl || !tp) return toast(currentLang==='sw'?'Jaza Entry, SL na TP!':'Fill Entry, SL and TP!', '');
 
  let plan = { id, pair, strategy, entry, sl, tp, risk };
  fxPlans = fxPlans.filter(p => p.id !== id);
@@ -1225,12 +1348,12 @@ function saveFXPlan() {
  currentFxChart = renderRiskRewardChart('fxChart', currentFxChart, entry, sl, tp, pair);
  renderFXPlansList();
  cancelFXForm();
- toast('Mpango umehifadhiwa!', '');
+ toast(currentLang==='sw'?'Mpango umehifadhiwa!':'Plan saved!', '');
 }
 function renderFXPlansList() {
  const list = document.getElementById('fx-plan-list');
  if(!list) return;
- if(fxPlans.length === 0) { list.innerHTML = '<div style="text-align:center;padding:10px;color:var(--muted);font-size:0.8rem;">Hakuna mipango</div>'; return; }
+ if(fxPlans.length === 0) { list.innerHTML = '<div style="text-align:center;padding:10px;color:var(--muted);font-size:0.8rem;">'+(currentLang==="sw"?"Hakuna mipango":"No plans yet")+"</div>"; return; }
  
  list.innerHTML = fxPlans.map(p => `
  <div class="div-tracker-item">
@@ -1239,7 +1362,7 @@ function renderFXPlansList() {
  <div class="plan-list-sub">Entry: ${p.entry} | SL: ${p.sl} | TP: ${p.tp} | Risk: ${p.risk}%</div>
  </div>
  <div class="plan-list-actions">
- <button class="btn btn-primary btn-sm" onclick="editFXPlan(${p.id})">Edit</button>
+ <button class="btn btn-primary btn-sm" onclick="editFXPlan(${p.id})">${(appTranslations[currentLang]||appTranslations.sw)['btn-edit']||'Edit'}</button>
  <button class="btn btn-danger btn-sm" onclick="deleteFXPlan(${p.id})">X</button>
  </div>
  </div>
@@ -1259,7 +1382,7 @@ function editFXPlan(id) {
  currentFxChart = renderRiskRewardChart('fxChart', currentFxChart, p.entry, p.sl, p.tp, p.pair);
 }
 function deleteFXPlan(id) {
- if(confirm('Futa mpango huu?')) {
+ if(confirm(currentLang==='sw'?'Futa mpango huu?':'Delete this plan?')) {
  fxPlans = fxPlans.filter(p => p.id !== id);
  localStorage.setItem('fxPlans', JSON.stringify(fxPlans));
  renderFXPlansList();
@@ -1303,7 +1426,7 @@ function saveSyntheticPlan() {
 function renderSyntheticPlansList() {
  const list = document.getElementById('synthetic-plan-list');
  if(!list) return;
- if(synPlans.length === 0) { list.innerHTML = '<div style="text-align:center;padding:10px;color:var(--muted);font-size:0.8rem;">Hakuna mipango</div>'; return; }
+ if(synPlans.length === 0) { list.innerHTML = '<div style="text-align:center;padding:10px;color:var(--muted);font-size:0.8rem;">'+(currentLang==="sw"?"Hakuna mipango":"No plans yet")+"</div>"; return; }
  list.innerHTML = synPlans.map(p => `
  <div class="div-tracker-item">
  <div class="plan-list-info">
@@ -1311,7 +1434,7 @@ function renderSyntheticPlansList() {
  <div class="plan-list-sub">Lot: ${p.lot} | SL: ${p.sl} | TP: ${p.tp}</div>
  </div>
  <div class="plan-list-actions">
- <button class="btn btn-primary btn-sm" onclick="editSyntheticPlan(${p.id})">Edit</button>
+ <button class="btn btn-primary btn-sm" onclick="editSyntheticPlan(${p.id})">${(appTranslations[currentLang]||appTranslations.sw)['btn-edit']||'Edit'}</button>
  <button class="btn btn-danger btn-sm" onclick="deleteSyntheticPlan(${p.id})">X</button>
  </div>
  </div>
@@ -1328,7 +1451,7 @@ function editSyntheticPlan(id) {
  showSyntheticForm();
 }
 function deleteSyntheticPlan(id) {
- if(confirm('Futa mpango huu?')) {
+ if(confirm(currentLang==='sw'?'Futa mpango huu?':'Delete this plan?')) {
  synPlans = synPlans.filter(p => p.id !== id);
  localStorage.setItem('synPlans', JSON.stringify(synPlans));
  renderSyntheticPlansList();
@@ -1366,7 +1489,7 @@ function saveStocksPlan() {
 function renderStocksPlansList() {
  const list = document.getElementById('stocks-plan-list');
  if(!list) return;
- if(stocksPlans.length === 0) { list.innerHTML = '<div style="text-align:center;padding:10px;color:var(--muted);font-size:0.8rem;">Hakuna mipango</div>'; return; }
+ if(stocksPlans.length === 0) { list.innerHTML = '<div style="text-align:center;padding:10px;color:var(--muted);font-size:0.8rem;">'+(currentLang==="sw"?"Hakuna mipango":"No plans yet")+"</div>"; return; }
  list.innerHTML = stocksPlans.map(p => `
  <div class="div-tracker-item">
  <div class="plan-list-info">
@@ -1374,7 +1497,7 @@ function renderStocksPlansList() {
  <div class="plan-list-sub">Shares: ${p.shares} | Entry: $${p.entry} | Target: $${p.target}</div>
  </div>
  <div class="plan-list-actions">
- <button class="btn btn-primary btn-sm" onclick="editStocksPlan(${p.id})">Edit</button>
+ <button class="btn btn-primary btn-sm" onclick="editStocksPlan(${p.id})">${(appTranslations[currentLang]||appTranslations.sw)['btn-edit']||'Edit'}</button>
  <button class="btn btn-danger btn-sm" onclick="deleteStocksPlan(${p.id})">X</button>
  </div>
  </div>
@@ -1391,7 +1514,7 @@ function editStocksPlan(id) {
  showStocksForm();
 }
 function deleteStocksPlan(id) {
- if(confirm('Futa mpango huu?')) {
+ if(confirm(currentLang==='sw'?'Futa mpango huu?':'Delete this plan?')) {
  stocksPlans = stocksPlans.filter(p => p.id !== id);
  localStorage.setItem('stocksPlans', JSON.stringify(stocksPlans));
  renderStocksPlansList();
@@ -1432,7 +1555,7 @@ function saveCryptoPlan() {
 function renderCryptoPlansList() {
  const list = document.getElementById('crypto-plan-list');
  if(!list) return;
- if(cryptoPlans.length === 0) { list.innerHTML = '<div style="text-align:center;padding:10px;color:var(--muted);font-size:0.8rem;">Hakuna mipango</div>'; return; }
+ if(cryptoPlans.length === 0) { list.innerHTML = '<div style="text-align:center;padding:10px;color:var(--muted);font-size:0.8rem;">'+(currentLang==="sw"?"Hakuna mipango":"No plans yet")+"</div>"; return; }
  list.innerHTML = cryptoPlans.map(p => `
  <div class="div-tracker-item">
  <div class="plan-list-info">
@@ -1440,7 +1563,7 @@ function renderCryptoPlansList() {
  <div class="plan-list-sub">Amount: $${p.amount} | Entry: $${p.entry} | Lev: ${p.leverage}x | SL: ${p.sl} | TP: ${p.tp}</div>
  </div>
  <div class="plan-list-actions">
- <button class="btn btn-primary btn-sm" onclick="editCryptoPlan(${p.id})">Edit</button>
+ <button class="btn btn-primary btn-sm" onclick="editCryptoPlan(${p.id})">${(appTranslations[currentLang]||appTranslations.sw)['btn-edit']||'Edit'}</button>
  <button class="btn btn-danger btn-sm" onclick="deleteCryptoPlan(${p.id})">X</button>
  </div>
  </div>
@@ -1459,7 +1582,7 @@ function editCryptoPlan(id) {
  showCryptoForm();
 }
 function deleteCryptoPlan(id) {
- if(confirm('Futa mpango huu?')) {
+ if(confirm(currentLang==='sw'?'Futa mpango huu?':'Delete this plan?')) {
  cryptoPlans = cryptoPlans.filter(p => p.id !== id);
  localStorage.setItem('cryptoPlans', JSON.stringify(cryptoPlans));
  renderCryptoPlansList();
@@ -1567,7 +1690,7 @@ function renderJournal() {
  return '<div class="journal-entry"><div class="journal-header"><span class="journal-pair">' + e.market + ' - ' + e.pair + ' (' + e.type + ')' + modeTag + '</span><span class="journal-pnl" style="color:' + pnlColor + '">' + formatMoney(e.pnl) + '</span></div><div class="journal-meta">' + (e.mood ? 'Mood: ' + e.mood + ' | ' : '') + (e.strategy ? 'Strategy: ' + e.strategy + ' | ' : '') + formatDate(e.date) + '</div>' + tagsHtml + (e.notes ? '<div style="font-size:0.72rem;">' + e.notes + '</div>' : '') + screenshotHtml + '<div class="btn-row" style="margin-top:6px;"><button class="btn btn-outline btn-sm" onclick="quickShare(' + e.id + ')"> Share</button><button class="btn btn-danger btn-sm" onclick="deleteJournalEntry(' + e.id + ')">Delete</button></div></div>'; 
  }).join(''); 
 }
-function deleteJournalEntry(id) { if (confirm('Delete?')) { var entries = getActiveEntries(); var filtered = entries.filter(function(e) { return e.id !== id; }); localStorage.setItem(getActiveStorageKey(), JSON.stringify(filtered)); if (journalMode === 'demo') demoEntries = filtered; else journalEntries = filtered; renderJournal(); updateAllCharts(); } }
+function deleteJournalEntry(id) { if (confirm(currentLang==='sw'?'Futa?':'Delete?')) { var entries = getActiveEntries(); var filtered = entries.filter(function(e) { return e.id !== id; }); localStorage.setItem(getActiveStorageKey(), JSON.stringify(filtered)); if (journalMode === 'demo') demoEntries = filtered; else journalEntries = filtered; renderJournal(); updateAllCharts(); } }
 function showJournalForm() { if(isRevengeBlocked()){ toast(currentLang==='sw'?'Revenge Blocker hai! Subiri.':'Revenge Blocker active!',''); return; } document.getElementById('pre-trade-checklist').style.display = 'block'; document.getElementById('journal-form').style.display = 'block'; document.getElementById('journal-form').scrollIntoView({ behavior: 'smooth' }); ['chk-plan','chk-rsi','chk-news','chk-sl','chk-tp'].forEach(function(id) { document.getElementById(id).checked = false; }); updateChecklistScore(); renderTagChips(); }
 function cancelJournalForm() { document.getElementById('pre-trade-checklist').style.display = 'none'; document.getElementById('journal-form').style.display = 'none'; pendingScreenshots = []; renderScreenshotPreviews(); }
 function updateChecklistScore() { var checked = ['chk-plan','chk-rsi','chk-news','chk-sl','chk-tp'].filter(function(id) { return document.getElementById(id).checked; }).length; document.getElementById('checklist-score').textContent = 'Score: ' + checked + '/5'; }
@@ -1577,7 +1700,7 @@ document.addEventListener('change', function(e) { if (e.target.id && e.target.id
 function addDividendStock() { var ticker = document.getElementById('div-ticker').value.trim().toUpperCase(); var company = document.getElementById('div-company').value.trim(); var shares = parseInt(document.getElementById('div-shares').value) || 0; var amount = parseFloat(document.getElementById('div-amount').value) || 0; if (!ticker || !company || shares <= 0) return toast('Jaza ticker, company, na shares!', ''); var entry = { id: Date.now(), ticker: ticker, company: company, shares: shares, amountPerShare: amount, country: document.getElementById('div-country').value, taxRate: parseFloat(document.getElementById('div-tax').value) || 0, frequency: document.getElementById('div-frequency').value, nextPayDate: document.getElementById('div-next-date').value || new Date().toISOString().split('T')[0] }; dividendTracker.push(entry); localStorage.setItem('dividendTracker', JSON.stringify(dividendTracker)); ['div-ticker','div-company','div-shares','div-amount'].forEach(function(id) { document.getElementById(id).value = ''; }); document.getElementById('div-tax').value = '15'; renderDividendTracker(); renderDividendCalendar(); initTaxReportYears(); toast('Dividend stock added!', ''); }
 function receiveDividend(id) { var stock = dividendTracker.find(function(d) { return d.id === id; }); if (!stock) return; var grossAmount = stock.shares * stock.amountPerShare; var netAmount = grossAmount * (1 - stock.taxRate / 100); recordDividendToJournal(stock.ticker, netAmount, grossAmount, stock.taxRate); }
 function recordDividendToJournal(ticker, netAmount, grossAmount, taxRate) { var today = new Date().toISOString().split('T')[0]; var pairTag = ticker + '-DIV'; var alreadyReceived = journalEntries.some(function(e) { return e.pair === pairTag && e.date === today; }); if (alreadyReceived) { toast('Dividend ya ' + ticker + ' tayari imepokelewa leo!', ''); return; } var entry = { id: Date.now(), market: 'Stocks', pair: pairTag, type: 'DIVIDEND', sl: '', tp: '', pnl: netAmount.toFixed(2), session: '', time: '', mood: 'neutral', strategy: '', screenshot: '[]', notes: 'Dividend ya ' + ticker + '. Gross: $' + grossAmount.toFixed(2) + ' | Kodi (' + taxRate + '%): -$' + (grossAmount - netAmount).toFixed(2) + ' | Net: $' + netAmount.toFixed(2), checklist: 5, mode: 'live', date: today }; journalEntries.unshift(entry); localStorage.setItem('journalEntries', JSON.stringify(journalEntries)); renderJournal(); updateAllCharts(); renderDividendCalendar(); initTaxReportYears(); toast('Dividend ya ' + ticker + ' imepokelewa!', ''); }
-function deleteDividendStock(id) { if (confirm('Futa stock hii?')) { dividendTracker = dividendTracker.filter(function(d) { return d.id !== id; }); localStorage.setItem('dividendTracker', JSON.stringify(dividendTracker)); renderDividendTracker(); renderDividendCalendar(); initTaxReportYears(); } }
+function deleteDividendStock(id) { if (confirm(currentLang==='sw'?'Futa stock hii?':'Delete this stock?')) { dividendTracker = dividendTracker.filter(function(d) { return d.id !== id; }); localStorage.setItem('dividendTracker', JSON.stringify(dividendTracker)); renderDividendTracker(); renderDividendCalendar(); initTaxReportYears(); } }
 function renderDividendTracker() { var c = document.getElementById('dividend-tracker-list'); if (dividendTracker.length === 0) { c.innerHTML = '<div style="text-align:center;padding:16px;color:var(--muted);">Bado huna dividend stocks</div>'; return; } c.innerHTML = dividendTracker.map(function(d) { var gross = (d.shares * d.amountPerShare).toFixed(2); var net = (gross * (1 - d.taxRate / 100)).toFixed(2); return '<div class="div-tracker-item"><div class="plan-list-info"><div class="plan-list-title">' + d.ticker + ' - ' + d.company + '</div><div class="plan-list-sub">Net: ' + formatMoney(net) + ' | Tax: ' + d.taxRate + '% | ' + d.frequency + '</div></div><div class="plan-list-actions"><button class="btn btn-gold btn-sm" onclick="receiveDividend(' + d.id + ')">Receive</button><button class="btn btn-danger btn-sm" onclick="deleteDividendStock(' + d.id + ')">X</button></div></div>'; }).join(''); }
 function renderDividendCalendar() { var el = document.getElementById('dividend-calendar'); if (!el) return; if (dividendTracker.length === 0) { el.innerHTML = (currentLang==='sw'?'Hakuna gawio linalokuja':'No upcoming dividends'); return; } var html = ''; dividendTracker.sort(function(a, b) { return new Date(a.nextPayDate) - new Date(b.nextPayDate); }).forEach(function(d) { var daysUntil = Math.ceil((new Date(d.nextPayDate) - new Date()) / (1000 * 60 * 60 * 24)); var net = (d.shares * d.amountPerShare * (1 - d.taxRate / 100)).toFixed(2); var dayLabel = daysUntil > 0 ? (daysUntil + (currentLang==='sw'?' siku':'d')) : (currentLang==='sw'?'Leo':'Today'); html += '<div class="div-calendar-item"><span>' + d.ticker + '</span><span style="color:var(--green);">' + formatMoney(net) + ' | ' + formatDate(d.nextPayDate) + ' (' + dayLabel + ')</span></div>'; }); el.innerHTML = html; }
 function initTaxReportYears() { var sel = document.getElementById('tax-report-year'); if (!sel) return; var cy = new Date().getFullYear(); var html = ''; for (var y = cy; y >= cy - 5; y--) { html += '<option value="' + y + '">' + y + '</option>'; } sel.innerHTML = html; generateTaxReport(); }
@@ -1587,7 +1710,7 @@ function exportTaxReport() { var year = document.getElementById('tax-report-year
 // ==================== PROFILE ====================
 function handleProfilePic(event) { var f = event.target.files[0]; if (!f) return; var r = new FileReader(); r.onload = function(e) { userProfile.pic = e.target.result; localStorage.setItem('userProfile', JSON.stringify(userProfile)); updateProfilePicDisplay(); }; r.readAsDataURL(f); }
 function updateProfilePicDisplay() { var p = document.getElementById('profile-pic-preview'), h = document.getElementById('profile-pic-placeholder'); if (userProfile.pic) { p.src = userProfile.pic; p.style.display = 'block'; h.style.display = 'none'; } else { p.style.display = 'none'; h.style.display = 'block'; } }
-function renderProfileView() { document.getElementById('profile-view-name').textContent = userProfile.fullname || 'Jina halijawekwa'; updateProfilePicDisplay(); document.getElementById('profile-view').style.display = 'block'; document.getElementById('profile-form').style.display = 'none'; }
+function renderProfileView() { document.getElementById('profile-view-name').textContent = userProfile.fullname || (appTranslations[currentLang]||appTranslations.sw)['profile-no-name']; updateProfilePicDisplay(); document.getElementById('profile-view').style.display = 'block'; document.getElementById('profile-form').style.display = 'none'; }
 function editProfile() { document.getElementById('profile-fullname').value = userProfile.fullname || ''; document.getElementById('profile-nickname').value = userProfile.nickname || ''; document.getElementById('profile-view').style.display = 'none'; document.getElementById('profile-form').style.display = 'block'; }
 function cancelProfileEdit() { renderProfileView(); }
 function saveProfile() { userProfile.fullname = document.getElementById('profile-fullname').value; userProfile.nickname = document.getElementById('profile-nickname').value; localStorage.setItem('userProfile', JSON.stringify(userProfile)); renderProfileView(); toast('Profile saved!', ''); }
@@ -1613,7 +1736,7 @@ function exportAllData() { var data = { version: '1.0', profile: userProfile, ba
 function importAllData(event) { var file = event.target.files[0]; if (!file) return; var reader = new FileReader(); reader.onload = function(e) { try { var data = JSON.parse(e.target.result); if (data.journalEntries) { journalEntries = data.journalEntries; localStorage.setItem('journalEntries', JSON.stringify(journalEntries)); } if (data.dividendTracker) { dividendTracker = data.dividendTracker; localStorage.setItem('dividendTracker', JSON.stringify(dividendTracker)); } if (data.fxPlans) { fxPlans = data.fxPlans; localStorage.setItem('fxPlans', JSON.stringify(fxPlans)); renderFXPlansList(); } if (data.synPlans) { synPlans = data.synPlans; localStorage.setItem('synPlans', JSON.stringify(synPlans)); renderSyntheticPlansList(); } if (data.stocksPlans) { stocksPlans = data.stocksPlans; localStorage.setItem('stocksPlans', JSON.stringify(stocksPlans)); renderStocksPlansList(); } if (data.cryptoPlans) { cryptoPlans = data.cryptoPlans; localStorage.setItem('cryptoPlans', JSON.stringify(cryptoPlans)); renderCryptoPlansList(); } renderJournal(); renderDividendTracker(); updateAllCharts(); toast('Data imported!', ''); } catch(err) { toast('Invalid file!', ''); } }; reader.readAsText(file); }
 function parseCSVLine(line){ var out=[], cur='', q=false; for(var i=0;i<line.length;i++){ var c=line[i]; if(c==='"'){ if(q && line[i+1]==='"'){ cur+='"'; i++; } else q=!q; } else if(c===',' && !q){ out.push(cur); cur=''; } else cur+=c; } out.push(cur); return out.map(function(s){return s.trim();}); }
 function importBrokerCSV(event){ var file = event.target.files[0]; if(!file) return; var reader = new FileReader(); reader.onload = function(e){ try { var text = e.target.result.replace(/\r/g,''); var lines = text.split('\n').filter(function(l){return l.trim();}); if(lines.length<2){ toast('CSV haina data',''); return; } var headers = parseCSVLine(lines[0]).map(function(h){return h.toLowerCase().trim();}); var idx = function(names){ for(var i=0;i<names.length;i++){ var p=headers.indexOf(names[i]); if(p>-1) return p; } return -1; }; var iDate=idx(['date','time','open_time','close_time','tarehe']); var iPair=idx(['pair','symbol','instrument','asset']); var iType=idx(['type','side','action','direction']); var iPnl=idx(['pnl','profit','p&l','net','net profit','result']); var iProfit=idx(['profit']); var iLoss=idx(['loss']); var added=0, skipped=0; for(var k=1;k<lines.length;k++){ var c=parseCSVLine(lines[k]); if(!c.length) continue; var pnl = 0; if(iPnl>-1) pnl = parseFloat((c[iPnl]||'0').replace(/[^0-9.\-]/g,''))||0; else if(iProfit>-1 || iLoss>-1){ var p = iProfit>-1?(parseFloat((c[iProfit]||'0').replace(/[^0-9.\-]/g,''))||0):0; var l = iLoss>-1?(parseFloat((c[iLoss]||'0').replace(/[^0-9.\-]/g,''))||0):0; pnl = p - Math.abs(l); } if(pnl===0 && iPnl===-1){ skipped++; continue; } var rawDate = iDate>-1?(c[iDate]||''):''; var d = rawDate?new Date(rawDate):new Date(); if(isNaN(d.getTime())) d=new Date(); var pair = iPair>-1?(c[iPair]||'CSV'):'CSV'; var type = iType>-1?((c[iType]||'').toUpperCase().indexOf('SELL')>-1?'SELL':'BUY'):'BUY'; var status = pnl>0?'WIN':(pnl<0?'LOSS':'BE'); journalEntries.unshift({ id: Date.now()+k, market:'Forex', pair:pair, type:type, sl:'', tp:'', pnl: pnl.toFixed(2), status: status, mistake:'', session:'', time:'', mood:'neutral', strategy:'', tags:['imported'], screenshot:'[]', notes:'Imported from broker CSV', checklist:0, mode:'live', date: d.toISOString().split('T')[0] }); added++; } localStorage.setItem('journalEntries', JSON.stringify(journalEntries)); renderJournal(); updateAllCharts(); toast('Imeagiza trades '+added+(skipped?(' (skipped '+skipped+')'):''),''); } catch(err){ console.error(err); toast('CSV haijaweza kusomwa',''); } }; reader.readAsText(file); event.target.value=''; }
-function resetAllData() { if (confirm('DELETE ALL DATA? This cannot be undone!')) { localStorage.clear(); journalEntries = []; demoEntries = []; dividendTracker = []; fxPlans = []; synPlans = []; stocksPlans = []; cryptoPlans = []; renderJournal(); renderDividendTracker(); renderFXPlansList(); renderSyntheticPlansList(); renderStocksPlansList(); renderCryptoPlansList(); updateAllCharts(); toast('All data deleted!', ''); } }
+function resetAllData() { if (confirm(currentLang==='sw'?'FUTA DATA YOTE? Haiwezi kurejeshwa!':'DELETE ALL DATA? This cannot be undone!')) { localStorage.clear(); journalEntries = []; demoEntries = []; dividendTracker = []; fxPlans = []; synPlans = []; stocksPlans = []; cryptoPlans = []; renderJournal(); renderDividendTracker(); renderFXPlansList(); renderSyntheticPlansList(); renderStocksPlansList(); renderCryptoPlansList(); updateAllCharts(); toast(currentLang==='sw'?'Data zote zimefutwa!':'All data deleted!', ''); } }
 
 // ==================== SIMPLE FUNCTIONS ====================
 function calcPosition() { var b = parseFloat(document.getElementById('pos-balance').value) || 0, r = parseFloat(document.getElementById('pos-risk').value) || 0, s = parseFloat(document.getElementById('pos-sl').value) || 1; document.getElementById('pos-result').textContent = formatMoney((b * r / 100) / s) + ' per pip'; }
@@ -2032,9 +2155,9 @@ function selectQuizAnswer(idx, el) {
 }
 function nextQuiz() { quizIdx++; renderQuiz(); }
 
-function showGoalForm() { var name = prompt('Jina la Lengo:'); var target = prompt('Target (%)'); if(name && target) { userGoals.push({ id: Date.now(), name: name, target: parseFloat(target), current: 0 }); localStorage.setItem('userGoals', JSON.stringify(userGoals)); renderGoalsList(); } }
-function renderGoalsList() { var c = document.getElementById('goals-tracker-list'); if (!c) return; if (userGoals.length === 0) { c.innerHTML = '<div style="text-align:center;padding:20px;">Bado huna malengo</div>'; return; } c.innerHTML = userGoals.map(function(g) { return '<div class="goal-item"><div class="goal-header"><span class="goal-name">' + g.name + '</span><span class="goal-pct">' + (g.current || 0) + '% / ' + g.target + '%</span></div><div class="goal-bar"><div class="goal-fill" style="width:' + Math.min(100, ((g.current||0)/g.target)*100) + '%;background:var(--accent)"></div></div><button class="btn btn-outline btn-sm" style="margin-top:6px;" onclick="updateGoalProgress(' + g.id + ')">Update</button></div>'; }).join(''); }
-function updateGoalProgress(id) { var g = userGoals.find(g => g.id === id); if(g) { var val = prompt('Current progress (%)', g.current || 0); if(val !== null) { g.current = parseFloat(val); localStorage.setItem('userGoals', JSON.stringify(userGoals)); renderGoalsList(); } } }
+function showGoalForm() { var _t=appTranslations[currentLang]||appTranslations.sw; var name = prompt(_t['goal-prompt-name']||'Jina la Lengo:'); var target = prompt(_t['goal-prompt-target']||'Target (%)'); if(name && target) { userGoals.push({ id: Date.now(), name: name, target: parseFloat(target), current: 0 }); localStorage.setItem('userGoals', JSON.stringify(userGoals)); renderGoalsList(); } }
+function renderGoalsList() { var c = document.getElementById('goals-tracker-list'); if (!c) return; var _t=appTranslations[currentLang]||appTranslations.sw; if (userGoals.length === 0) { c.innerHTML = '<div style="text-align:center;padding:20px;">'+(_t['goals-empty']||'Bado huna malengo')+'</div>'; return; } c.innerHTML = userGoals.map(function(g) { return '<div class="goal-item"><div class="goal-header"><span class="goal-name">' + g.name + '</span><span class="goal-pct">' + (g.current || 0) + '% / ' + g.target + '%</span></div><div class="goal-bar"><div class="goal-fill" style="width:' + Math.min(100, ((g.current||0)/g.target)*100) + '%;background:var(--accent)"></div></div><button class="btn btn-outline btn-sm" style="margin-top:6px;" onclick="updateGoalProgress(' + g.id + ')">'+(_t['btn-update']||'Update')+'</button></div>'; }).join(''); }
+function updateGoalProgress(id) { var g = userGoals.find(g => g.id === id); if(g) { var val = prompt((appTranslations[currentLang]||appTranslations.sw)['goal-progress-prompt']||'Current progress (%)', g.current || 0); if(val !== null) { g.current = parseFloat(val); localStorage.setItem('userGoals', JSON.stringify(userGoals)); renderGoalsList(); } } }
 // ==================== AFFIRMATIONS ====================
 var AFFIRMATIONS = {
  sw: ['"Nidhamu ni daraja kati ya malengo na mafanikio."','"Mfanyabiashara bora ni mvumilivu."','"Hasara ni gharama ya elimu, si kushindwa."','"Subiri setup kamili. Pesa itakuja."','"Nidhamu yangu ni nguvu yangu kubwa."','"Sina haraka ya kuwa tajiri — nina muda."','"Kila trade ni biashara, si kamari."','"Hisia hazifanyi maamuzi yangu — sheria zinafanya."','"Kuachana na trade mbaya ni ushindi."','"Risk management ni silaha yangu kuu."','"Soko litakuwepo kesho. Subiri."','"Ubora wa setup ni muhimu kuliko idadi."','"Ninaheshimu mtaji wangu kama hazina."','"Win rate ni paragraph; expectancy ni hadithi."','"Kupotea kidogo leo ni kushinda kesho."'],
@@ -2139,7 +2262,7 @@ function renderChallenges(){
  challenges.forEach(function(c){ if(c.done && earned.indexOf(c.id)===-1){ earned.push(c.id); toast('Beji mpya: '+c.name,''); }});
  localStorage.setItem('badgesEarned', JSON.stringify(earned));
  var cl = document.getElementById('chal-list'); if(cl) cl.innerHTML = challenges.map(function(c){ var pct = Math.min(100, Math.round(c.current/c.target*100)); return '<div style="margin-bottom:10px;"><div style="display:flex;justify-content:space-between;font-size:0.75rem;"><span>'+c.name+'</span><span style="color:'+(c.done?'var(--green)':'var(--muted)')+'">'+(c.done?'✓':c.current+'/'+c.target)+'</span></div><div style="height:6px;background:var(--surface);border-radius:3px;margin-top:4px;"><div style="height:100%;width:'+pct+'%;background:'+(c.done?'var(--green)':'var(--accent)')+';border-radius:3px;"></div></div></div>'; }).join('');
- var bd = document.getElementById('chal-badges'); if(bd){ if(!earned.length){ bd.innerHTML='Bado hakuna beji. Endelea kufanya kazi!'; } else { bd.innerHTML = earned.map(function(id){ var c = challenges.find(function(x){return x.id===id;}); return '<span style="padding:6px 10px;border-radius:12px;background:rgba(255,215,64,0.15);color:var(--gold);font-size:0.7rem;font-weight:700;">'+(c?c.name:id)+'</span>'; }).join(''); } }
+ var bd = document.getElementById('chal-badges'); if(bd){ if(!earned.length){ bd.innerHTML=(appTranslations[currentLang]||appTranslations.sw)['chal-no-badges']||'Bado hakuna beji. Endelea kufanya kazi!'; } else { bd.innerHTML = earned.map(function(id){ var c = challenges.find(function(x){return x.id===id;}); return '<span style="padding:6px 10px;border-radius:12px;background:rgba(255,215,64,0.15);color:var(--gold);font-size:0.7rem;font-weight:700;">'+(c?c.name:id)+'</span>'; }).join(''); } }
 }
 function checkChallengeProgress(){ renderChallenges(); }
 
