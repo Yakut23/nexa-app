@@ -38,32 +38,43 @@ body.forest { --bg: #0a1a0a; --surface: #0f200f; --card: #142214; --card2: #1a2a
 html{height:100%;scroll-behavior:smooth;font-size:14px}
 body{font-family:var(--font-body);background:var(--bg);color:var(--text);height:100%;overflow:hidden;display:flex;flex-direction:column;-webkit-tap-highlight-color:transparent;transition:background 0.3s,color 0.3s}
 
-/* ==================== GOAL MODAL ==================== */
-#goal-modal-overlay {
-  animation: goalModalFade 0.25s ease both;
+/* ==================== MODAL STYLES ==================== */
+#goal-modal-overlay,
+#dividend-modal-overlay,
+#confirm-modal-overlay,
+#prompt-modal-overlay {
+  animation: modalFade 0.25s ease both;
 }
 
-@keyframes goalModalFade {
+@keyframes modalFade {
   from { opacity: 0; transform: scale(0.92) translateY(10px); }
   to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-#goal-save-btn:hover {
+#goal-modal-overlay input:focus,
+#dividend-modal-overlay input:focus,
+#prompt-modal-overlay input:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px rgba(0,230,118,0.15) !important;
+}
+
+#goal-save-btn:hover,
+#dividend-modal-save:hover,
+#prompt-modal-save:hover {
   transform: scale(1.02);
   box-shadow: 0 4px 16px rgba(0,230,118,0.3);
 }
 
-#goal-cancel-btn:hover {
+#goal-cancel-btn:hover,
+#dividend-modal-cancel:hover,
+#prompt-modal-cancel:hover {
   background: rgba(255,255,255,0.05);
   border-color: var(--border);
 }
 
-#goal-modal-overlay::-webkit-scrollbar {
-  width: 4px;
-}
-#goal-modal-overlay::-webkit-scrollbar-thumb {
-  background: var(--border2);
-  border-radius: 4px;
+#confirm-modal-yes:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 16px rgba(255,61,92,0.3);
 }
 
 /* ==================== PIN ==================== */
@@ -1029,14 +1040,133 @@ function handlePinInput(num) { if (pinBuffer.length >= 4) return; pinBuffer += n
 function handlePinDelete() { pinBuffer = pinBuffer.slice(0, -1); updatePinDots(); document.getElementById('pin-msg').textContent = ''; }
 function updatePinDots() { document.querySelectorAll('.pin-dot').forEach(function(d, i) { d.classList.toggle('filled', i < pinBuffer.length); }); }
 function verifyPin() { var stored = localStorage.getItem('appPin'); if (pinBuffer === stored) { pinAttempts = 0; localStorage.setItem('pinAttempts', '0'); document.getElementById('pin-lock').classList.add('unlocked'); setTimeout(function() { document.getElementById('pin-lock').style.display = 'none'; }, 300); } else { pinAttempts++; localStorage.setItem('pinAttempts', pinAttempts.toString()); pinBuffer = ''; updatePinDots(); if (pinAttempts >= MAX_PIN_ATTEMPTS) { pinLockUntil = Date.now() + (5 * 60 * 1000); localStorage.setItem('pinLockUntil', pinLockUntil.toString()); location.reload(); } else { document.getElementById('pin-msg').textContent = (currentLang==='sw'?'PIN si sahihi (':'Incorrect PIN (') + (MAX_PIN_ATTEMPTS - pinAttempts) + (currentLang==='sw'?' zilizobaki)':' left)'); if (navigator.vibrate) navigator.vibrate(200); } } }
-function setPin() { var pin = prompt(currentLang==='sw'?'Weka PIN ya tarakimu 4:':'Enter a 4-digit PIN:'); if (pin && /^\d{4}$/.test(pin)) { localStorage.setItem('appPin', pin); toast(currentLang==='sw'?'PIN imewekwa!':'PIN set!', ''); } else if (pin !== null) toast(currentLang==='sw'?'PIN lazima iwe tarakimu 4':'PIN must be 4 digits', ''); }
-function removePin() { if (confirm(currentLang==='sw'?'Ondoa PIN?':'Remove PIN?')) { localStorage.removeItem('appPin'); toast(currentLang==='sw'?'PIN imeondolewa':'PIN removed', ''); } }
+function setPin() { 
+  themePrompt(currentLang==='sw'?'Weka PIN ya tarakimu 4:':'Enter a 4-digit PIN:', 'number', function(pin) {
+    if (pin && /^\d{4}$/.test(pin)) { 
+      localStorage.setItem('appPin', pin); 
+      toast(currentLang==='sw'?'PIN imewekwa!':'PIN set!', ''); 
+    } else if (pin !== null) {
+      toast(currentLang==='sw'?'PIN lazima iwe tarakimu 4':'PIN must be 4 digits', '');
+    }
+  });
+}
+function removePin() { 
+  themeConfirm(currentLang==='sw'?'Ondoa PIN?':'Remove PIN?', function(result) {
+    if (result) {
+      localStorage.removeItem('appPin'); 
+      toast(currentLang==='sw'?'PIN imeondolewa':'PIN removed', '');
+    }
+  });
+}
+
+// ==================== THEME CONFIRM & PROMPT ====================
+function themeConfirm(message, callback) {
+  var overlay = document.createElement('div');
+  overlay.id = 'confirm-modal-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;';
+  
+  overlay.innerHTML = `
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.6);text-align:center;">
+      <div style="font-family:var(--font-head);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:20px;">${message}</div>
+      <div style="display:flex;gap:10px;">
+        <button id="confirm-modal-no" style="flex:1;padding:10px;border-radius:10px;background:transparent;border:1px solid var(--border2);color:var(--muted);font-weight:600;cursor:pointer;transition:all 0.2s;">${currentLang==='sw'?'Hapana':'No'}</button>
+        <button id="confirm-modal-yes" style="flex:1;padding:10px;border-radius:10px;background:var(--red);border:none;color:#fff;font-weight:700;cursor:pointer;transition:all 0.2s;">${currentLang==='sw'?'Ndio':'Yes'}</button>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(overlay);
+  
+  document.getElementById('confirm-modal-no').onclick = function() {
+    overlay.remove();
+    if (callback) callback(false);
+  };
+  
+  document.getElementById('confirm-modal-yes').onclick = function() {
+    overlay.remove();
+    if (callback) callback(true);
+  };
+}
+
+function themePrompt(message, type, callback) {
+  var overlay = document.createElement('div');
+  overlay.id = 'prompt-modal-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;';
+  
+  var inputType = type === 'number' ? 'number' : 'text';
+  var inputStyle = 'width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:0.85rem;outline:none;transition:border-color 0.2s;';
+  
+  overlay.innerHTML = `
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
+      <div style="font-family:var(--font-head);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:16px;">${message}</div>
+      <input id="prompt-modal-input" type="${inputType}" style="${inputStyle}" autofocus>
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <button id="prompt-modal-cancel" style="flex:1;padding:10px;border-radius:10px;background:transparent;border:1px solid var(--border2);color:var(--muted);font-weight:600;cursor:pointer;transition:all 0.2s;">${currentLang==='sw'?'Ghairi':'Cancel'}</button>
+        <button id="prompt-modal-ok" style="flex:1;padding:10px;border-radius:10px;background:var(--accent);border:none;color:#000;font-weight:700;cursor:pointer;transition:all 0.2s;">${currentLang==='sw'?'Sawa':'OK'}</button>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(overlay);
+  
+  setTimeout(function() {
+    document.getElementById('prompt-modal-input').focus();
+  }, 150);
+  
+  document.getElementById('prompt-modal-cancel').onclick = function() {
+    overlay.remove();
+    if (callback) callback(null);
+  };
+  
+  document.getElementById('prompt-modal-ok').onclick = function() {
+    var val = document.getElementById('prompt-modal-input').value;
+    overlay.remove();
+    if (callback) callback(val);
+  };
+  
+  document.getElementById('prompt-modal-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('prompt-modal-ok').click();
+    if (e.key === 'Escape') document.getElementById('prompt-modal-cancel').click();
+  });
+  
+  // Focus effects
+  document.getElementById('prompt-modal-input').addEventListener('focus', function() {
+    this.style.borderColor = 'var(--accent)';
+    this.style.boxShadow = '0 0 0 3px rgba(0,230,118,0.15)';
+  });
+  document.getElementById('prompt-modal-input').addEventListener('blur', function() {
+    this.style.borderColor = 'var(--border)';
+    this.style.boxShadow = 'none';
+  });
+}
 
 // ==================== MIGRATION ====================
 function migrateData() { journalEntries = journalEntries.map(function(e) { return { mood: e.mood || 'neutral', strategy: e.strategy || '', screenshot: Array.isArray(e.screenshot) ? e.screenshot : (e.screenshot ? [e.screenshot] : []), pair: e.pair, type: e.type, pnl: e.pnl, sl: e.sl, tp: e.tp, session: e.session, time: e.time, notes: e.notes, checklist: e.checklist, mode: e.mode, date: e.date, market: e.market, id: e.id }; }); localStorage.setItem('journalEntries', JSON.stringify(journalEntries)); }
 
 // ==================== DATA ARCHIVE ====================
-function archiveOldData() { var threeMonthsAgo = new Date(); threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3); var recent = []; var archived = JSON.parse(localStorage.getItem('archivedTrades') || '[]'); journalEntries.forEach(function(e) { if (new Date(e.date) < threeMonthsAgo && e.type !== 'DIVIDEND') { archived.push(e); } else { recent.push(e); } }); if (archived.length > (JSON.parse(localStorage.getItem('archivedTrades') || '[]')).length) { localStorage.setItem('journalEntries', JSON.stringify(recent)); localStorage.setItem('archivedTrades', JSON.stringify(archived)); journalEntries = recent; updateAllCharts(); renderJournal(); toast(archived.length + ' trades zimehifadhiwa kwenye archive', ''); } else { toast('Hakuna trades za zamani za kuhifadhi', ''); } }
+function archiveOldData() { 
+  var threeMonthsAgo = new Date(); 
+  threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3); 
+  var recent = []; 
+  var archived = JSON.parse(localStorage.getItem('archivedTrades') || '[]'); 
+  journalEntries.forEach(function(e) { 
+    if (new Date(e.date) < threeMonthsAgo && e.type !== 'DIVIDEND') { 
+      archived.push(e); 
+    } else { 
+      recent.push(e); 
+    } 
+  }); 
+  if (archived.length > (JSON.parse(localStorage.getItem('archivedTrades') || '[]')).length) { 
+    localStorage.setItem('journalEntries', JSON.stringify(recent)); 
+    localStorage.setItem('archivedTrades', JSON.stringify(archived)); 
+    journalEntries = recent; 
+    updateAllCharts(); 
+    renderJournal(); 
+    toast(archived.length + ' trades zimehifadhiwa kwenye archive', ''); 
+  } else { 
+    toast('Hakuna trades za zamani za kuhifadhi', ''); 
+  } 
+}
 
 // ==================== ADVANCED STATS ====================
 function calculateAdvancedStats() { var trades = journalEntries.filter(function(e) { return e.type !== 'DIVIDEND'; }); if (trades.length === 0) return null; var wins = trades.filter(function(t) { return parseFloat(t.pnl) > 0; }); var losses = trades.filter(function(t) { return parseFloat(t.pnl) < 0; }); var grossProfit = wins.reduce(function(s, t) { return s + parseFloat(t.pnl); }, 0); var grossLoss = Math.abs(losses.reduce(function(s, t) { return s + parseFloat(t.pnl); }, 0)); var avgWin = wins.length ? grossProfit / wins.length : 0; var avgLoss = losses.length ? grossLoss / losses.length : 0; var profitFactor = grossLoss > 0 ? (grossProfit / grossLoss).toFixed(2) : grossProfit > 0 ? '∞' : '0'; var winRate = wins.length / trades.length; var expectancy = ((winRate * avgWin) - ((1 - winRate) * avgLoss)).toFixed(2); var peak = 0, maxDD = 0, cumPnL = 0; trades.forEach(function(t) { cumPnL += parseFloat(t.pnl) || 0; if (cumPnL > peak) peak = cumPnL; var dd = peak - cumPnL; if (dd > maxDD) maxDD = dd; }); return { profitFactor: profitFactor, expectancy: expectancy, maxDD: maxDD.toFixed(2), avgWin: avgWin.toFixed(2), avgLoss: avgLoss.toFixed(2), totalTrades: trades.length }; }
@@ -1411,18 +1541,20 @@ function editFXPlan(id) {
  currentFxChart = renderRiskRewardChart('fxChart', currentFxChart, p.entry, p.sl, p.tp, p.pair);
 }
 function deleteFXPlan(id) {
- if(confirm(currentLang==='sw'?'Futa mpango huu?':'Delete this plan?')) {
- fxPlans = fxPlans.filter(p => p.id !== id);
- localStorage.setItem('fxPlans', JSON.stringify(fxPlans));
- renderFXPlansList();
- if(fxPlans.length > 0) {
- let last = fxPlans[0];
- currentFxChart = renderRiskRewardChart('fxChart', currentFxChart, last.entry, last.sl, last.tp, last.pair);
- } else {
- if(currentFxChart) currentFxChart.destroy();
- currentFxChart = null;
- }
- }
+ themeConfirm(currentLang==='sw'?'Futa mpango huu?':'Delete this plan?', function(result) {
+   if (result) {
+     fxPlans = fxPlans.filter(p => p.id !== id);
+     localStorage.setItem('fxPlans', JSON.stringify(fxPlans));
+     renderFXPlansList();
+     if(fxPlans.length > 0) {
+       let last = fxPlans[0];
+       currentFxChart = renderRiskRewardChart('fxChart', currentFxChart, last.entry, last.sl, last.tp, last.pair);
+     } else {
+       if(currentFxChart) currentFxChart.destroy();
+       currentFxChart = null;
+     }
+   }
+ });
 }
 
 // ==================== SYNTHETIC ====================
@@ -1480,11 +1612,13 @@ function editSyntheticPlan(id) {
  showSyntheticForm();
 }
 function deleteSyntheticPlan(id) {
- if(confirm(currentLang==='sw'?'Futa mpango huu?':'Delete this plan?')) {
- synPlans = synPlans.filter(p => p.id !== id);
- localStorage.setItem('synPlans', JSON.stringify(synPlans));
- renderSyntheticPlansList();
- }
+ themeConfirm(currentLang==='sw'?'Futa mpango huu?':'Delete this plan?', function(result) {
+   if(result) {
+     synPlans = synPlans.filter(p => p.id !== id);
+     localStorage.setItem('synPlans', JSON.stringify(synPlans));
+     renderSyntheticPlansList();
+   }
+ });
 }
 
 // ==================== STOCKS ====================
@@ -1543,11 +1677,13 @@ function editStocksPlan(id) {
  showStocksForm();
 }
 function deleteStocksPlan(id) {
- if(confirm(currentLang==='sw'?'Futa mpango huu?':'Delete this plan?')) {
- stocksPlans = stocksPlans.filter(p => p.id !== id);
- localStorage.setItem('stocksPlans', JSON.stringify(stocksPlans));
- renderStocksPlansList();
- }
+ themeConfirm(currentLang==='sw'?'Futa mpango huu?':'Delete this plan?', function(result) {
+   if(result) {
+     stocksPlans = stocksPlans.filter(p => p.id !== id);
+     localStorage.setItem('stocksPlans', JSON.stringify(stocksPlans));
+     renderStocksPlansList();
+   }
+ });
 }
 
 // ==================== CRYPTO ====================
@@ -1611,11 +1747,13 @@ function editCryptoPlan(id) {
  showCryptoForm();
 }
 function deleteCryptoPlan(id) {
- if(confirm(currentLang==='sw'?'Futa mpango huu?':'Delete this plan?')) {
- cryptoPlans = cryptoPlans.filter(p => p.id !== id);
- localStorage.setItem('cryptoPlans', JSON.stringify(cryptoPlans));
- renderCryptoPlansList();
- }
+ themeConfirm(currentLang==='sw'?'Futa mpango huu?':'Delete this plan?', function(result) {
+   if(result) {
+     cryptoPlans = cryptoPlans.filter(p => p.id !== id);
+     localStorage.setItem('cryptoPlans', JSON.stringify(cryptoPlans));
+     renderCryptoPlansList();
+   }
+ });
 }
 
 // ==================== ALL OTHER FUNCTIONS ====================
@@ -1719,17 +1857,127 @@ function renderJournal() {
  return '<div class="journal-entry"><div class="journal-header"><span class="journal-pair">' + e.market + ' - ' + e.pair + ' (' + e.type + ')' + modeTag + '</span><span class="journal-pnl" style="color:' + pnlColor + '">' + formatMoney(e.pnl) + '</span></div><div class="journal-meta">' + (e.mood ? 'Mood: ' + e.mood + ' | ' : '') + (e.strategy ? 'Strategy: ' + e.strategy + ' | ' : '') + formatDate(e.date) + '</div>' + tagsHtml + (e.notes ? '<div style="font-size:0.72rem;">' + e.notes + '</div>' : '') + screenshotHtml + '<div class="btn-row" style="margin-top:6px;"><button class="btn btn-outline btn-sm" onclick="quickShare(' + e.id + ')"> Share</button><button class="btn btn-danger btn-sm" onclick="deleteJournalEntry(' + e.id + ')">Delete</button></div></div>'; 
  }).join(''); 
 }
-function deleteJournalEntry(id) { if (confirm(currentLang==='sw'?'Futa?':'Delete?')) { var entries = getActiveEntries(); var filtered = entries.filter(function(e) { return e.id !== id; }); localStorage.setItem(getActiveStorageKey(), JSON.stringify(filtered)); if (journalMode === 'demo') demoEntries = filtered; else journalEntries = filtered; renderJournal(); updateAllCharts(); } }
+function deleteJournalEntry(id) { 
+ themeConfirm(currentLang==='sw'?'Futa?':'Delete?', function(result) {
+   if(result) {
+     var entries = getActiveEntries(); 
+     var filtered = entries.filter(function(e) { return e.id !== id; }); 
+     localStorage.setItem(getActiveStorageKey(), JSON.stringify(filtered)); 
+     if (journalMode === 'demo') demoEntries = filtered; 
+     else journalEntries = filtered; 
+     renderJournal(); 
+     updateAllCharts();
+   }
+ }); 
+}
 function showJournalForm() { if(isRevengeBlocked()){ toast(currentLang==='sw'?'Revenge Blocker hai! Subiri.':'Revenge Blocker active!',''); return; } document.getElementById('pre-trade-checklist').style.display = 'block'; document.getElementById('journal-form').style.display = 'block'; document.getElementById('journal-form').scrollIntoView({ behavior: 'smooth' }); ['chk-plan','chk-rsi','chk-news','chk-sl','chk-tp'].forEach(function(id) { document.getElementById(id).checked = false; }); updateChecklistScore(); renderTagChips(); }
 function cancelJournalForm() { document.getElementById('pre-trade-checklist').style.display = 'none'; document.getElementById('journal-form').style.display = 'none'; pendingScreenshots = []; renderScreenshotPreviews(); }
 function updateChecklistScore() { var checked = ['chk-plan','chk-rsi','chk-news','chk-sl','chk-tp'].filter(function(id) { return document.getElementById(id).checked; }).length; document.getElementById('checklist-score').textContent = 'Score: ' + checked + '/5'; }
 document.addEventListener('change', function(e) { if (e.target.id && e.target.id.startsWith('chk-')) updateChecklistScore(); });
 
 // ==================== DIVIDEND SYSTEM ====================
-function addDividendStock() { var ticker = document.getElementById('div-ticker').value.trim().toUpperCase(); var company = document.getElementById('div-company').value.trim(); var shares = parseInt(document.getElementById('div-shares').value) || 0; var amount = parseFloat(document.getElementById('div-amount').value) || 0; if (!ticker || !company || shares <= 0) return toast('Jaza ticker, company, na shares!', ''); var entry = { id: Date.now(), ticker: ticker, company: company, shares: shares, amountPerShare: amount, country: document.getElementById('div-country').value, taxRate: parseFloat(document.getElementById('div-tax').value) || 0, frequency: document.getElementById('div-frequency').value, nextPayDate: document.getElementById('div-next-date').value || new Date().toISOString().split('T')[0] }; dividendTracker.push(entry); localStorage.setItem('dividendTracker', JSON.stringify(dividendTracker)); ['div-ticker','div-company','div-shares','div-amount'].forEach(function(id) { document.getElementById(id).value = ''; }); document.getElementById('div-tax').value = '15'; renderDividendTracker(); renderDividendCalendar(); initTaxReportYears(); toast('Dividend stock added!', ''); }
+function addDividendStock() {
+  var overlay = document.createElement('div');
+  overlay.id = 'dividend-modal-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;';
+  
+  overlay.innerHTML = `
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
+      <div style="font-family:var(--font-head);font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:16px;">${currentLang==='sw'?'Ongeza Hisa ya Gawio':'Add Dividend Stock'}</div>
+      
+      <div style="margin-bottom:10px;">
+        <label style="font-size:0.7rem;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:4px;">${currentLang==='sw'?'Alama ya Hisa':'Ticker'}</label>
+        <input id="div-modal-ticker" type="text" placeholder="AAPL" style="width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:0.85rem;outline:none;transition:border-color 0.2s;">
+      </div>
+      
+      <div style="margin-bottom:10px;">
+        <label style="font-size:0.7rem;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:4px;">${currentLang==='sw'?'Kampuni':'Company'}</label>
+        <input id="div-modal-company" type="text" placeholder="Apple Inc." style="width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:0.85rem;outline:none;transition:border-color 0.2s;">
+      </div>
+      
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+        <div>
+          <label style="font-size:0.7rem;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:4px;">${currentLang==='sw'?'Hisa':'Shares'}</label>
+          <input id="div-modal-shares" type="number" placeholder="100" style="width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:0.85rem;outline:none;transition:border-color 0.2s;">
+        </div>
+        <div>
+          <label style="font-size:0.7rem;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:4px;">${currentLang==='sw'?'Gawio/Hisa ($)':'Div/Share ($)'}</label>
+          <input id="div-modal-amount" type="number" placeholder="0.25" step="0.01" style="width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:0.85rem;outline:none;transition:border-color 0.2s;">
+        </div>
+      </div>
+      
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <button id="div-modal-cancel" style="flex:1;padding:10px;border-radius:10px;background:transparent;border:1px solid var(--border2);color:var(--muted);font-weight:600;cursor:pointer;transition:all 0.2s;">${currentLang==='sw'?'Ghairi':'Cancel'}</button>
+        <button id="div-modal-save" style="flex:1;padding:10px;border-radius:10px;background:var(--accent);border:none;color:#000;font-weight:700;cursor:pointer;transition:all 0.2s;">${currentLang==='sw'?'Ongeza':'Add'}</button>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(overlay);
+  
+  setTimeout(function() {
+    document.getElementById('div-modal-ticker').focus();
+  }, 150);
+  
+  document.getElementById('div-modal-cancel').onclick = function() { overlay.remove(); };
+  
+  document.getElementById('div-modal-save').onclick = function() {
+    var ticker = document.getElementById('div-modal-ticker').value.trim().toUpperCase();
+    var company = document.getElementById('div-modal-company').value.trim();
+    var shares = parseInt(document.getElementById('div-modal-shares').value) || 0;
+    var amount = parseFloat(document.getElementById('div-modal-amount').value) || 0;
+    
+    if (!ticker || !company || shares <= 0 || amount <= 0) {
+      toast('Jaza taarifa zote!', '⚠️');
+      return;
+    }
+    
+    dividendTracker.push({
+      id: Date.now(),
+      ticker: ticker,
+      company: company,
+      shares: shares,
+      amountPerShare: amount,
+      country: document.getElementById('div-country').value,
+      taxRate: parseFloat(document.getElementById('div-tax').value) || 0,
+      frequency: document.getElementById('div-frequency').value,
+      nextPayDate: document.getElementById('div-next-date').value || new Date().toISOString().split('T')[0]
+    });
+    
+    localStorage.setItem('dividendTracker', JSON.stringify(dividendTracker));
+    renderDividendTracker();
+    renderDividendCalendar();
+    initTaxReportYears();
+    overlay.remove();
+    toast('Dividend stock added!', '✓');
+  };
+  
+  // Focus effects
+  document.querySelectorAll('#dividend-modal-overlay input').forEach(function(input) {
+    input.addEventListener('focus', function() {
+      this.style.borderColor = 'var(--accent)';
+      this.style.boxShadow = '0 0 0 3px rgba(0,230,118,0.15)';
+    });
+    input.addEventListener('blur', function() {
+      this.style.borderColor = 'var(--border)';
+      this.style.boxShadow = 'none';
+    });
+  });
+}
+
 function receiveDividend(id) { var stock = dividendTracker.find(function(d) { return d.id === id; }); if (!stock) return; var grossAmount = stock.shares * stock.amountPerShare; var netAmount = grossAmount * (1 - stock.taxRate / 100); recordDividendToJournal(stock.ticker, netAmount, grossAmount, stock.taxRate); }
 function recordDividendToJournal(ticker, netAmount, grossAmount, taxRate) { var today = new Date().toISOString().split('T')[0]; var pairTag = ticker + '-DIV'; var alreadyReceived = journalEntries.some(function(e) { return e.pair === pairTag && e.date === today; }); if (alreadyReceived) { toast('Dividend ya ' + ticker + ' tayari imepokelewa leo!', ''); return; } var entry = { id: Date.now(), market: 'Stocks', pair: pairTag, type: 'DIVIDEND', sl: '', tp: '', pnl: netAmount.toFixed(2), session: '', time: '', mood: 'neutral', strategy: '', screenshot: '[]', notes: 'Dividend ya ' + ticker + '. Gross: $' + grossAmount.toFixed(2) + ' | Kodi (' + taxRate + '%): -$' + (grossAmount - netAmount).toFixed(2) + ' | Net: $' + netAmount.toFixed(2), checklist: 5, mode: 'live', date: today }; journalEntries.unshift(entry); localStorage.setItem('journalEntries', JSON.stringify(journalEntries)); renderJournal(); updateAllCharts(); renderDividendCalendar(); initTaxReportYears(); toast('Dividend ya ' + ticker + ' imepokelewa!', ''); }
-function deleteDividendStock(id) { if (confirm(currentLang==='sw'?'Futa stock hii?':'Delete this stock?')) { dividendTracker = dividendTracker.filter(function(d) { return d.id !== id; }); localStorage.setItem('dividendTracker', JSON.stringify(dividendTracker)); renderDividendTracker(); renderDividendCalendar(); initTaxReportYears(); } }
+function deleteDividendStock(id) { 
+  themeConfirm(currentLang==='sw'?'Futa stock hii?':'Delete this stock?', function(result) {
+    if(result) {
+      dividendTracker = dividendTracker.filter(function(d) { return d.id !== id; });
+      localStorage.setItem('dividendTracker', JSON.stringify(dividendTracker));
+      renderDividendTracker();
+      renderDividendCalendar();
+      initTaxReportYears();
+    }
+  });
+}
 function renderDividendTracker() { var c = document.getElementById('dividend-tracker-list'); if (dividendTracker.length === 0) { c.innerHTML = '<div style="text-align:center;padding:16px;color:var(--muted);">Bado huna dividend stocks</div>'; return; } c.innerHTML = dividendTracker.map(function(d) { var gross = (d.shares * d.amountPerShare).toFixed(2); var net = (gross * (1 - d.taxRate / 100)).toFixed(2); return '<div class="div-tracker-item"><div class="plan-list-info"><div class="plan-list-title">' + d.ticker + ' - ' + d.company + '</div><div class="plan-list-sub">Net: ' + formatMoney(net) + ' | Tax: ' + d.taxRate + '% | ' + d.frequency + '</div></div><div class="plan-list-actions"><button class="btn btn-gold btn-sm" onclick="receiveDividend(' + d.id + ')">Receive</button><button class="btn btn-danger btn-sm" onclick="deleteDividendStock(' + d.id + ')">X</button></div></div>'; }).join(''); }
 function renderDividendCalendar() { var el = document.getElementById('dividend-calendar'); if (!el) return; if (dividendTracker.length === 0) { el.innerHTML = (currentLang==='sw'?'Hakuna gawio linalokuja':'No upcoming dividends'); return; } var html = ''; dividendTracker.sort(function(a, b) { return new Date(a.nextPayDate) - new Date(b.nextPayDate); }).forEach(function(d) { var daysUntil = Math.ceil((new Date(d.nextPayDate) - new Date()) / (1000 * 60 * 60 * 24)); var net = (d.shares * d.amountPerShare * (1 - d.taxRate / 100)).toFixed(2); var dayLabel = daysUntil > 0 ? (daysUntil + (currentLang==='sw'?' siku':'d')) : (currentLang==='sw'?'Leo':'Today'); html += '<div class="div-calendar-item"><span>' + d.ticker + '</span><span style="color:var(--green);">' + formatMoney(net) + ' | ' + formatDate(d.nextPayDate) + ' (' + dayLabel + ')</span></div>'; }); el.innerHTML = html; }
 function initTaxReportYears() { var sel = document.getElementById('tax-report-year'); if (!sel) return; var cy = new Date().getFullYear(); var html = ''; for (var y = cy; y >= cy - 5; y--) { html += '<option value="' + y + '">' + y + '</option>'; } sel.innerHTML = html; generateTaxReport(); }
@@ -1765,12 +2013,34 @@ function exportAllData() { var data = { version: '1.0', profile: userProfile, ba
 function importAllData(event) { var file = event.target.files[0]; if (!file) return; var reader = new FileReader(); reader.onload = function(e) { try { var data = JSON.parse(e.target.result); if (data.journalEntries) { journalEntries = data.journalEntries; localStorage.setItem('journalEntries', JSON.stringify(journalEntries)); } if (data.dividendTracker) { dividendTracker = data.dividendTracker; localStorage.setItem('dividendTracker', JSON.stringify(dividendTracker)); } if (data.fxPlans) { fxPlans = data.fxPlans; localStorage.setItem('fxPlans', JSON.stringify(fxPlans)); renderFXPlansList(); } if (data.synPlans) { synPlans = data.synPlans; localStorage.setItem('synPlans', JSON.stringify(synPlans)); renderSyntheticPlansList(); } if (data.stocksPlans) { stocksPlans = data.stocksPlans; localStorage.setItem('stocksPlans', JSON.stringify(stocksPlans)); renderStocksPlansList(); } if (data.cryptoPlans) { cryptoPlans = data.cryptoPlans; localStorage.setItem('cryptoPlans', JSON.stringify(cryptoPlans)); renderCryptoPlansList(); } renderJournal(); renderDividendTracker(); updateAllCharts(); toast('Data imported!', ''); } catch(err) { toast('Invalid file!', ''); } }; reader.readAsText(file); }
 function parseCSVLine(line){ var out=[], cur='', q=false; for(var i=0;i<line.length;i++){ var c=line[i]; if(c==='"'){ if(q && line[i+1]==='"'){ cur+='"'; i++; } else q=!q; } else if(c===',' && !q){ out.push(cur); cur=''; } else cur+=c; } out.push(cur); return out.map(function(s){return s.trim();}); }
 function importBrokerCSV(event){ var file = event.target.files[0]; if(!file) return; var reader = new FileReader(); reader.onload = function(e){ try { var text = e.target.result.replace(/\r/g,''); var lines = text.split('\n').filter(function(l){return l.trim();}); if(lines.length<2){ toast('CSV haina data',''); return; } var headers = parseCSVLine(lines[0]).map(function(h){return h.toLowerCase().trim();}); var idx = function(names){ for(var i=0;i<names.length;i++){ var p=headers.indexOf(names[i]); if(p>-1) return p; } return -1; }; var iDate=idx(['date','time','open_time','close_time','tarehe']); var iPair=idx(['pair','symbol','instrument','asset']); var iType=idx(['type','side','action','direction']); var iPnl=idx(['pnl','profit','p&l','net','net profit','result']); var iProfit=idx(['profit']); var iLoss=idx(['loss']); var added=0, skipped=0; for(var k=1;k<lines.length;k++){ var c=parseCSVLine(lines[k]); if(!c.length) continue; var pnl = 0; if(iPnl>-1) pnl = parseFloat((c[iPnl]||'0').replace(/[^0-9.\-]/g,''))||0; else if(iProfit>-1 || iLoss>-1){ var p = iProfit>-1?(parseFloat((c[iProfit]||'0').replace(/[^0-9.\-]/g,''))||0):0; var l = iLoss>-1?(parseFloat((c[iLoss]||'0').replace(/[^0-9.\-]/g,''))||0):0; pnl = p - Math.abs(l); } if(pnl===0 && iPnl===-1){ skipped++; continue; } var rawDate = iDate>-1?(c[iDate]||''):''; var d = rawDate?new Date(rawDate):new Date(); if(isNaN(d.getTime())) d=new Date(); var pair = iPair>-1?(c[iPair]||'CSV'):'CSV'; var type = iType>-1?((c[iType]||'').toUpperCase().indexOf('SELL')>-1?'SELL':'BUY'):'BUY'; var status = pnl>0?'WIN':(pnl<0?'LOSS':'BE'); journalEntries.unshift({ id: Date.now()+k, market:'Forex', pair:pair, type:type, sl:'', tp:'', pnl: pnl.toFixed(2), status: status, mistake:'', session:'', time:'', mood:'neutral', strategy:'', tags:['imported'], screenshot:'[]', notes:'Imported from broker CSV', checklist:0, mode:'live', date: d.toISOString().split('T')[0] }); added++; } localStorage.setItem('journalEntries', JSON.stringify(journalEntries)); renderJournal(); updateAllCharts(); toast('Imeagiza trades '+added+(skipped?(' (skipped '+skipped+')'):''),''); } catch(err){ console.error(err); toast('CSV haijaweza kusomwa',''); } }; reader.readAsText(file); event.target.value=''; }
-function resetAllData() { if (confirm(currentLang==='sw'?'FUTA DATA YOTE? Haiwezi kurejeshwa!':'DELETE ALL DATA? This cannot be undone!')) { localStorage.clear(); journalEntries = []; demoEntries = []; dividendTracker = []; fxPlans = []; synPlans = []; stocksPlans = []; cryptoPlans = []; renderJournal(); renderDividendTracker(); renderFXPlansList(); renderSyntheticPlansList(); renderStocksPlansList(); renderCryptoPlansList(); updateAllCharts(); toast(currentLang==='sw'?'Data zote zimefutwa!':'All data deleted!', ''); } }
+function resetAllData() { 
+  themeConfirm(currentLang==='sw'?'FUTA DATA YOTE? Haiwezi kurejeshwa!':'DELETE ALL DATA? This cannot be undone!', function(result) {
+    if(result) {
+      localStorage.clear(); 
+      journalEntries = []; 
+      demoEntries = []; 
+      dividendTracker = []; 
+      fxPlans = []; 
+      synPlans = []; 
+      stocksPlans = []; 
+      cryptoPlans = []; 
+      renderJournal(); 
+      renderDividendTracker(); 
+      renderFXPlansList(); 
+      renderSyntheticPlansList(); 
+      renderStocksPlansList(); 
+      renderCryptoPlansList(); 
+      updateAllCharts(); 
+      toast(currentLang==='sw'?'Data zote zimefutwa!':'All data deleted!', '');
+    }
+  });
+}
 
 // ==================== SIMPLE FUNCTIONS ====================
 function calcPosition() { var b = parseFloat(document.getElementById('pos-balance').value) || 0, r = parseFloat(document.getElementById('pos-risk').value) || 0, s = parseFloat(document.getElementById('pos-sl').value) || 1; document.getElementById('pos-result').textContent = formatMoney((b * r / 100) / s) + ' per pip'; }
 function calcDrawdown() { var b = parseFloat(document.getElementById('dd-balance').value) || 0, r = parseFloat(document.getElementById('dd-risk').value) || 0, l = parseInt(document.getElementById('dd-losses').value) || 0; var remaining = b * Math.pow(1 - r / 100, l); document.getElementById('dd-result').textContent = formatMoney(remaining); }
 function calcCompound() { var s = parseFloat(document.getElementById('comp-start').value) || 0, r = parseFloat(document.getElementById('comp-return').value) || 0, m = parseInt(document.getElementById('comp-months').value) || 0; document.getElementById('comp-result').textContent = formatMoney(s * Math.pow(1 + r / 100, m)); }
+
 // ==================== ACADEMY: COURSES & QUIZ ====================
 var LESSONS = [
  { id:'forex-basics',
@@ -2188,7 +2458,6 @@ function nextQuiz() { quizIdx++; renderQuiz(); }
 function showGoalForm() {
   var _t = appTranslations[currentLang] || appTranslations.sw;
   
-  // Unda modal yetu
   var overlay = document.createElement('div');
   overlay.id = 'goal-modal-overlay';
   overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;';
@@ -2216,21 +2485,19 @@ function showGoalForm() {
   
   document.body.appendChild(overlay);
   
-  // Focus kwenye input
   setTimeout(function() {
     document.getElementById('goal-name-input').focus();
   }, 150);
   
-  // Cancel
   document.getElementById('goal-cancel-btn').onclick = function() {
     overlay.remove();
   };
   
-  // Save
   document.getElementById('goal-save-btn').onclick = function() {
     var name = document.getElementById('goal-name-input').value.trim();
     var target = parseFloat(document.getElementById('goal-target-input').value);
     if(name && target > 0) {
+      userGoals = JSON.parse(localStorage.getItem('userGoals') || '[]');
       userGoals.push({ id: Date.now(), name: name, target: target, current: 0 });
       localStorage.setItem('userGoals', JSON.stringify(userGoals));
       renderGoalsList();
@@ -2241,7 +2508,6 @@ function showGoalForm() {
     }
   };
   
-  // Enter key = save
   document.getElementById('goal-target-input').addEventListener('keydown', function(e) {
     if(e.key === 'Enter') document.getElementById('goal-save-btn').click();
   });
@@ -2249,7 +2515,6 @@ function showGoalForm() {
     if(e.key === 'Enter') document.getElementById('goal-target-input').focus();
   });
   
-  // Focus effects
   document.querySelectorAll('#goal-modal-overlay input').forEach(function(input) {
     input.addEventListener('focus', function() {
       this.style.borderColor = 'var(--accent)';
@@ -2260,6 +2525,32 @@ function showGoalForm() {
       this.style.boxShadow = 'none';
     });
   });
+}
+
+function renderGoalsList() { 
+  var c = document.getElementById('goals-tracker-list'); 
+  if (!c) return; 
+  var _t = appTranslations[currentLang] || appTranslations.sw; 
+  userGoals = JSON.parse(localStorage.getItem('userGoals') || '[]');
+  if (userGoals.length === 0) { 
+    c.innerHTML = '<div style="text-align:center;padding:20px;">'+(_t['goals-empty']||'Bado huna malengo')+'</div>'; 
+    return; 
+  } 
+  c.innerHTML = userGoals.map(function(g) { 
+    return '<div class="goal-item"><div class="goal-header"><span class="goal-name">' + g.name + '</span><span class="goal-pct">' + (g.current || 0) + '% / ' + g.target + '%</span></div><div class="goal-bar"><div class="goal-fill" style="width:' + Math.min(100, ((g.current||0)/g.target)*100) + '%;background:var(--accent)"></div></div><button class="btn btn-outline btn-sm" style="margin-top:6px;" onclick="updateGoalProgress(' + g.id + ')">'+(_t['btn-update']||'Update')+'</button></div>'; 
+  }).join(''); 
+}
+function updateGoalProgress(id) { 
+  userGoals = JSON.parse(localStorage.getItem('userGoals') || '[]');
+  var g = userGoals.find(g => g.id === id); 
+  if(g) { 
+    var val = prompt((appTranslations[currentLang]||appTranslations.sw)['goal-progress-prompt']||'Current progress (%)', g.current || 0); 
+    if(val !== null) { 
+      g.current = parseFloat(val); 
+      localStorage.setItem('userGoals', JSON.stringify(userGoals)); 
+      renderGoalsList(); 
+    } 
+  } 
 }
 
 // ==================== AFFIRMATIONS ====================
@@ -2695,7 +2986,15 @@ function addBrokerAccount(){
  document.getElementById('br-account').value=''; document.getElementById('br-balance').value='';
  renderBrokersList(); toast('Account imeongezwa!','');
 }
-function deleteBrokerAccount(id){ brokerAccounts = brokerAccounts.filter(function(b){return b.id!==id;}); localStorage.setItem('brokerAccounts', JSON.stringify(brokerAccounts)); renderBrokersList(); }
+function deleteBrokerAccount(id){ 
+  themeConfirm(currentLang==='sw'?'Futa account hii?':'Delete this account?', function(result) {
+    if(result) {
+      brokerAccounts = brokerAccounts.filter(function(b){return b.id!==id;}); 
+      localStorage.setItem('brokerAccounts', JSON.stringify(brokerAccounts)); 
+      renderBrokersList();
+    }
+  });
+}
 function renderBrokersList(){
  var c = document.getElementById('brokers-list'); if(!c) return;
  if(brokerAccounts.length===0){ c.innerHTML='<div style="text-align:center;padding:14px;color:var(--muted);font-size:0.72rem;">Hakuna accounts</div>'; return; }
